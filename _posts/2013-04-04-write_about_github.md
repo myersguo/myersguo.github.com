@@ -25,17 +25,17 @@ github向每一个人免费提供[1G空间，无限流量](https://help.github.c
 github的个人主页是由jekyll生成的。[jekyll是一个由ruby驱动的静态页面生成工具](https://github.com/mojombo/jekyll#readme)。jekyll使用[YAML](https://github.com/mojombo/jekyll/wiki/yaml-front-matter)和[Liquid模板](http://liquidmarkup.org/)扩展。
 
 > Diving In   
-Migrate from your previous system   
-Learn how the **YAML** Front Matter works   
-Put information on your site with Template Data   
-Customize the **Permalinks** your posts are generated with   
-Use the built-in **Liquid Extensions** to make your life easier   
-Use custom Plugins to generate content specific to your site
+> Migrate from your previous system   
+> Learn how the **YAML** Front Matter works   
+> Put information on your site with Template Data   
+> Customize the **Permalinks** your posts are generated with   
+> Use the built-in **Liquid Extensions** to make your life easier   
+> Use custom Plugins to generate content specific to your site
 
 3\.2 了解了jekyll的点滴知识，我们就可以开始搭建个人博客了。  
 如果对如何使用模板不是很清楚。先写一个hello,world。
 > index.html  
-hello,world
+> hello,world
 
 3\.3 开始搭建个人博客：  
 我的个人博客，直接套用的github上的CSS模板，自己只添加了index.html 和 _post文件等。    
@@ -50,11 +50,11 @@ hello,world
 [\_layout/wp.html](https://github.com/myersguo/myersguo.github.com/blob/master/_layouts/wp.html)  
 [index.html](https://github.com/myersguo/myersguo.github.com/blob/master/index.html)   
 [config](https://github.com/myersguo/myersguo.github.com/blob/master/_config.yml)   
-更多参见[https://github.com/myersguo/myersguo.github.com/](https://github.com/myersguo/myersguo.github.com/)
+更多参见[https://github.com/myersguo/myersguo.github.com/](https://github.com/myersguo/myersguo.github.com/)  
 
-3.5 本地调试  
 
-本地调试需要安装ruby和jekyll。[安装步骤](http://www.madhur.co.in/blog/2011/09/01/runningjekyllwindows.html)：   
+3\.5 本地调试  
+本地调试需要安装ruby和jekyll。[安装步骤](http://www.madhur.co.in/blog/2011/09/01/runningjekyllwindows.html)  
 > 1 下载ruby，安装C:\ruby  [http://rubyinstaller.org/downloads/](http://rubyinstaller.org/downloads/)  
 > 2 下载Ruby development kit[https://github.com/oneclick/rubyinstaller/downloads/](https://github.com/oneclick/rubyinstaller/downloads/)，解压。  
 > 进入ruby dev kit目录：   
