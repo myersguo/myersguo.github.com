@@ -8,12 +8,25 @@ comments: true
 </p>
 
 <p>文章列表</p>
+
+{% for post in paginator.posts %}
 <ul class="entries">
-  {% for post in site.posts %}
- 
-  <li>
-   　<li>{{ post.date | date_to_string }} <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></li>
-  </li>
- 
-  {% endfor %}
+   <li>{{ post.date | date_to_string }} <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></li>
+  <div class="content">
+    {{ post.content }}
+  </div>
 </ul>
+{% endfor %}
+
+<!-- Pagination links -->
+ {% if paginator.previous_page %}
+    {% if paginator.page == 2 %}
+  		<a href="/" > << 前一页</a>
+  	{% else %}
+  		<a href="/page{{ paginator.previous_page }}" > << 前一页</a>
+  	{% endif %}
+ {% endif %}
+  <span class="page_number ">Page: {{paginator.page}} of {{paginator.total_pages}}</span>
+  {% if paginator.next_page %}
+  	<a href="/page{{ paginator.next_page }}" rel="bookmark" style="float:right"> 下一页>></a>
+  {% endif %}
