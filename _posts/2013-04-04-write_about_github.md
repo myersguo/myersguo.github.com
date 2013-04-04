@@ -18,7 +18,7 @@ github向每一个人免费提供[1G空间，无限流量](https://help.github.c
 这样的项目名称表示这是你的个人主页，可以使用二级域名直接访问。如我的:[http://myersguo.github.com](http://myersguo.github.com "myersguo.github.com")   
 3.OK，创建好项目之后，开始建博客。   
 
- 3.1 tips:   
+3.1tips:   
 github的个人主页是由jekyll生成的。[jekyll是一个由ruby驱动的静态页面生成工具](https://github.com/mojombo/jekyll#readme)。jekyll使用[YAML](https://github.com/mojombo/jekyll/wiki/yaml-front-matter)和[Liquid模板](http://liquidmarkup.org/)扩展。
 
 > Diving In
@@ -29,15 +29,15 @@ Customize the **Permalinks** your posts are generated with
 Use the built-in **Liquid Extensions** to make your life easier
 Use custom Plugins to generate content specific to your site  
 
- 3.2 了解了jekyll的点滴知识，我们就可以开始搭建个人博客了。  
+3.2 了解了jekyll的点滴知识，我们就可以开始搭建个人博客了。  
 如果对如何使用模板不是很清楚。先写一个hello,world。
-> index.html  
+index.html  
 hello,world
 
-  3.3 开始搭建个人博客：  
+3.3 开始搭建个人博客：  
 我的个人博客，直接套用的github上的CSS模板，自己只添加了index.html 和 _post文件等。    
 分页参考的是[jekyll的分页模板](https://github.com/mojombo/jekyll/wiki/Pagination)
-> 目录tips:   
+目录tips:   
 以下划线开头的目录需被jekyll服务器解析后生成静态页   
 _layout: 放置页面模板  
 _posts: 放置静态文章页面   
@@ -52,7 +52,6 @@ _posts: 放置静态文章页面
 3.5 本地调试  
 
 本地调试需要安装ruby和jekyll。[安装步骤](http://www.madhur.co.in/blog/2011/09/01/runningjekyllwindows.html)：   
-> 
 1 下载ruby，安装C:\ruby  [http://rubyinstaller.org/downloads/](http://rubyinstaller.org/downloads/)  
 2 下载Ruby development kit[https://github.com/oneclick/rubyinstaller/downloads/](https://github.com/oneclick/rubyinstaller/downloads/)，解压。  
 进入ruby dev kit目录：   
@@ -61,7 +60,7 @@ ruby dk.rb install
 下载安装：gem install jekyll   
 启动：jekyll --server --auto
 如果出现一些编码问题：
->  Liquid Exception: incompatible character encodings: UTF-8 and GBK  
+> Liquid Exception: incompatible character encodings: UTF-8 and GBK 
 
 可能的解决方法是：更改控制台编码：chcp 65001   
 或者对rb文件：  
