@@ -6,78 +6,86 @@ comments: true
 
 <p>安装github and 搭建个人博客   </p>
 
-<p>早起，研究SVN与git的区别：<br />
+早起，研究SVN与git的区别：<br />
 1. 一个是分布式的，一个是集中式的：
 GIT可以在本地建立版本库；SVN所有的版本控制都在服务器端。这样就造成SVN服务器的压力大、风险高。<br />
-2. 正由于第一点，git对文件的diff控制更加的好，commit和push分开，同步更快。   </p>
+2. 正由于第一点，git对文件的diff控制更加的好，commit和push分开，同步更快。   </br>
 
-<p>在我的老机器安装了<a href="http://windows.github.com/">github for windows</a>,开始在github上搭建一个个人博客。  </p>
+在我的老机器安装了<a href="http://windows.github.com/">github for windows</a>,开始在github上搭建一个个人博客。  </br>
 
-<p>1.前言。<br />
-github向每一个人免费提供<a href="https://help.github.com/articles/what-is-my-disk-quota">1G空间，无限流量</a>。github提供个人<a href="http://pages.github.com/">主页服务</a>。<br />
+1.前言。<br />
+github向每一个人免费提供<a href="https://help.github.com/articles/what-is-my-disk-quota">1G空间，无限流量</a>。
+github提供个人<a href="http://pages.github.com/">主页服务</a>。<br />
 2.创建一个项目，项目名称必须为：用户名.github.com。
-这样的项目名称表示这是你的个人主页，可以使用二级域名直接访问。如我的:<a href="http://myersguo.github.com" title="myersguo.github.com">http://myersguo.github.com</a><br />
-3.OK，创建好项目之后，开始建博客。   </p>
+这样的项目名称表示这是你的个人主页，可以使用二级域名直接访问。如我的:
+<a href="http://myersguo.github.com" title="myersguo.github.com">http://myersguo.github.com</a><br />
+3.OK，创建好项目之后，开始建博客。   </br>
 
-<p>3.1 tips:<br />
-github的个人主页是由jekyll生成的。<a href="https://github.com/mojombo/jekyll#readme">jekyll是一个由ruby驱动的静态页面生成工具</a>。jekyll使用<a href="https://github.com/mojombo/jekyll/wiki/yaml-front-matter">YAML</a>和<a href="http://liquidmarkup.org/">Liquid模板</a>扩展。</p>
+3.1 tips:<br />
+github的个人主页是由jekyll生成的。<a href="https://github.com/mojombo/jekyll#readme">
+jekyll是一个由ruby驱动的静态页面生成工具</a>。jekyll使用
+<a href="https://github.com/mojombo/jekyll/wiki/yaml-front-matter">YAML</a>和
+<a href="http://liquidmarkup.org/">Liquid模板</a>扩展。</br>
 
 <blockquote>
-  <p>Diving In
+  Diving In
   Migrate from your previous system
   Learn how the <strong>YAML</strong> Front Matter works
   Put information on your site with Template Data
   Customize the <strong>Permalinks</strong> your posts are generated with
   Use the built-in <strong>Liquid Extensions</strong> to make your life easier
-  Use custom Plugins to generate content specific to your site  </p>
+  Use custom Plugins to generate content specific to your site  
 </blockquote>
 
-<p>3.2 了解了jekyll的点滴知识，我们就可以开始搭建个人博客了。<br />
-如果对如何使用模板不是很清楚。先写一个hello,world。</p>
+3.2 了解了jekyll的点滴知识，我们就可以开始搭建个人博客了。<br />
+如果对如何使用模板不是很清楚。先写一个hello,world。</br>
 
 <blockquote>
-  <p>index.html<br />
-  hello,world</p>
+  index.html<br />
+  hello,world
 </blockquote>
 
-<p>3.3 开始搭建个人博客：<br />
+3.3 开始搭建个人博客：<br />
 我的个人博客，直接套用的github上的CSS模板，自己只添加了index.html 和 _post文件等。<br />
-分页参考的是<a href="https://github.com/mojombo/jekyll/wiki/Pagination">jekyll的分页模板</a></p>
+分页参考的是<a href="https://github.com/mojombo/jekyll/wiki/Pagination">jekyll的分页模板</a></br>
 
 <blockquote>
-  <p>目录tips:<br />
+  目录tips:<br />
   以下划线开头的目录需被jekyll服务器解析后生成静态页<br />
   _layout: 放置页面模板<br />
-  _posts: 放置静态文章页面   </p>
+  _posts: 放置静态文章页面   </br>
 </blockquote>
 
-<p>3.4 我的页面代码：<br />
+3.4 我的页面代码：<br />
 <a href="https://github.com/myersguo/myersguo.github.com/blob/master/_layouts/wp.html">_layout/wp.html</a><br />
 <a href="https://github.com/myersguo/myersguo.github.com/blob/master/index.html">index.html</a><br />
 <a href="https://github.com/myersguo/myersguo.github.com/blob/master/_config.yml">config</a><br />
-更多参见<a href="https://github.com/myersguo/myersguo.github.com/">https://github.com/myersguo/myersguo.github.com/</a></p>
+更多参见<a href="https://github.com/myersguo/myersguo.github.com/">
+https://github.com/myersguo/myersguo.github.com/</a></br>
 
-<p>3.5 本地调试  </p>
+3.5 本地调试 <br />
 
-<p>本地调试需要安装ruby和jekyll。<a href="http://www.madhur.co.in/blog/2011/09/01/runningjekyllwindows.html">安装步骤</a>：   </p>
+本地调试需要安装ruby和jekyll。<a href="http://www.madhur.co.in/blog/2011/09/01/runningjekyllwindows.html">
+安装步骤</a>：   </br>
 
 <blockquote>
-  <p>1 下载ruby，安装C:\ruby  <a href="http://rubyinstaller.org/downloads/">http://rubyinstaller.org/downloads/</a><br />
-  2 下载Ruby development kit<a href="https://github.com/oneclick/rubyinstaller/downloads/">https://github.com/oneclick/rubyinstaller/downloads/</a>，解压。<br />
+  1 下载ruby，安装C:\ruby  <a href="http://rubyinstaller.org/downloads/">http://rubyinstaller.org/downloads/</a><br />
+  2 下载Ruby development kit<a href="https://github.com/oneclick/rubyinstaller/downloads/">
+  https://github.com/oneclick/rubyinstaller/downloads/</a>，解压。<br />
   进入ruby dev kit目录：<br />
   ruby dk.rb init<br />
   ruby dk.rb install<br />
   下载安装：gem install jekyll<br />
   启动：jekyll --server --auto
   如果出现一些编码问题：
-   Liquid Exception: incompatible character encodings: UTF-8 and GBK  </p>
+   Liquid Exception: incompatible character encodings: UTF-8 and GBK  </br>
 </blockquote>
 
-<p>可能的解决方法是：更改控制台编码：chcp 65001<br />
+可能的解决方法是：更改控制台编码：chcp 65001<br />
 或者对rb文件：<br />
 rb 文件开头加上： 
-# encoding: UTF-8 </p>
+# encoding: UTF-8 </br>
 
-<p>4.如果觉得，学习jekyll很麻烦，使用<a href="http://jekyllbootstrap.com/">jekyllbootstrap</a>来快速地建立一个可更换主题模板的博客是个不错的选择。  </p>
+4.如果觉得，学习jekyll很麻烦，使用<a href="http://jekyllbootstrap.com/">jekyllbootstrap</a>来快速地建立一个可更换主题模板的博客是个不错的选择。  </br>
 
 <p>{{ page.date | date<em>to</em>string }}</p>
