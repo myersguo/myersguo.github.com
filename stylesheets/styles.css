@@ -2,7 +2,7 @@
 
 body {
   padding:50px;
-  font-family: 'Lucida Grande', 'Helvetica Neue', Helvetica, Arial, STXihei, sans-serif;
+  font-family: Consolas, Monaco, 'Lucida Console', 'Liberation Mono', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Courier New';
   color:black;
   font-weight:300;
 }
