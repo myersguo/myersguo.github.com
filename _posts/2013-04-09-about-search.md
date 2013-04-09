@@ -94,24 +94,27 @@ HTML文档     ————————————————>     URL列表
 
 python的扩展urllib2提供了一些操作URL的工具函数。  
 
-比如下载某个URL的网页内容：
+比如下载某个URL的网页内容：  
 urllib2.urlopen(url,[data][,timeout]);
 参数：
    url: 网址字符串或请求对象.
-   eg: urllib2.urlopen('http://www.baidu.com');
-       req = urllib2.Request('http://www.baidu.com');
+   eg:
+   
+	urllib2.urlopen('http://www.baidu.com');  
+	req = urllib2.Request('http://www.baidu.com');
 
 返回值：
 urllib2.open的返回值是一个文件流。
 
 下载网页:
-i = 1;
-filename = 'myfile'+str(i);
-file = open(filename,"w");
 
-f  = urllib2.urlopen(url);
-file.write(f.read());
-file.close();
+	i = 1;
+	filename = 'myfile'+str(i);
+	file = open(filename,"w");
+	
+	f  = urllib2.urlopen(url);
+	file.write(f.read());
+	file.close();`
 
 
 2)**[最终测试小码](#test_code)**  
