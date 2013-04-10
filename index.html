@@ -14,7 +14,7 @@ comments: true
 <ul class="entries">
    <li>{{ post.date | date_to_string }} <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></li>
   <div class="content">
-    {{ post.content | strip_html | truncatewords: 5 }}
+    {{ post.content | strip_html | truncatewords: 2 }}
   </div>
 </ul>
 {% endfor %}
