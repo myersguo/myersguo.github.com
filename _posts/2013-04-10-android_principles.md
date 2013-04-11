@@ -12,6 +12,7 @@ Android用户体验团队写了关于Android开发的交互设计和视觉设计
 Android设计的三个目标是： 
   
 + 赏心悦目（Enchant me)：app不只追求外观漂亮，更追求多层面的优秀。如运行的流畅，布局和排版的简洁有用。力争做到简洁、高效、美观。  
+	
 	1. 眼前一亮（Delight me in surprising ways)
 	精美的外观，动画，恰到好处的声音。  
 	![Dlight me in surprising ways](http://developer.android.com/design/media/principles_delight.png)
@@ -26,6 +27,7 @@ Android设计的三个目标是：
 	![Get to know me](http://developer.android.com/design/media/principles_get_to_know_me.png)  
 
 + 简单明了(Simplify my life)：app可让生活更加简单化。打开app的第一眼就能展现它的主要功能。将繁琐的过程简化，让不同年龄和文化的人都能轻松掌握，而不会被繁多的选择迷惑。  
+
 	1. 简化语句(Keep it brief)  
 	![Keep it brief](http://developer.android.com/design/media/principles_keep_it_brief.png)  
 
@@ -52,6 +54,7 @@ Android设计的三个目标是：
 
 
 + 令我痴狂(Make me amazing)：app不止步于有用，而且激起人发觉它的欲望，并展现出它的与众不同、华丽优美。     
+	
 	1. 藏有技巧(Give me tricks that work everywhere)让用户挖掘一些表面看不到的使用技巧，比如快捷键，手势操作等。  
 	![Give me tricks that work everywhere](http://developer.android.com/design/media/principles_tricks.png)
 	
