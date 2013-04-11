@@ -31,7 +31,7 @@ Android设计的三个目标是：
 	1. 简化语句(Keep it brief)  
 	![Keep it brief](http://developer.android.com/design/media/principles_keep_it_brief.png)  
 
-	2. 用图表达(Pictures are faster than words)
+	2. 用图表达(Pictures are faster than words)  
 	![Pictures are faster than words](http://developer.android.com/design/media/principles_pictures.png)  
 
 	3. 自作主张(Decide for me but let me have the final say)替用户想好可能的操作    
@@ -40,7 +40,7 @@ Android设计的三个目标是：
 	4. 善于隐藏(Only show what I need when I need it)将需要的功能隐藏，但让用户知道在那里  
 	![Only show what I need when I need it](http://developer.android.com/design/media/principles_information_when_need_it.png)  
 
-	5. 准确的导航(I should always know where I am)让用户知道自己在那里，如何返回    
+	5. 准确的导航(I should always know where I am)让用户知道自己在那里，如何返回      
 	![I should always know where I am](http://developer.android.com/design/media/principles_navigation.png)  
 
 	6. 保存重要信息(Never lose my stuff)及时保存和同步用户的创造/配置内容，不要丢失  
@@ -88,7 +88,7 @@ app的设计建立在系统UI基础上。系统的界面有：主页，全局导
 
 
 3. 普通APP UI  
-通常APP包括主要的系统工具栏，内容区等。
+通常APP包括主要的系统工具栏，内容区等。 
 ![common app ui](http://developer.android.com/design/media/ui_overview_app_ui.png)
 1为主工具栏。它是APP的控制中心，提供切换APP功能试图/层次，以及包含其他工具栏。  
 2为视图控制，切换APP的不同内容和功能的界面。  
@@ -99,7 +99,7 @@ app的设计建立在系统UI基础上。系统的界面有：主页，全局导
  
 1. 设备适配  
 android 设备众多，屏幕大小不一。APP应该是可伸缩的(Be flexible)、布局优化的(Optimize layouts)、即可能适配的(Assets for all)  
-![](http://developer.android.com/design/media/devices_displays_density.png)
+![](http://developer.android.com/design/media/devices_displays_density.png)  
 
 2. 主题(Themes)  
 主题是Android一致性设计的应用。风格就是APP的设计元素的，如颜色、厚度、字体等。为提高APP间的凝聚力。Android 提供了3中主题（Holo Light:全亮 , Holo Dark：全黑  ,Holo Light with dark action bars：内容亮，工具栏黑）可供选择。选择系统主题可更好的满足你的需求和设计美学。若想自定义主题，在系统基础之上定义是更好的方法。  
@@ -107,11 +107,11 @@ android 设备众多，屏幕大小不一。APP应该是可伸缩的(Be flexible
 ![holo dark](http://developer.android.com/design/media/themes_holo_dark.png)	  
 ![Talk in Holo Light with dark action bar.](http://developer.android.com/design/media/themes_holo_inverse.png)    
 
-3. 按键反馈  
-在用户按键之后，使用颜色和光照(color and illumination )，来加强手势效果,让用户清楚APP已经接收了用户的按键。
+3. 按键反馈   
+在用户按键之后，使用颜色和光照(color and illumination )，来加强手势效果,让用户清楚APP已经接收了用户的按键。  
 ![touch feedback](http://developer.android.com/design/media/touch_feedback_reaction_response.png)  
 ![states](http://developer.android.com/design/media/touch_feedback_states.png)
-当一些操作比较复杂时，用反馈方法提醒(与用户交流)。比如在最近使用的应用中，当左右滑动时，用变暗表示移除。  
+当一些操作比较复杂时，用反馈方法提醒(与用户交流)。比如在最近使用的应用中，当左右滑动时，用变暗表示移除。   
 ![communication](http://developer.android.com/design/media/touch_feedback_manipulation.png)
 再比如用户在APP界限边界滚动时，APP用突出边框表示无法滚动。  
 ![communication](http://developer.android.com/design/media/touch_feedback_communication.png)  
