@@ -5,11 +5,13 @@ comments: true
 blogindex: true
 ---
 
-# Android User Interface Guidelines（Android UI设计指南简译）    
+# Android User Interface Guidelines  
+（Android UI设计指南简译）    
 
 接[上文](http://myersguo.github.io/2013/04/10/android_principles.html)   
 
-# 一、[设计模式Patterns](http://developer.android.com/design/patterns/index.htmll)  
+# 一、设计模式(Patterns)  
+[参考](http://developer.android.com/design/patterns/index.html)  
 
 ## 1. 手势操作  
 Android允许用户通过手势操作APP提供的对象进行交互。Android提供了**7种触摸操作**。    
