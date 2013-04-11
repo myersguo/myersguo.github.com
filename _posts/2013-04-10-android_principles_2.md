@@ -2,6 +2,7 @@
 layout: wp
 title: Android UI 指南续
 comments: true
+blogindex: true
 ---
 
 # Android User Interface Guidelines（Android UI设计指南简译）    
