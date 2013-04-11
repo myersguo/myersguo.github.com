@@ -6,7 +6,7 @@ comments: true
 
 # Android User Interface Guidelines（Android UI设计指南简译）    
 
-接[上文](myersguo.github.io/2013/04/10/android_principles.html)   
+接[上文](http://myersguo.github.io/2013/04/10/android_principles.html)   
 
 # 一、[设计模式Patterns](http://developer.android.com/design/patterns/index.htmll)  
 
