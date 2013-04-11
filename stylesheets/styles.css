@@ -99,7 +99,10 @@ header {
   float:left;
   position:fixed;
 }
-
+blogindex {
+  cursor: pointer;
+  
+}
 header ul {
   list-style:none;
   height:40px;
