@@ -99,6 +99,10 @@ header {
   float:left;
   position:fixed;
 }
+#dldiv dl dd{
+  border-top: 1px #eee solid;
+  margin-top: 5px;
+}
 blogindex {
   cursor: pointer;
   
