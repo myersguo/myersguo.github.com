@@ -21,7 +21,8 @@ Android 3.0开始，使用CAB(contextual action bar)来选择数据。
 当用户选中某项时，CAB的功能菜单应该动态更改。  
 ![CAB selection](http://developer.android.com/design/media/selection_adjusting_actions.png)  
 
-## 确认和告知 (Confirming & Acknowledging)  
+## 确认和告知    
+(Confirming & Acknowledging)  
 用confirm和acknowledge通过文字来和用户沟通是一个好的表达方式。它可以解决用户后悔执行操作的情况。    
 ![confirm](http://developer.android.com/design/media/confirm_ack_confirming.png)  
 Confirming是询问用户是否真正想要执行一个操作。一般情况下，确认是一个警告或危险操作通知。  
