@@ -2,7 +2,7 @@
 layout: wp
 title: Android UI 指南续3
 comments: true
-blogindex: flase
+blogindex: false
 ---
 接上文  
 ## 选中（Selection）  
