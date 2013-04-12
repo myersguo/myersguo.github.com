@@ -103,6 +103,9 @@ header {
   border-top: 1px #eee solid;
   margin-top: 5px;
 }
+#dldiv dl dd:hover{
+  background-color:#999;
+}
 blogindex {
   cursor: pointer;
   
