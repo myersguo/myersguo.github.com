@@ -58,6 +58,6 @@ blogindex: false
 后记：   
 我发现我最近做的很多事情都处在刚起步的阶段。比如阅读xapian源码，阅读一些设计书籍，翻译android desgin principles,进行微博运营。开始是一个好的象征，但真正的有意义的是能把一件需要长久做的事坚持下去。  
 
-![尾图：学会坚持](http://img.hb.aicdn.com/97e73efe6254171dff318132b3ce6ba5e16779fa15b35-0LhUBx_fw580)
+![尾图：学会坚持](http://farm4.staticflickr.com/3132/2918399820_93a7bed891.jpg)
 
 
