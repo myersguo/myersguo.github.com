@@ -37,6 +37,7 @@ blogindex: false
 >Revise, revise, revise; and 修改，修改，再修改，  
 >Embrace structure. 打破常规  
 
+
 + quora。每天晚上我会打开quora，因为quora的信息流是话题和人相结合的，所以我能不遗漏每一个精彩的问题。  
 
 #### 下一步改进   
