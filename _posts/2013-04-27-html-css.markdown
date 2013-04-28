@@ -128,7 +128,7 @@ CSS的属性postion有以下几种:
 + inherit:继承。和父结点的position一致。懒得写了就写它。  
   
 
-![whole](http://ww2.sinaimg.cn/mw690/807378f7gw1e45l4tmjicj20sg0sgaag.jpg)  
+![whole](http://ww1.sinaimg.cn/small/807378f7gw1e45osznn5kj205t03ejr8.jpg)  
 对上图描述可为。外框参考系。左上角为原点。相对包围父坐标点(左上角)来放置元素块，使用absolute.  
 但有时候，我们需要在原基础上变动，就要使用relative。  
 当需要固定某块于浏览器中，如顶部，顶部导航。用fixed。  
