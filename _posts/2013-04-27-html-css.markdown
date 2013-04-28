@@ -7,15 +7,15 @@ blogindex: false
 
 ##  简单说应该知道的HTML知识    
 ![word 1.0](http://ww2.sinaimg.cn/mw690/807378f7jw1e459wtiiwdj20dw0afjs8.jpg)  
-#### 排版  
+#### **排版**  
 以下是一段文字(摘自[quora](http://www.quora.com/Life-Lessons/What-are-important-things-and-advice-to-know-that-people-generally-arent-told-about)):  
 
 >Marry your best friend: If the person you're the most comfortable with isn't your spouse, make them! (Assuming this person is not your family member)
-Don't try to be a "grown up": Always have fun. Mud-wrestle, sing, pillow-fight, at any age.
-Don't stop learning: If you start coasting through life, you're gonna lose. Always stretch your intellect.
-Don't always try to be original: Just tell the story or paint the canvas or whatever.
-Focusing on "fairness" will lead to stagnation.
-If you're not failing, you're doing it wrong. (It's OK to make mistakes.)
+>Don't try to be a "grown up": Always have fun. Mud-wrestle, sing, pillow-fight, at any age.
+>Don't stop learning: If you start coasting through life, you're gonna lose. Always stretch your intellect.
+>Don't always try to be original: Just tell the story or paint the canvas or whatever.
+>Focusing on "fairness" will lead to stagnation.
+>If you're not failing, you're doing it wrong. (It's OK to make mistakes.)
 
 为了让它变得可读，一般使用字处理软件(microsoft word,iworks)。经过简单的换行，强调，加列表处理后：  
 
@@ -31,26 +31,28 @@ If you're not failing, you're doing it wrong. (It's OK to make mistakes.)
 
 HTML使用标签来排版，如分段用<abbr title="paragraph">p</abbr>,换行用<abbr title="break">br</abbr>，加粗用strong,列表用<abbr title="unorder list">ul</abbr>,或<abbr title="order list">ol</abbr>......  
 
-#### XHTML  
+#### **XHTML**  
 XHTML是HTML的扩展，是更加严格的HTML，比如标签必须闭合等。[为什么需要XHTML](http://www.w3.org/TR/xhtml1/#why)中指出:  
 >网页设计者扩展更多的标签显示页面  
 >XHTML在数据交互上更有优势。  
 
-#### CSS(Cascading Style Sheets)    
+#### **CSS(Cascading Style Sheets)**    
 CSS最初是配合[SGML](https://en.wikipedia.org/wiki/SGML)的文档样式[设计语言](https://en.wikipedia.org/wiki/Cascading_Style_Sheets#History)，随着HTML的出现和发展，CSS成为描述HTML的主要工具。  
 
 加入有一行文字：  
 what is css? 
 对它进行排版，可以进行居中/左/右，在HTML中用align描述格式    
 <pre>
-    
+    <code>
     <div align="center">
       what is css? 
     </div>
+    </code>
 </pre>
 
 各个文字的描述是单独放在内容之中的。为了把描述有效利用，把描述单独拿出来:  
 <pre>
+<code>
 <!--
     <style type="text/css">
     div{text-algin:center;}
@@ -59,6 +61,7 @@ what is css?
     <div style="text-align:center">
       what is css? 
     </div>
+    </code>
 </pre>
 
 这样，将表现从内容中分离开，原来的一个混合体变成了两个单独的部分：  
@@ -68,7 +71,7 @@ what is css?
 
 修改排版时，直接修改描述部分，不需要找到专门的内容。  
 
-#### URL  
+#### **URL**  
 
 看以下quora的URL表示：   
 http://www.quora.com/Why-do-technology-people-in-Silicon-Valley-help-each-other-for-free    
@@ -114,7 +117,7 @@ quora的URL是将标题写入。但这就造成了URL很长，而且URL经常改
 URL的选择是门学问。  
 
 
-#### CSS position  
+#### **CSS position**  
 在使用CSS进行排版时，往往需要对块元素进行位置调整。
 CSS的属性postion有以下几种:  
 
@@ -131,7 +134,7 @@ CSS的属性postion有以下几种:
 当需要固定某块于浏览器中，如顶部，顶部导航。用fixed。  
 
 
-####  Responsive Web design 相应式布局  
+####  **Responsive Web design 相应式布局**  
 先来欣赏一下网页，mashable的主页。  
 首页：    
 ![首页](http://media-cache-ec2.pinimg.com/736x/22/7f/6b/227f6b076054abd1e87ceba00705eea5.jpg)  
