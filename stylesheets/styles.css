@@ -51,9 +51,13 @@ a small {
 }
 
 blockquote {
-  border-left:1px solid #e5e5e5;
-  margin:0;
-  padding:0 0 0 20px;
+  background-color: rgb(187, 184, 134);
+padding: 1em;
+margin: 2em 2em;
+font-family: 'Courier New', Courier, monospace;
+Unknown property name.-moz-border-radius: 20px;
+-webkit-border-radius: 20px;
+border-radius: 20px;
 }
 
 code, pre {
