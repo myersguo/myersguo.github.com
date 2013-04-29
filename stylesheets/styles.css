@@ -52,13 +52,17 @@ a small {
 }
 
 blockquote {
-  background-color: rgb(187, 184, 134);
+background-color: rgb(187, 184, 134);
 padding: 1em;
 margin: 2em 2em;
 font-family: 'Courier New', Courier, monospace;
 Unknown property name.-moz-border-radius: 20px;
 -webkit-border-radius: 20px;
 border-radius: 20px;
+}
+
+blockquote p {
+margin: 1em;
 }
 
 code, pre {
