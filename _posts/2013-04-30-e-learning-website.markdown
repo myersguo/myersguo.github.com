@@ -97,7 +97,9 @@ endorse.me:  https://endorse.me/employers
 ### 写在最后  
 在线教育这盘子太大。你对教育的理解和出发点决定了你的产品形态。我决定在5月中旬前把我心中的教育产品原型和静态页面做出来。看看，我心中的教育/学习是什么样子。敬请期待。  
 
-
+### 补记  
+在[quora](http://www.quora.com/Coursera/What-are-some-websites-similar-to-Coursera?__snids__=121694391%2C121692217&__nsrc__=2)上看到的一个答案：  
+<span class="quora-content-embed" data-name="Coursera/What-are-some-websites-similar-to-Coursera/answer/Vitalii-Daniuk/quote/460967">Read <a data-width="575" data-height="874" class="quora-content-link" href="http://www.quora.com/Coursera/What-are-some-websites-similar-to-Coursera/answer/Vitalii-Daniuk/quote/460967" data-embed="VAnNTkK" data-type="quote" data-id="460967" data-key="c8530c01705618c86acab94e4612c03a">Quote of Vitalii Daniuk's answer to Coursera: What are some websites similar to Coursera?</a> on <a href="http://www.quora.com">Quora</a><script type="text/javascript" src="http://www.quora.com/widgets/content"></script></span>
 
 新闻阅读：  
 [1]在线教育公司概览：http://www.36kr.com/p/120961.html#/page/1  
@@ -110,6 +112,6 @@ endorse.me:  https://endorse.me/employers
 [8]教育培训行业现状分析 http://fenxiangdizhi.5d6d.net/viewthread.php?tid=1472&pid=3969  
 [9]在线教育颠覆教育的基础 ：翻转课堂 http://www.36kr.com/p/201715.html?ref=related   
 [10]中国教育产业创投发展时代峰会：http://edu.qq.com/zt2013/jyct/  
-
+[11]http://www.quora.com/Coursera/What-are-some-websites-similar-to-Coursera?__snids__=121694391%2C121692217&__nsrc__=2  
 
 
