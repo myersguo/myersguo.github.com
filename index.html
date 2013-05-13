@@ -10,7 +10,7 @@ comments: true
 
 {% for post in paginator.posts %}
 <ul class="entries">
-   <li>{{ post.date | date_to_string }} <a href="/{{ post.url }}">{{ post.title }}</a></li>
+   <li>{{ post.date | date_to_string }} <a href="{{ post.url }}">{{ post.title }}</a></li>
   <div class="content">
     {{ post.content | strip_html | truncatewords: 2 }}
   </div>
