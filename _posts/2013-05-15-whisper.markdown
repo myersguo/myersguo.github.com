@@ -1,5 +1,5 @@
 ---
-layout:wp
+layout: wp
 title: whisper-05.15
 comments: true
 ---
