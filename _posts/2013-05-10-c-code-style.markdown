@@ -885,6 +885,261 @@ return (expression)
 
 
 
+对于自动变量。如果要在声明处的当前页使用，直接初始化它；若变量使用离声明很远，则在使用前初始化.eg:  
+	
+	int max = 0;
+	/* use of max is within a page of where it is declared */
+	for (i=0; i<n; i++)
+		if (vec[i] > max)
+			max = vec[i];
+
+	int max;
+	...
+	/* several pages between declaration and use */
+	...
+	max = 0;
+	for (i=0; i<n; i++)
+		if (vec[i] > max)
+			max = vec[i];
+
+	
+#### Type Conversions and Casts  
+
+当不同类型在算数表达式中混合出现需要类型转换时，使用类型运算使转换更加明显。eg:  
+
+	float f;
+	int i;
+	...
+	f = (int）i;
+
+
+
+
+#### Pointer Types  
+声明指针时指定明确的变量类型。将*放与变量名处，而非接近指针类型。eg:  
+
+	char *s, *t, *u;
+
+#### Pointer Conversions  
+
+程序不应该有指针的类型转换，除非：  
+
++ NULL 可能非配给任意指针  
++ Allocation函数。为确保safe alignment,可能分配给任意指针（用sizeof指定大小)
++ Size. 指向给定大小的指针在指向更小大小的指针后又重新指回原来的对象。如一个指向long型的指针，在指向char型指针后，重新指向long型指针。  
+
+#### Operator Formatting  
+
++ 不要在primary operators之间放空格:->,.,[]:  
+	p->m	s.m	a[i]  
++ 不要在函数名后的括号(parentheses)之前放空格，在括号内，不要在括号和表达式之间放空格。  
+	exp(2, x)
++ 不要在单元运算符和运算对象间放空格。  
+	!p	, ~b,	++i, --n, 	*p, &x
++ Cast(类型转换)是个例外，务必放置空格在cast和operand之间。eg:  
+	(long) m
++ 在赋值语句时，在赋值操作符周围放置空格。eg:
+	c1 = c2;
++ 总在条件运算符周围放置空格.eg:  
+	z = (a > b) ? a : b;
++ 在逗号之后放空格或新行。eg:  
+	strcat(t, s, n)  
++ 分号之后放空格或新行。eg:  
+	for (i = 0; i < n; ++i)
++ 其他运算符。一般在其任意一边放空格。eg:  
+	x + y	,  a < b && b < c  
++ 当没有空格在运算符周围时，应该让运算符接近运算对象，而非符号。eg:  
+	printf(fmt, a+1)
++ 谨慎使用有副作用(side-effects)的运算。有副作用(=,op=,++,--)不应该同时在一个表达式中。eg:  
+	if ((a < b) && (c==d++))...  
++ 谨慎使用逗号运算符，如:  
+	for(i = 0, j = 1; i < 5; i++, j++)
++ 大胆使用()表明运算的有限，尤其是在&,|,^于移位运算一起时。  
++ 如果字符串一行显示不全，用常见的运算符进行分割,eg:  
+	if (p->next == NULL &&  
+		(total_count < needed) && 
+		(needed <= MAX_ALLOT) &&  
+		(server_active(current_input)))
+	{
+		statement_1;
+		statement_2;
+	}
+
+####  Assignment Operators and Expressions  
+
+C是一个expression language.在C中可以使用赋值潜逃语句。eg:  
+	while ((c = getchar()) != EOF)
+	{
+		statement_1;
+		statement_2;
+	}  
+然而，我们不推荐使用多个赋值语句的嵌套。eg:  
+	total = get_total();
+	if (total == 10)...;
+	if((total = get_total() == 10)...
+
+#### Conditional Expressions  
+条件表达式能够使表达更简短。eg:  
+	if (a > b)
+		z = a;
+	else
+		z = b;
+使用条件表达式后:  
+	z = (a > b) ? a : b;	/* z = max(a, b)	*/
+
+有一些条件表达式比较难理解：  
+	c = (a == b) ? d + f(a) : f(b) - d;  
+当条件表达式较复杂时，推荐注释提高可读性。  
+
+#### Precedence and Other of Evaluation  
+
++ * % / 在 +和-前  
++ put () around everything else  
+
+### STATEMENTS AND CONTROL FLOW  
+
++ 使用空白行分割逻辑段  
++ 限制使用复杂的语句，将其分割成简单语句，方便阅读  
++ 缩进显示代码逻辑  
+
+#### Sequence Statements  
++ 一行放一个句子(循环语句除外)  
+	switch (axescolor)
+	{
+		case 'B':
+			color = BLACK;
+			break;
+		case 'Y':
+			color = YELLOW;
+			break;
+		...
+	}
+
++ 避免依赖顺序的表达。使++,--在单独的一行。  
+	*destination = *source;  
+	destination++;
+	source++;
+	a[i] = b[i++];
++ 使用清晰的比较，即使比较的值永不改变:  
+	if (!(bufsize % sizeof(int)))  
+	应该写为:  
+	if((bufsize % sizeof(int)) == 0)  
+
++ 在块语句中，单独一行放括号,eg:  
+	for (i = 0, j = strlen(s)-1; i < j; i++, j--)
+	{
+		c = s[i];
+		s[i] = s[j];
+		s[j] = c;
+	}
+	nested conditionals and loops往往在加括号(braces)之后会更加可读,eg:  
+	for (dp = &values[0]; dp < top_value; dp++)
+		if (dp->d_value == arg_value &&  
+			(dp->d_flag & arg_flag) !=0)
+				return (dp);
+	更改为:
+	for (dp = &values[0]; dp < top_value; dp++)
+	{
+		if (dp->d_value == arg_value && 
+			(dp->d_flag & arg_flag) !=0)
+			{
+				return (dp);
+			}
+	}
+
++ 如果代码块超过40行，推荐在结束块时使用注释说明：  
+	for (sy = sytable; sy != NULL; sy = sy->sy_link)
+	{
+		if ( sy->sy_flag == DEFINED)
+		{
+			...
+		}	/* if defined */
+		else
+		{
+			...
+		}	/* if undefined */
+	}	/* for all symbols	*/
+
+
++ 如果for 循环的body是空的，";"独自写在一行  
+
+	for (char _p = string; *char_p != EOS; char_p++)
+		;	/* do nothing */  
+
++ Alyways put a space between reserved words and their opening parentheses  
++ Alywasy put parenthese around the objects of sizeof and return  
+
+#### Selection Control Statements  
+
++ 缩进单独的语句。  
+	if (expression)  
+		one_statement;  
++ 使用{}包装块语句.  
+	if (expression)
+	{
+		statement_1;
+		...
+		statement_2;
+	}
++if else 不应包含{}，在statements比较简单时。  
+	if (expression)
+		statement;
+	else
+		statment;
++ 当if else包含混合语句时，应该使用{}  
+	if (expression)
+		one-statement;
+	else
+	{
+		statement1;
+		...
+		statement2;
+	}
+
++ 当需要使用多个if时，判断好逻辑，使用nested if statements  
++ 使用括号来控制if else的逻辑块  
++   
+	do
+	{
+		statement_1;
+		statement_2;
+		statement_3;
+	}
+	while(expression);
+
+	while(expression)
+	{
+		statement_1;
+		...
+		statement_2;
+	};
+
+#### Sever Error and Exception Handling  
+
++ Goto and Lables:  
+	
+		for (...)
+		{
+			for (...)
+			{
+				if (disaster)
+				{
+					goto error;
+				}
+			}
+		}
+		...
+	error:
+		error processing  
+
+### PORTABILITY AND PERFORMANCE  
+![Guidelines for Portability](http://media-cache-ec4.pinimg.com/736x/5b/65/62/5b6562bed6a1a2f00343c4343bd851fe.jpg)  
+![Guidelines for performance](http://media-cache-ec4.pinimg.com/736x/1b/37/71/1b37711268330719be8cb1d698e8a851.jpg)  
+
+
+
+
+
 参考阅读：  
 
 [1]变量与声明的区别:http://goo.gl/9H5QW    
