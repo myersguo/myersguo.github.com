@@ -2,6 +2,7 @@
 layout: wp
 title: whisper-05.15
 comments: true
+blogindex: false
 ---
 
 ## whisper recent  
