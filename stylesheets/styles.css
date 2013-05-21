@@ -48,7 +48,7 @@ a small {
 }
 
 .wrapper {
-  width:860px;
+  width:940px;
   margin:0 auto;
 }
 
@@ -105,7 +105,7 @@ img {
 }
 
 header {
-width: 180px;
+width: 220px;
 float: left;
 position: fixed;
 padding-top: 25px;
@@ -141,7 +141,7 @@ header ul {
 }
 
 header li {
-  width:55px;
+  width:70px;
   float:left;
   border-right:1px solid #d2d2d2;
   height:40px;
@@ -163,13 +163,13 @@ strong {
 }
 
 header ul li + li {
-  width:56px;
+  width:71px;
   border-left:1px solid #fff;
 }
 
 header ul li + li + li {
   border-right:none;
-  width:57px;
+  width:72px;
 }
 
 header ul a strong {
