@@ -1,11 +1,12 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:300italic,700italic,300,700);
 
 body {
-  padding:50px;
   font-family: Consolas, Monaco, 'Lucida Console', 'Liberation Mono', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Courier New';
   color:black;
   font-weight:300;
   line-height: 1.5em;
+  border-top: 7px solid rgb(8, 176, 241);
+  margin: 0;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -104,9 +105,10 @@ img {
 }
 
 header {
-  width:270px;
-  float:left;
-  position:fixed;
+width: 180px;
+float: left;
+position: fixed;
+padding-top: 25px;
 }
 #dldiv dl dd{
   border-top: 1px #eee solid;
@@ -140,7 +142,7 @@ header ul {
 }
 
 header li {
-  width:89px;
+  width:55px;
   float:left;
   border-right:1px solid #d2d2d2;
   height:40px;
@@ -152,7 +154,7 @@ header ul a {
   color:#999;
   display:block;
   text-align:center;
-  padding-top:6px;
+  padding-top:12px;
   height:40px;
 }
 
@@ -178,12 +180,15 @@ header ul a strong {
 }
 
 section {
-  width:500px;
+  width:61px;
   float:right;
-  padding-bottom:50px;
+  padding-top:25px;
   overflow: hidden;
   word-wrap: break-word;
   font-size: 13px;
+  border-left: 1px solid #DDD;
+padding-left: 40px;
+
 }
 
 small {
