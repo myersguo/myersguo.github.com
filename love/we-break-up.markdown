@@ -1,3 +1,12 @@
+
+   
+
++ 2013年5月25日（星期六）  19:13:34   
+我问你：明明，你还爱我吗？  
+你说：我一直都爱你   
+
+![](http://media-cache-ec4.pinimg.com/736x/e3/7b/8d/e37b8d5abc4bca88529f504cfbf22994.jpg)   
+---
 ![](http://media-cache-ak1.pinimg.com/736x/d1/38/cd/d138cd4ab5905dcfce93ee3bf9220d7f.jpg)    
 ![](http://media-cache-is0.pinimg.com/736x/af/af/2e/afaf2e2cd91050c158b10277dd32e196.jpg)
  
