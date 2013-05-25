@@ -131,3 +131,16 @@ I have failed you！
 
 忘了我，去找你的幸福，你一定会幸福。  
 
+
+<audio id="background_audio" autoplay="autoplay">
+  <source src="forever.mp3" type="audio/mpeg" />
+</audio> 
+
+<![if (!IE)|(gte IE 9)]>
+<a href="#" onclick="document.getElementById('background_audio').muted = true; return false">.</a>
+<![endif]>
+
+<!--[if lt IE 9]>
+<bgsound id="background_snd" src="forever.mp3" autostart="true" loop="1">
+<a href="#" onclick="document.all['background_snd'].src=''; return false">.</a>
+<![endif]--> 
