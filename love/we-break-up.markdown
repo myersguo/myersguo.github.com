@@ -1,4 +1,3 @@
-
    
 
 + 2013年5月25日（星期六）  19:13:34   
@@ -140,6 +139,7 @@ I have failed you！
 
 忘了我，去找你的幸福，你一定会幸福。  
 
+---
 
 <audio id="background_audio" autoplay="autoplay">
   <source src="forever.mp3" type="audio/mpeg" />
@@ -153,3 +153,4 @@ I have failed you！
 <bgsound id="background_snd" src="forever.mp3" autostart="true" loop="1">
 <a href="#" onclick="document.all['background_snd'].src=''; return false">.</a>
 <![endif]--> 
+---
