@@ -1,8 +1,9 @@
 ---
 layout: wp
-title: 回归平静
+title: MOOD BACK TO PEACE  
 comments: true
 ---
+
 
 hi,all:   
     自从7月1日正式进入上班以来，内心上发生了很多变化（对自己工作内容的迷茫，对薪资与户口的烦扰，对婚姻与家庭的思考...)。
