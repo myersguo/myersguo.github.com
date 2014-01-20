@@ -4,8 +4,7 @@ title: 安装github，搭建个人博客
 comments: true
 ---
 
-
-#安装github and 搭建个人博客   
+ 
 
 
 早起，研究SVN与git的区别：   
@@ -35,11 +34,13 @@ github的个人主页是由jekyll生成的。[jekyll是一个由ruby驱动的静
 > Use custom Plugins to generate content specific to your site
 
 3\.2 了解了jekyll的点滴知识，我们就可以开始搭建个人博客了。  
+
 如果对如何使用模板不是很清楚。先写一个hello,world。
 > index.html  
 > hello,world
 
 3\.3 开始搭建个人博客：  
+
 我的个人博客，直接套用的github上的CSS模板，自己只添加了index.html 和 _post文件等。    
 分页参考的是[jekyll的分页模板](https://github.com/mojombo/jekyll/wiki/Pagination)
 > 目录tips:   
@@ -57,6 +58,7 @@ github的个人主页是由jekyll生成的。[jekyll是一个由ruby驱动的静
 
 3\.5 本地调试  
 本地调试需要安装ruby和jekyll。[安装步骤](http://www.madhur.co.in/blog/2011/09/01/runningjekyllwindows.html)  
+ 
 > 1 下载ruby，安装C:\ruby  [http://rubyinstaller.org/downloads/](http://rubyinstaller.org/downloads/)  
 > 2 下载Ruby development kit[https://github.com/oneclick/rubyinstaller/downloads/](https://github.com/oneclick/rubyinstaller/downloads/)，解压。  
 > 进入ruby dev kit目录：   
