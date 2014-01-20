@@ -3,6 +3,8 @@ layout: wp
 title: 安装github，搭建个人博客
 comments: true
 ---
+
+
 #安装github and 搭建个人博客   
 
 
@@ -74,5 +76,3 @@ rb 文件开头加上：
    
 
 3\.6 如果觉得，学习jekyll很麻烦，使用[jekyllbootstrap](http://jekyllbootstrap.com/)或[octopress](http://octopress.org/)来快速地建立一个可更换主题模板的博客是个不错的选择。  
-
-
