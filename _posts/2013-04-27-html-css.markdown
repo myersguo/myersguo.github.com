@@ -1,0 +1,177 @@
+---
+layout: wp
+title:   应该知道的HTML/CSS知识
+comments: true
+blogindex: false
+---
+
+##  简单说应该知道的HTML知识    
+![word 1.0](http://ww2.sinaimg.cn/mw690/807378f7jw1e459wtiiwdj20dw0afjs8.jpg)  
+#### **排版**  
+以下是一段文字(摘自[quora](http://www.quora.com/Life-Lessons/What-are-important-things-and-advice-to-know-that-people-generally-arent-told-about)):  
+
+>Marry your best friend: If the person you're the most comfortable with isn't your spouse, make them! (Assuming this person is not your family member)
+>Don't try to be a "grown up": Always have fun. Mud-wrestle, sing, pillow-fight, at any age.
+>Don't stop learning: If you start coasting through life, you're gonna lose. Always stretch your intellect.
+>Don't always try to be original: Just tell the story or paint the canvas or whatever.
+>Focusing on "fairness" will lead to stagnation.
+>If you're not failing, you're doing it wrong. (It's OK to make mistakes.)
+
+为了让它变得可读，一般使用字处理软件(microsoft word,iworks)。经过简单的换行，强调，加列表处理后：  
+
+>+ **Marry your best friend**: If the person you're the most comfortable with isn't your spouse, make them! (Assuming this person is not your family member)    
+>+ **Don't try to be a "grown up"**: Always have fun. Mud-wrestle, sing, pillow-fight, at any age.  
+>+ **Don't stop learning**: If you start coasting through life, you're gonna lose. Always stretch your intellect.  
+>+ **Don't always try to be origina**l: Just tell the story or paint the canvas or whatever.  
+>+ **Focusing on "fairness"** will lead to stagnation.  
+>+ If you're not failing, you're doing it wrong. (It's OK to make mistakes.)   
+
+
+我们看到经过简单的排版，文字的可读性得到了很大的提高。这就是排版的神奇之处。文字印刷到纸张上和显示在浏览器上对排版的本质上将区别不大。在浏览器上显示的文字的排版技术就是HTML。  
+
+HTML使用标签来排版，如分段用<abbr title="paragraph">p</abbr>,换行用<abbr title="break">br</abbr>，加粗用strong,列表用<abbr title="unorder list">ul</abbr>,或<abbr title="order list">ol</abbr>......  
+
+#### **XHTML**  
+XHTML是HTML的扩展，是更加严格的HTML，比如标签必须闭合等。[为什么需要XHTML](http://www.w3.org/TR/xhtml1/#why)中指出:  
+>网页设计者扩展更多的标签显示页面  
+>XHTML在数据交互上更有优势。  
+
+#### **CSS(Cascading Style Sheets)**    
+CSS最初是配合[SGML](https://en.wikipedia.org/wiki/SGML)的文档样式[设计语言](https://en.wikipedia.org/wiki/Cascading_Style_Sheets#History)，随着HTML的出现和发展，CSS成为描述HTML的主要工具。  
+
+加入有一行文字：  
+what is css? 
+对它进行排版，可以进行居中/左/右，在HTML中用align描述格式    
+<pre>
+    <code>
+    <div align="center">
+      what is css? 
+    </div>
+    </code>
+</pre>
+
+各个文字的描述是单独放在内容之中的。为了把描述有效利用，把描述单独拿出来:  
+<pre>
+<code>
+<!--
+    <style type="text/css">
+    div{text-algin:center;}
+    </style>
+-->
+    <div style="text-align:center">
+      what is css? 
+    </div>
+    </code>
+</pre>
+
+这样，将表现从内容中分离开，原来的一个混合体变成了两个单独的部分：  
+  
++ 内容   
++ 描述  
+
+修改排版时，直接修改描述部分，不需要找到专门的内容。  
+
+#### **URL**  
+
+看以下quora的URL表示：   
+http://www.quora.com/Why-do-technology-people-in-Silicon-Valley-help-each-other-for-free    
+http://www.quora.com/**Silicon-Valley**/Why-do-technology-people-in-Silicon-Valley-help-each-other-for-free      
+http://www.quora.com/**Silicon-Valley-Culture**/Why-do-technology-people-in-Silicon-Valley-help-each-other-for-free  
+
+
+以上三个标题对应同一个网页。再看，淘宝搜索“连衣裙”  
+http://s.taobao.com/search?**initiative_id**=staobaoz_20130428&**jc**=1&**q**=连衣裙  
+http://s.taobao.com/search?**q**=连衣裙 
+
+以上两个一样，添加尺寸“M”后URL为：    
+http://s.taobao.com/search?**spm**=a230r.1.3.129.lEzpHN&tab=all&**q**=连衣裙&**cps**=yes&promote=0&**from=**compass&**ppath**=20509:28315 
+http://s.taobao.com/search?q=连衣裙&ppath=20509:28315   
+
+再添加“性感”条件后：  
+http://s.taobao.com/search?spm=a230r.1.3.59.uJd9MP&tab=all&q=连衣裙&cps=yes&promote=0&ppath=20509%3A28315&from=compass&ppath=20509:28315;412:800000057  
+http://s.taobao.com/search?q=%C1%AC%D2%C2%C8%B9&ppath=20509:28315;412:800000057
+
+再添加“短袖”条件：  
+http://s.taobao.com/search?spm=a230r.1.3.58.8DqIsU&tab=all&q=%C1%AC%D2%C2%C8%B9&cps=yes&promote=0&ppath=412%3A800000057&from=compass&ppath=412:800000057;411:800000562  
+http://s.taobao.com/search?q=%C1%AC%D2%C2%C8%B9&ppath=20509:28315;412:800000057;411:800000562   
+
+
+附：淘宝的URL很多无用的广告统计信息，比如spm,cps,promote。  
+
+URL就是进入网页的标识，浏览器地址栏写上URL进入下载页面。URL有三种样式。  
+
++ 资源模式。用真实的路径表示URL  
++ 参数模式。最常用的方式。http://host/dir/?p1=v1&p2=v2&p3=v3  
++ PATHINFO模式。即参数列表写成路径样式。http://host/dir/p1/v1/p2/v2/p3/v3  
+
+
+在[Introduction To URL Rewriting](http://coding.smashingmagazine.com/2011/11/02/introduction-to-url-rewriting/)里讲了URL重写技术：  
+>URL rewriting allows you to completely separate the URL from the resource. With URL rewriting, you could have http://www.mybanksite.com/aboutus.html taking the user to …/page1.html or to …/about-us/ or to …/about-this-website-and-me/ or to …/youll-never-find-out-about-me-hahaha-Xy2834/. Or to all of these. It’s a bit like shortcuts or symbolic links on your hard drive. **One URL = one way to find a resource**.   
+>With URL rewriting, the URL and the resource that it leads to can be completely independent of each other. In practice, they’re usually not wholly independent: the URL usually contains some code or number or name that enables the CMS to look up the resource. But in theory, this is what URL rewriting provides: a complete separation.
+
+URL重写将资源和URL独立开，这样我不需要知道资源具体在什么位置，我只要知道如何表示资源即可。   
+在[What makes a “friendly URL”?](http://stackoverflow.com/questions/522466/what-makes-a-friendly-url)对如何使URL更加人性化进行了讨论。对URL是否应该包含TITLE进行说明。URL中包含TITLE对搜索引擎优化，可读性有好处，但是，TITLE可变造成URL变化。    
+
+quora的URL是将标题写入。但这就造成了URL很长，而且URL经常改变。quora的应对是之前的URL也不会失效，而重定向到新的URL中。  
+
+URL的选择是门学问。  
+
+
+#### **CSS position**  
+在使用CSS进行排版时，往往需要对块元素进行位置调整。
+CSS的属性postion有以下几种:  
+
++ static.静态的。默认。按照出现顺序排列。   
++ relative.相对。相对于其static时的坐标。  
++ absolute.绝对的。相对于父结点。    
++ fixed.固定不变。相对于浏览器。  
++ inherit:继承。和父结点的position一致。懒得写了就写它。  
+  
+
+![whole](http://ww1.sinaimg.cn/small/807378f7gw1e45osznn5kj205t03ejr8.jpg)  
+对上图描述可为。外框参考系。左上角为原点。相对包围父坐标点(左上角)来放置元素块，使用absolute.  
+但有时候，我们需要在原基础上变动，就要使用relative。  
+当需要固定某块于浏览器中，如顶部，顶部导航。用fixed。  
+
+
+####  **Responsive Web design 相应式布局**  
+先来欣赏一下网页，mashable的主页。  
+首页：    
+![首页](http://media-cache-ec2.pinimg.com/736x/22/7f/6b/227f6b076054abd1e87ceba00705eea5.jpg)  
+![缩小](http://media-cache-ec4.pinimg.com/736x/c6/e6/2d/c6e62d79de5022efa02d9f307796cf0a.jpg)  
+缩小：  
+![缩小](http://media-cache-ec3.pinimg.com/736x/5b/d3/ca/5bd3ca895581d14d2f0d3508069d132e.jpg)  
+再缩小：    
+![再缩小](http://media-cache-ec4.pinimg.com/736x/68/4b/fb/684bfbd258172b428392792e432c62b7.jpg)  
+
+网页的显示设备多种多样，分辨率不同，媒介不同。如何适应各种分辨率，在多种设备下都有很好的“相应”？一般有[wiki](http://en.wikipedia.org/wiki/Responsive_web_design):
+由于要适应多种屏幕，所以不能使用固定宽度，而采用百分比来固定块大小；    
++  **fluid, proportion-based grids**弹性流布局：流布局时，在适应屏幕大小时，块进行向下或向上运动；    
++  **flexible images**图片的自适应。 
++  **CSS3 media queries**CSS3引入Media Query模块, 在不同屏幕下选择加载不同的CSS文件或样式。   
+
+
+by the way,字体的大小和行距具有密切关系。行距最好设置成相对值以适应字体变化。  
+
+
+
+
+
+更多阅读：  
+[1]http://www.w3.org/Provider/Style/URI  
+[2]http://coding.smashingmagazine.com/2011/11/02/introduction-to-url-rewriting/    
+[3]http://stackoverflow.com/questions/522466/what-makes-a-friendly-url  
+[4]**css position**:http://css-tricks.com/almanac/properties/p/position/  
+[5]相应式布局：http://en.wikipedia.org/wiki/Responsive_web_design   
+[6]fluidgrids:http://alistapart.com/article/fluidgrids
+[7]相应式布局：http://article.yeeyan.org/bilingual/299850   
+[8]CSS2 MEDIA:http://www.w3.org/TR/CSS2/media.html    
+[9]fluid images:http://alistapart.com/article/fluid-images    
+[10]http://adaptive-images.com/    
+[11]http://www.netmagazine.com/features/road-responsive-images    
+[12]http://www.netmagazine.com/features/50-fantastic-tools-responsive-web-design    
+[13]图片自适应： http://unstoppablerobotninja.com/entry/fluid-images  
+[14]自适应网页设计 http://www.ruanyifeng.com/blog/2012/05/responsive_web_design.html   
+[15]http://blog.cloudfour.com/responsive-imgs-part-2/     
+[16]http://socialdriver.com/2012/07/20-best-responsive-websites/  
+
