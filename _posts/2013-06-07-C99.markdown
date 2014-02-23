@@ -1,9 +1,0 @@
----
-layout: wp
-title: C99简译
-comments: true
----
-
-## C99标准简译  
-
-先挖个坑，以后填
