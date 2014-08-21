@@ -10,17 +10,24 @@ comments: true
 1. 内置数据类型对比
 
 
- C/C++ </br>
-	|  int,float,double,char,enum,array,struct,Pointer,union</br>
- PHP </br>
-	|  interger,float,boolean,string,array,object,resource,null,</br>
- Python </br>
-	|  Booleans,Number,String,Bytes,Lists,Tuples,Sets,Directory,</br>
- Go </br>
-	|  Numbers,String,Boolean,Array,Slice,</br>
+ C/C++   
+	|  int,float,double,char,enum,array,struct,Pointer,union   
+ PHP    
+	|  interger,float,boolean,string,array,object,resource,null  
+ Python    
+	|  Booleans,Number,String,Bytes,Lists,Tuples,Sets,Directory   
+ Go    
+	|  Numbers,String,Boolean,Array,Slice   
 
 
 2. 并发
+pipe,
+signal,
+message,
+mapped memory,
+shhared memory,
+socket
+
 
 
 
