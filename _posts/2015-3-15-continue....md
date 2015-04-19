@@ -1,6 +1,6 @@
 ---
 layout: wp
-title: 成长 
+title: continue
 comments: true
 ---
 
