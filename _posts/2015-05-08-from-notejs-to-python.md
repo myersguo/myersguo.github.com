@@ -11,7 +11,7 @@ following is my work directory structure with nodejs
 ![my github blog files](/public/nodejs.png)
 
 following is my work directory structure with python tornado
-![my github blog files](/public/pythontornado.png.png)
+![my github blog files](/public/pythontornado.png)
 
 
 
