@@ -1,10 +1,27 @@
 ---
 layout: wp
-title: 目录结构
+title: web directory structure
 comments: true
 ---
 
-![my github blog files](public/jekyll.png)
+following is my github page directory structure
+![my github blog files](/public/jekyll.png)
+
+following is my work directory structure with nodejs
+![my github blog files](/public/nodejs.png)
+
+following is my work directory structure with python tornado
+![my github blog files](/public/pythontornado.png.png)
+
+
+
+> 
+Summaray is that, you can build a website page with various kind of template engine,
+Once You build the 'MVC' structure ,you only focus on
+ your bussiness.The Logic is becomme bigger one day
+  after one day.
+
+
 
 
 
