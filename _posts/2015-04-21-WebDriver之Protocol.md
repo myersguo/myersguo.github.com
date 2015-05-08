@@ -4,7 +4,7 @@ title: continue
 comments: true
 ---
 
-###WebDriver之JsonWireProtocol 
+###WebDriver之JsonWireProtocol### 
 
 **JsonWireProtocol说明**  
 JsonWireProtocol(以下简称JWP)是通过使用webdriver与remote server进行通信的[web service 协议](https://code.google.com/p/selenium/wiki/JsonWireProtocol)。通过http请求，完成和remote server的交互。  
