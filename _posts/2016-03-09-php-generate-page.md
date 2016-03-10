@@ -5,7 +5,7 @@ comments: true
 ---  
 
 一个简单的PHP分页函数
-
+<code>
 <pre>
 <?php
     class Common {
@@ -33,8 +33,20 @@ comments: true
                 $left =1;
             }
 
-            $first = '';
+            $first = ''; 
             $last = '';
+            if($cur- 1 <= 0) {
+                 $first =  '<li class="number  prevpage"><a class="nopointercursor"><</a></li>';
+            }else {
+                 $first =  '<li class="number  prevpage"><a class="pointercursor" href="'.$url.'page='.($cur-1).'"><</a></li>';
+            }
+            
+            if($cur == $total) {
+                $last =  '<li class="number  nextpage"><a class="nopointercursor">></a></li>';
+            }else {
+                 $last =  '<li class="number  nextpage"><a class="pointercursor" href="'.$url.'page='.($cur+1).'">></a></li>';
+            }
+            
             $tmp = '';
             for($i = $left ; $i<=$right; $i++) {
                 $class = 'number';
@@ -47,13 +59,14 @@ comments: true
                 if($i == $total) {
                     $class = $class . ' last';
                 }
-                $tmp = $tmp.'<li class="'. $class .'"><a>'.$i.'</a></li>';
+                $href = $url . 'page='. $i;
+                $tmp = $tmp.'<li class="'. $class .'"><a href="'. $href .'">'.$i.'</a></li>';
             }
             if($left != 1) {
-                 $first = '<li class="number first"><a>1</a></li>';
+                 $first = $first . '<li class="number first"><a>1</a></li>';
             }
             if($right != $total) {
-                $last = '<li class="number last"><a>'.$total.'</a></li>';
+                $last = '<li class="number last"><a>'.$total.'</a></li>' . $last;
             }
             $pagestr =  '<ul class="pagenav">'. $first .$tmp . $last. '</ul>';
             return $pagestr;
@@ -63,7 +76,7 @@ comments: true
     }
 
 </pre>
-
+</code>
 
 
 
