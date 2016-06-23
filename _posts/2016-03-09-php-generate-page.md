@@ -5,8 +5,8 @@ comments: true
 ---  
 
 一个简单的PHP分页函数
-<code>
-<pre>
+
+````
 <?php
     class Common {
          
@@ -75,12 +75,7 @@ comments: true
 
     }
 
-</pre>
-</code>
-
-
-
-
+````
 
 
 
