@@ -58,6 +58,90 @@ jenkins 社区鼓励插件开发者上传插件。为了方便其他用户可以
 * 提供open source 的协议(大多数使用MIT)
 * 注册jenkins帐号，方便反馈问题
 
+####  Jenkins插件的作用  
+jenkins提供了基本的构建系统的扩展接口和抽象方法。这些接口定义了一些必须实现的**约定**,jenkins允许插件实现这些[接口功能](https://wiki.jenkins-ci.org/display/JENKINS/Extension+points#Extensionpoints-ExtensionPointsinJenkinsCoreBuildingJenkins)。  
+
+#### 开发环境  
+1. maven  
+2. JDK 6.0 or later  
+
+### 开发准备  
+mvn -U org.jenkins-ci.tools:maven-hpi-plugin:create
+(mvn的[插件全称](https://maven.apache.org/pom.html)：groupid:artifactId:version:packaging),(命名空间:项目名：版本号：包名)
+(http://repo.jenkins-ci.org/public/org/jenkins-ci/tools/maven-hpi-plugin/)
+-U: 更新相关插件  
+hpi: jenkins HPI Plugin  
+create: 目标(mvn goal)  
+
+
+大概的输出即 :  
+
+```
+[INFO] Defaulting package to group ID + artifact ID: com.xiaomi.test.xmtest.scm
+[INFO] ----------------------------------------------------------------------------
+[INFO] Using following parameters for creating Archetype: maven-hpi-plugin:1.117
+[INFO] ----------------------------------------------------------------------------
+[INFO] Parameter: groupId, Value: com.xiaomi.test
+[INFO] Parameter: package, Value: com.xiaomi.test.xmtest.scm
+[INFO] Parameter: artifactId, Value: xmtest.scm
+[INFO] Parameter: basedir, Value: d:\work\workspace
+[INFO] Parameter: version, Value: 1.0-SNAPSHOT
+[INFO] ********************* End of debug info from resources from generated POM ***********************
+[INFO] Archetype created in dir: d:\work\workspace\xmtest.scm
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 09:02 min
+[INFO] Finished at: 2016-06-29T22:05:04+08:00
+[INFO] Final Memory: 17M/121M
+[INFO] ------------------------------------------------------------------------  
+``` 
+这里我设置项目名为: xmtest.scm  
+组名：com.xiaomi.test  
+xmtest.scm的大致目录结构即:  
+└─src
+    └─main
+        ├─java
+        │  └─com
+        │      └─xiaomi
+        │          └─test
+        │              └─xmtest
+        │                  └─scm
+        └─resources
+            └─com
+                └─xiaomi
+                    └─test
+                        └─xmtest
+                            └─scm
+                                └─HelloWorldBuilder
+
+mvn install 执行编译打包：  结果生成插件xmtest.scm.hpi：  
+[INFO]
+[INFO] --- maven-license-plugin:1.7:process (default) @ xmtest.scm ---
+[INFO] Generated d:\work\workspace\xmtest.scm\target\xmtest.scm\WEB-INF\licenses.xml
+[INFO]
+[INFO] --- jacoco-maven-plugin:0.7.2.201409121644:report (report) @ xmtest.scm ---
+[INFO] Analyzed bundle 'TODO Plugin' with 2 classes
+[INFO]
+[INFO] --- maven-hpi-plugin:1.115:hpi (default-hpi) @ xmtest.scm ---
+[INFO] Generating d:\work\workspace\xmtest.scm\target\xmtest.scm\META-INF\MANIFEST.MF
+[INFO] Checking for attached .jar artifact ...
+[INFO] Generating jar d:\work\workspace\xmtest.scm\target\xmtest.scm.jar
+[INFO] Building jar: d:\work\workspace\xmtest.scm\target\xmtest.scm.jar
+[INFO] Exploding webapp...
+[INFO] Copy webapp webResources to d:\work\workspace\xmtest.scm\target\xmtest.scm
+[INFO] Assembling webapp xmtest.scm in d:\work\workspace\xmtest.scm\target\xmtest.scm
+[INFO] Generating hpi d:\work\workspace\xmtest.scm\target\xmtest.scm.hpi
+[INFO] Building jar: d:\work\workspace\xmtest.scm\target\xmtest.scm.hpi
+
+
+
+#### 开发过程  
+1) pom.xml:  
+parent: 每个jenkins插件都必须包含parent，为：org.jenkins-ci.plugins:plugins:2.2
+2) 架构（代码结构）:  
+src/main/java: java源码；src/main/resources: jelly/groovy 视图.  src/main/webapp:插件的静态HTML资源.  
+
 
 #### 我的步骤
 1) 搜索plugin list，查找关键词file,找到file system scm这个插件与需求类似。
@@ -71,5 +155,54 @@ https://wiki.jenkins-ci.org/display/JENKINS/File+System+SCM
 https://wiki.jenkins-ci.org/display/JENKINS/GitHub+Repositories
 4) https://issues.jenkins-ci.org/secure/Dashboard.jspa
 
+5) maven配置:  
+maven配置(setting.xml)包含两个level:  
+* User Level: 用户级别。特定用户的独立配置.${user.home}/.m2/settings.xml.  
+* Global Level: 全局配置。所有用户的配置.${maven.home}/conf/settings.xml.  
 
+5) 包管理工具:  
+• RubyGems / Bundler (Ruby)  
+• PIP / PyPI (Python)  
+• Packagist / Composer (PHP)  
+• NPM (Node.JS)  
+• Bower (JS, CSS, HTML)  
+• CocoaPods (Objective-C)  
+• Maven (Java)  
+• Lein (Clojure)  
+
+6. mvn插件搜索 
+mvn dependency:get  
+(全称：org.apache.maven.plugins:maven-dependency-plugin:2.10:get)
+maven 是由插件(org/apache/maven/plugins)组成的框架，所有的mvn任务都由插件完成。maven的核心插件包括：build plugins(构建插件)和reporting plugins(报告插件)  
+maven核心插件:  
+mvn clean/compiler/deploy/failsafe/install/resources/site/surefire/verifier  
+maven打包工具插件:  
+mvn ear/ejb/jar/rar/war/app-client/acr/shade/source  
+maven report插件:  
+mvn changelog/changes/checksytle/doap/docck/javadoc/jdeps/jxr/linkcheck/pmd/project-info-reports/surfire-report  
+maven 工具插件:  
+ant/antrun/archetype/assembly/dependency/enforcer/gpg/help/invoker/jarsigner/patch/pdf/plugin/release/remote-resources/repository/scm/scm-publish/stage/toolchains    
+
+7. mvn 部署生命周期：  
+validate->compile->test->package->verify->instaall->deploy
+
+8. mvn 包的查找方式：  
+比如依赖如下：  
+<dependency>
+      <groupId>org.mortbay.jetty</groupId>
+      <artifactId>maven-jetty-plugin</artifactId>
+      <version>6.1.1</version>
+</dependency>
+对应的包资源在：  
+https://maven-repository.com/artifact/org.mortbay.jetty/maven-jetty-plugin  
+
+9. jenkins架构:https://wiki.jenkins-ci.org/display/JENKINS/Architecture  
+* MVC框架： stapler:  
+* 视图渲染： Views:Jelly(jsp+jstl)  
+* Taglibs  
+* 持久化存储 Persistence:XStream:  
+
+10. stapler  
+11. jelly  
+12.  xstream  
 
