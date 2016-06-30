@@ -203,6 +203,91 @@ https://maven-repository.com/artifact/org.mortbay.jetty/maven-jetty-plugin
 * 持久化存储 Persistence:XStream:  
 
 10. stapler  
+stapler将应用程序与URL绑定，方便创建WEB应用。核心思想是自动分配URL给对象，创建URL的架构。  
+通常，JSP&servlet工作方式是：使用参数和确切的路径找到分配的对象，传递参数执行动作（如渲染HTML）。  
+假定，你正在创建一个web应用（比如java.net），它提供projects,mailing list,documents,file section等等。下图表示stapler的工作过程：  ![stapler arch](http://stapler.kohsuke.org/stapler.png)  
+
+左侧是面线对象的开发代码，右侧是stapler通过发射将URL分配给应用对象。应用的跟对象代表URL： "/"。同时，stapller允许分配JSP给对象。
+stapler解决的servlet/jsp的问题。  
+* 1)：  
+  将stapler.jar放入WEB-INF/lib目录。  
+  WEB-INFO/web.xml中加入：  
+  >
+    <servlet>
+        <servlet-name>Stapler</servlet-name>
+        <servlet-class>org.kohsuke.stapler.Stapler</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Stapler</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+    <listener>
+        <listener-class>example.WebAppMain</listener-class>
+    </listener>
+
+
+* 2)注册根路径Stapler.setRoot  
+```
+package example;
+import org.kohsuke.stapler.Stapler;
+
+public class WebAppMain implements ServletContextListener {
+    public void contextInitialized(ServletContextEvent event) {
+        // BookStore.theStore is the singleton instance of the application
+        Stapler.setRoot(event,BookStore.theStore);
+    }
+
+    public void contextDestroyed(ServletContextEvent event) {
+    }
+}
+```
+
+* 3) 例子:bookstore  
+WEB-INF/side-files/example/BookStore/index.jsp  
+```
+<html>...<body>
+  <%-- side files can include static resources. --%>
+  <img src="logo.png">
+
+  <h2>Inventory</h2>
+  <c:forEach var="i" items="${it.items}">
+    <a href="items/${i.key}">${i.value.title}</a><br>
+  </c:forEach>
+  ...
+```
+
+/items/b1,  
+get items = bookStore.getItems()  
+get b1 = items.get("b1")   
+b1返回一个book对象,因此/WEB-INF/side-files/example/book/index.jsp被解析  
+URL的解析仅通过get对象来实现。  
+
+* 4) action  
+
+```
+public void doHello( StaplerRequest request, StaplerResponse response) {
+    ...
+    response.forward(this, "helloJSP", request);
+}
+````
+
+* 5) jelly 
+jelly script can be used as view files.  
+
 11. jelly  
 12.  xstream  
+13. java servlet & web/http server & cgi  
+java servlet解决了CGI在JAVA实现中的性能问题，提供了WEB访问的协议接口.java web servlet类似PHP或ASP.net实现了WEB解析功能。但servlet通常处理web server container，如tomcat的请求。  
+java servlet 通过web.xml来配置，一般java web app的架构如下：  
+webapp(dir):
+->WEB-INF(dir,元数据)  
+  web.xml(web应用的信息，java web server container解析该文件,)  
+  classes(dir,编译后的所有java class)  
+  lib(库文件)  
+->index.jsp  
+
+
+
+
 
