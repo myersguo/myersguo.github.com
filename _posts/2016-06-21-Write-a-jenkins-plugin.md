@@ -99,6 +99,8 @@ create: 目标(mvn goal)
 这里我设置项目名为: xmtest.scm  
 组名：com.xiaomi.test  
 xmtest.scm的大致目录结构即:  
+
+````
 └─src
     └─main
         ├─java
@@ -115,7 +117,10 @@ xmtest.scm的大致目录结构即:
                             └─scm
                                 └─HelloWorldBuilder
 
+```
+`
 mvn install 执行编译打包：  结果生成插件xmtest.scm.hpi：  
+````
 [INFO]
 [INFO] --- maven-license-plugin:1.7:process (default) @ xmtest.scm ---
 [INFO] Generated d:\work\workspace\xmtest.scm\target\xmtest.scm\WEB-INF\licenses.xml
@@ -133,27 +138,67 @@ mvn install 执行编译打包：  结果生成插件xmtest.scm.hpi：
 [INFO] Assembling webapp xmtest.scm in d:\work\workspace\xmtest.scm\target\xmtest.scm
 [INFO] Generating hpi d:\work\workspace\xmtest.scm\target\xmtest.scm.hpi
 [INFO] Building jar: d:\work\workspace\xmtest.scm\target\xmtest.scm.hpi
+````  
 
 
 
 #### 开发过程  
 1) pom.xml:  
-parent: 每个jenkins插件都必须包含parent，为：org.jenkins-ci.plugins:plugins:2.2
+parent: 每个jenkins插件都必须包含parent，为：org.jenkins-ci.plugins:plugins:2.2  
 2) 架构（代码结构）:  
 src/main/java: java源码；src/main/resources: jelly/groovy 视图.  src/main/webapp:插件的静态HTML资源.  
+3) jenkins core定义了插件的集合,作为插件的入口。插件的扩展点定义有两种方式：  
+  *singleton pattern  
+  *Describale/Descriptor pattern(build on signgleton pattern)  
+
+singleton pattern:  
+eg:
+```
+/**
+ * Extension point that defines different kinds of animals
+ */
+public abstract class Animal implements ExtensionPoint {
+    ...
+
+    /**
+     * All registered {@link Animal}s.
+     */
+    public static ExtensionList<Animal> all() {
+        return Jenkins.getActiveInstance().getExtensionList(Animal.class); // getActiveInstance() starting with Jenkins 1.590, else getInstance()
+    }
+}
+```
+实现插件的接口定义如下：  
+```
+@Extension
+public class Lion extends Animal { ... }
+```
+**Describable/Descriptor pattern**  
+定义
+1) 可描述的对象显示ExtensionPoinit;  
+2) 描述点实现对扩展的描述和行为。  
+
+启动插件：   
+lanch jenkins:   
+    mvn Debug hpi:run  
+    mvn hpi:run -Djetty.port=8090  
+打包： mvn package  
+
+
+
 
 
 #### 我的步骤
-1) 搜索plugin list，查找关键词file,找到file system scm这个插件与需求类似。
-https://wiki.jenkins-ci.org/display/JENKINS/File+System+SCM
+1) 搜索plugin list，查找关键词file,找到file system scm这个插件与需求类似。  
+https://wiki.jenkins-ci.org/display/JENKINS/File+System+SCM  
 2）
 
 参考资料:  
-1) https://wiki.jenkins-ci.org/display/JENKINS/Before+starting+a+new+plugin
-2） https://wiki.jenkins-ci.org/display/JENKINS/Plugin+tutorial
-3) jenkins plugin source code: 
-https://wiki.jenkins-ci.org/display/JENKINS/GitHub+Repositories
-4) https://issues.jenkins-ci.org/secure/Dashboard.jspa
+1) https://wiki.jenkins-ci.org/display/JENKINS/Before+starting+a+new+plugin  
+2） https://wiki.jenkins-ci.org/display/JENKINS/Plugin+tutorial  
+3) jenkins plugin source code:   
+https://wiki.jenkins-ci.org/display/JENKINS/GitHub+Repositories  
+4) https://issues.jenkins-ci.org/secure/Dashboard.jspa  
 
 5) maven配置:  
 maven配置(setting.xml)包含两个level:  
@@ -170,9 +215,9 @@ maven配置(setting.xml)包含两个level:
 • Maven (Java)  
 • Lein (Clojure)  
 
-6. mvn插件搜索 
+6. mvn插件搜索  
 mvn dependency:get  
-(全称：org.apache.maven.plugins:maven-dependency-plugin:2.10:get)
+(全称：org.apache.maven.plugins:maven-dependency-plugin:2.10:get)  
 maven 是由插件(org/apache/maven/plugins)组成的框架，所有的mvn任务都由插件完成。maven的核心插件包括：build plugins(构建插件)和reporting plugins(报告插件)  
 maven核心插件:  
 mvn clean/compiler/deploy/failsafe/install/resources/site/surefire/verifier  
@@ -183,16 +228,19 @@ mvn changelog/changes/checksytle/doap/docck/javadoc/jdeps/jxr/linkcheck/pmd/proj
 maven 工具插件:  
 ant/antrun/archetype/assembly/dependency/enforcer/gpg/help/invoker/jarsigner/patch/pdf/plugin/release/remote-resources/repository/scm/scm-publish/stage/toolchains    
 
-7. mvn 部署生命周期：  
-validate->compile->test->package->verify->instaall->deploy
+7. mvn 部署生命周期：    
+validate->compile->test->package->verify->instaall->deploy  
 
 8. mvn 包的查找方式：  
 比如依赖如下：  
+
+````
 <dependency>
       <groupId>org.mortbay.jetty</groupId>
       <artifactId>maven-jetty-plugin</artifactId>
       <version>6.1.1</version>
 </dependency>
+````
 对应的包资源在：  
 https://maven-repository.com/artifact/org.mortbay.jetty/maven-jetty-plugin  
 
@@ -212,7 +260,7 @@ stapler解决的servlet/jsp的问题。
 * 1)：  
   将stapler.jar放入WEB-INF/lib目录。  
   WEB-INFO/web.xml中加入：  
-  >
+````
     <servlet>
         <servlet-name>Stapler</servlet-name>
         <servlet-class>org.kohsuke.stapler.Stapler</servlet-class>
@@ -225,7 +273,7 @@ stapler解决的servlet/jsp的问题。
     <listener>
         <listener-class>example.WebAppMain</listener-class>
     </listener>
-
+````
 
 * 2)注册根路径Stapler.setRoot  
 ```
@@ -254,7 +302,6 @@ WEB-INF/side-files/example/BookStore/index.jsp
   <c:forEach var="i" items="${it.items}">
     <a href="items/${i.key}">${i.value.title}</a><br>
   </c:forEach>
-  ...
 ```
 
 /items/b1,  
@@ -281,13 +328,18 @@ jelly script can be used as view files.
 java servlet解决了CGI在JAVA实现中的性能问题，提供了WEB访问的协议接口.java web servlet类似PHP或ASP.net实现了WEB解析功能。但servlet通常处理web server container，如tomcat的请求。  
 java servlet 通过web.xml来配置，一般java web app的架构如下：  
 webapp(dir):
-->WEB-INF(dir,元数据)  
+```
+WEB-INF(dir,元数据)  
   web.xml(web应用的信息，java web server container解析该文件,)  
   classes(dir,编译后的所有java class)  
   lib(库文件)  
 ->index.jsp  
+````
 
+11. jenkins的扩展点：  https://wiki.jenkins-ci.org/display/JENKINS/Extension+points  
 
-
+12. jenkins piple line plugin:  
+可创建自定义的工作流，可使用Groovy脚本语言来创建工作流。  
+[pipe line](https://github.com/jenkinsci/pipeline-plugin/blob/master/TUTORIAL.md)  
 
 
