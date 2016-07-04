@@ -193,10 +193,14 @@ hr {
   margin:0 0 20px;
 }
 
-.post-nav {
+.page-nav,.post-nav {
     font-size: 1.3em;
     border-bottom: 1px solid rgba(0, 49, 79, 0.08);
     padding: 50px;
+    text-align: center;
+    .item{
+        padding: 2rem;
+    }
 }
 
 footer {

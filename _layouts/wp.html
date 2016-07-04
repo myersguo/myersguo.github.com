@@ -42,12 +42,12 @@
 		
 		<div class="post-nav">
 					 {% if page.previous.url %} 
-					 <span style="float:left;width=" %50%;"="">
+					 <span class="item">
                 <a href="{{page.previous.url}}" title="Previous Post: 
 {{page.previous.title}}"><span>&laquo;&laquo; </span>{{page.previous.title}}</a></span> 
         {% endif %} 
 		 {% if page.next.url %} 
-                <span style="float:right;width:%50%;"><a href="{{page.next.url}}" title="next Post: 
+                <span class="item"><a href="{{page.next.url}}" title="next Post: 
 {{page.next.title}}">{{page.next.title}} <span>&raquo;&raquo;</span> </a> </span>
         {% endif %} 
         </div>
