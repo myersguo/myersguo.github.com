@@ -174,12 +174,11 @@ header ul a strong {
 }
 
 section {
-  padding-top:25px;
   overflow: hidden;
   word-wrap: break-word;
   font-size: 13px;
   border-left: 1px solid #DDD;
-
+  padding: 50px;
 }
 
 small {
@@ -194,14 +193,14 @@ hr {
 }
 
 .post-nav {
-padding-bottom: 1.5em;
-font-size: 1.3em;
-border-bottom: 1px solid rgba(0, 49, 79, 0.08);
+    font-size: 1.3em;
+    border-bottom: 1px solid rgba(0, 49, 79, 0.08);
+    padding: 50px;
 }
 
 footer {
-  width:270px;
-  bottom:5px;
+  bottom: 5px;
+  text-align: center;
 }
 
 @media print, screen and (max-width: 960px) {
