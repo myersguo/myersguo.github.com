@@ -105,6 +105,7 @@ img {
 
 header {
 padding-top: 25px;
+text-align: center;
 }
 #dldiv dl dd{
   border-top: 1px #eee solid;
