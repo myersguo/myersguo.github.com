@@ -198,9 +198,13 @@ hr {
     border-bottom: 1px solid rgba(0, 49, 79, 0.08);
     padding: 50px;
     text-align: center;
-    .item{
-        padding: 2rem;
-    }
+}
+.page-nav .item{
+    padding: 1rem 2rem;
+}
+
+.post-nav .item{
+    padding: 1rem 2rem;
 }
 
 footer {
