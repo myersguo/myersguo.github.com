@@ -39,9 +39,16 @@ iptables-save
 COMMIT
 # Completed on Wed Jul  6 10:27:03 2016
 
-或： 
-service iptables save
-iptables: Saving firewall rules to /etc/sysconfig/iptables:[  OK  ]
+或：   
+service iptables save  
+
+iptables: Saving firewall rules to /etc/sysconfig/iptables:[  OK  ]  
+
+4) 通过iptables限制用户速度  
+如果，不想阻止用户访问，仅仅限制用户的访问速度。可以使用如下方式：   
+iptables -A INPUT  -s xxx.xxx.xxx.xxx -p tcp --dport 80 -m limit --limit 1/s  --limit-burst 1 -j ACCEPT
+iptables -A FORWARD -s xxx.xxx.xxx.xxx -j DROP  
+
 
 测试方式：   
 1)下载测试工具：  
