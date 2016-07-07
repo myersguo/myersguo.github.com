@@ -27,6 +27,54 @@ title: 封禁用户IP
 方法：  
 记录1秒内用户的访问次数，超过限额则加入黑名单，抛出HTTP异常，状态码： 429   
 
+伪代码如下：  
+
+```
+/**
+* 将用户IP加入黑名单中
+*/
+public function addBlackIp($ip) {
+    $block_key = self::BLOCK_FILTER_KEY;//黑名单的KEY
+    $blocklist = apc_fetch($block_key);
+    if($blocklist === false){
+        apc_store($block_key, array($ip), self::BLOCK_FILTER_TTL);
+        return;
+    }
+    array_push($blocklist, $ip);
+    apc_store($block_key, $blocklist);
+    return;
+}
+
+/**
+ * 对用户访问速率做限制
+ * @return [type] [description]
+ */
+public function _checkUserIp(){
+    //是否打开黑名单
+    if(!$this->_enableIpFilter){
+        return true;
+    }
+    $client_ip = Common::getIP();
+    $block_key = self::BLOCK_FILTER_KEY;
+    $blocklist = apc_fetch($block_key);
+    if($blocklist !== false && in_array($client_ip, $blocklist)){
+        return false;
+    }
+    if(!apc_exists($client_ip)){
+        apc_store($client_ip, 1, self::CLIENT_FILTER_TTL);
+        return true;
+    }
+    $count = apc_fetch($client_ip);
+    if($count !== false && $count>self::MAX_COUNT_PER_SECOND){
+        $this->addBlackIp($client_ip); 
+        return false;
+    }
+    apc_inc($client_ip,1);
+    return true;
+ 
+```
+
+
 3）防火墙直接禁止改用户访问   
 iptables -I  INPUT -s xxx.xxx.xxx.xxx -j DROP  
 iptables-save 
