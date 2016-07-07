@@ -10,5 +10,8 @@ tar zxf lua-5.3.3.tar.gz
 cd lua-5.3.3  
 make linux test  
 
-2) 
+2) 源码结构  
+
+3) 源码阅读  
+
 
