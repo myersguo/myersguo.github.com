@@ -57,9 +57,11 @@ static function httpRrequest($url, $post_data = null, $timeout = 1) {
             if(strpos($key, $keyword) !== false) {
                 $result[$key] = $value;
             }else {
-                if(is_array($value) && array_search($keyword, $value) !== false){
+                if(is_array($value) && array_search($keyword, $value, true) !== false){
                     $result[$key] = $value;
-                }else if($deep>1){
+                }else if(is_string($value) && strpos($value, $keyword)!== false) {
+                    $result[$key] = $value;
+                } else if($deep>1){
                     $checked = self::array_search_by_key($value, $keyword, $deep-1);
                     if(!empty($checked)){
                         $result[$key] = $value;
