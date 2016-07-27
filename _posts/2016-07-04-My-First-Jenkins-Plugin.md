@@ -5,6 +5,10 @@ title: My First Jenkins Plugin
 
 上次谈到了jenkins的插件的编写相关的知识，在这两天的编写过程中，真实“磕磕绊绊“，由于对jenkin插件的写法和JAVA相关技巧、语法的不熟悉，走了很多的弯路，最后能把插件拼凑着完成，实属幸运。  
 
+0. 创建工程  
+
+mvn -U org.jenkins-ci.tools:maven-hpi-plugin:create
+
 1. jenkins写文件的方法：  
 我的需求中，要把从接口读到的文件写入当前工作目录中的某个文件下。因此我需要知道jenkins如何写文件。如果我直接写的话：  
 
