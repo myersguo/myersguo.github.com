@@ -22,11 +22,19 @@ Pull SCM: 检测是否有更新，进行触发；
 periodically： 计划任务；  
 Build after other projects are built: 关联触发；   
 trigger by remote: 远程调用；   
+
 >>
     使用git hooks,在项目下.git\hooks文件夹下游很多hook的例子    
     在post-update.sh中post请求到jenkins:http://JENKINS地址/job/JOB_NAME/build?token=TOKEN   
 
     如果使用gitlab可以使用相关插件   
+    Use the following URL to trigger build remotely: JENKINS_URL/job/Demo/build?token=TOKEN_NAME or /buildWithParameters?token=TOKEN_NAME  
+    Optionally append &cause=Cause+Text to provide text that will be included in the recorded build cause.
+
+
+
+
+
 
 
 
