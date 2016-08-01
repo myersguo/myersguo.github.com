@@ -342,4 +342,7 @@ WEB-INF(dir,元数据)
 可创建自定义的工作流，可使用Groovy脚本语言来创建工作流。  
 [pipe line](https://github.com/jenkinsci/pipeline-plugin/blob/master/TUTORIAL.md)  
 
+13. 使用xstream把JAVA对象序列化为XML   
+https://www.ibm.com/developerworks/cn/xml/x-xstream   
+
 
