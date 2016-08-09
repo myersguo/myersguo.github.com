@@ -48,6 +48,7 @@ Cookie保存到文件中：
 Netscape曾经创造了Cookie保存到文件中的格式,每行
 
 其他类似的语言一般都包含cookiejar的格式读取方法，比如使用python:  
+
 ```
 import cookielib,urllib2
 c = cookielib.MozillaCookieJar('./cookie.txt')
@@ -56,6 +57,7 @@ urllib2.install_opener(o)
 urllib2.urlopen(urllib2.Request('http://buy.mi.com/in/cart/index', None)).read()
 c.save()
 ```
+
 生成的cookie为:   
 
 ```
@@ -72,7 +74,7 @@ c.save()
 
 
 参考资料:  
-[1]: https://curl.haxx.se/docs/http-cookies.html 
+[1]: https://curl.haxx.se/docs/http-cookies.html   
 [RFC6265]: https://tools.ietf.org/html/rfc6265  
 
 
