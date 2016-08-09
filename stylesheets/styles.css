@@ -53,13 +53,19 @@ a small {
 }
 
 blockquote {
-background-color: rgb(187, 184, 134);
-padding: 1em;
-margin: 2em 2em;
-font-family: 'Courier New', Courier, monospace;
-Unknown property name.-moz-border-radius: 20px;
--webkit-border-radius: 20px;
-border-radius: 20px;
+    background-color: #f5f2f0;
+    padding: 1em;
+    margin: 2em 2em;
+    font-family: Consolas, Monaco, 'Andale Mono', monospace;
+    -moz-border-radius: 1em;
+    -webkit-border-radius: 1em;
+    border-radius: 1em;
+    font-family: Consolas, Monaco, 'Andale Mono', monospace;
+    border-width: 0.3em;
+    border-color: #e0dfcc;
+    border-style: solid;
+    text-shadow: 0 1px white;
+    overflow: auto;
 }
 
 blockquote p {
