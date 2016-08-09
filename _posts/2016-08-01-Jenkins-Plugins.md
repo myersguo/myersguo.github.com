@@ -32,6 +32,7 @@ trigger by remote: 远程调用；
     Optionally append &cause=Cause+Text to provide text that will be included in the recorded build cause.
 
 
+3. 
 
 
 
