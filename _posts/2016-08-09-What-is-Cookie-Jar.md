@@ -5,7 +5,7 @@ title: cookie jar是什么？
 Cookies是 name=contents 的键值对，HTTP服务器与客户端进行交互时，客户端携带的数据包。Cookies通常是"session cookies"即会话结束cookie失效、删除。有些cookie设定了生存周期。   
 
 发送COOKIE，在HTTP请求头中包含：Set-Cookie.  
-Cookie的用法规范，参考(https://tools.ietf.org/html/rfc6265)[RFC6265],RFC规范定义了HTTP COOKIE和SET-COOKIE头的用法,让HTTP客户端存储状态(cookie),以使server能在无状态HTTP连接中管理连接状态。  
+Cookie的用法规范，参考[https://tools.ietf.org/html/rfc6265][RFC6265],RFC规范定义了HTTP COOKIE和SET-COOKIE头的用法,让HTTP客户端存储状态(cookie),以使server能在无状态HTTP连接中管理连接状态。  
 
 我们先看一个测试结果：   
 ```
@@ -73,6 +73,6 @@ c.save()
 
 参考资料:  
 [1]: https://curl.haxx.se/docs/http-cookies.html 
-[2]: https://tools.ietf.org/html/rfc6265  
+[RFC6265]: https://tools.ietf.org/html/rfc6265  
 
 
