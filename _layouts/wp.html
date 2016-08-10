@@ -53,7 +53,7 @@
       <section id="article">
 		{{ content }}
 		
-		{% if not page.shownav %}
+		{% if page.shownav != null %}
 
 		<div class="post-nav">
 					 {% if page.previous.url %} 
