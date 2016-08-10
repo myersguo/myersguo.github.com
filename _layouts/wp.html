@@ -53,6 +53,9 @@
       <section id="article">
 		{{ content }}
 		
+		{% if not page.shownav %}
+
+		{% if page.comments %}
 		<div class="post-nav">
 					 {% if page.previous.url %} 
 					 <span class="item">
@@ -81,7 +84,9 @@
    	 </script>
     	
    	 {% endif %}
-    
+
+
+     {% endif %} 
       </section>
 	  
       <footer>
