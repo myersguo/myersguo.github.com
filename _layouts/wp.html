@@ -55,7 +55,6 @@
 		
 		{% if not page.shownav %}
 
-		{% if page.comments %}
 		<div class="post-nav">
 					 {% if page.previous.url %} 
 					 <span class="item">
@@ -68,6 +67,7 @@
         {% endif %} 
         </div>
         
+       {% endif %} 
 		
 		{% if page.comments %}
 		<div id="disqus_thread" style="margin-top:20px"></div>
@@ -86,7 +86,6 @@
    	 {% endif %}
 
 
-     {% endif %} 
       </section>
 	  
       <footer>
