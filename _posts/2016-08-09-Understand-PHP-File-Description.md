@@ -46,7 +46,8 @@ wrapper = php_stream_locate_url_wrapper(path, &path_to_open, options TSRMLS_CC);
         if (FAILURE == zend_hash_find(wrapper_hash, (char*)tmp, n + 1, (void**)&wrapperpp)) {
             php_strtolower(tmp, n);
 
-`` 
+```
+
 可见在打开文件的时候，对path做了解析，找到path对应的protocol，然后zend_hash_find找到对应的函数处理读操作。   
 
 
