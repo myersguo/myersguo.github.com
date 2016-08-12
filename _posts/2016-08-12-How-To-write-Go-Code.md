@@ -51,9 +51,17 @@ src/
 
 ## GOPATH  
 
+go build工具会读GOPATH变量来编译程序，因此需要将你的workspace添加到GOPATH中。  
+>export GOPATH=$home/work/mycode  
 
+import path标识一个package.系统的($GOROOT/src下面的包)包名使用短路径(eg: fmt,net/http),包名是import最后的节点名称（net/http,包名http）  
 
+>在同一个package下面的文件必须使用相同的包名   
+>可执行二进制文件的package name必须是main   
 
+GOLANG包含一个轻量级的test framework,测试文件以_test命名，使用go test进行测试。  
+
+[未完待续]()
 
 
 
