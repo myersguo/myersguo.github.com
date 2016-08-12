@@ -5,7 +5,7 @@ title: Write To Write Go Code
 
 本文基本来自最后的[参考](#reference).   
 
-==  组织结构 
+## 组织结构 
 所有的go代码都必须在一个工作区中。(eg: mkdir $HOME/www/mycode)
 工作区中包含很多版本控制的代码仓库repository，每个repository都存在于单独的文件夹下（package）;
 每个package包含一个或多个source code;  
@@ -49,7 +49,7 @@ src/
 
 ````
 
-== GOPATH  
+## GOPATH  
 
 
 
