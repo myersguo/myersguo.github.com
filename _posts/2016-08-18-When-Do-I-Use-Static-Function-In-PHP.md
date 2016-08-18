@@ -20,7 +20,6 @@ If a method can be static, declare it static. Speed improvement is by a factor o
 
 
 
-
 参考资料：   
 
 [http://stackoverflow.com/questions/1257371/when-do-i-use-static-variables-functions-in-php](http://stackoverflow.com/questions/1257371/when-do-i-use-static-variables-functions-in-php)  
