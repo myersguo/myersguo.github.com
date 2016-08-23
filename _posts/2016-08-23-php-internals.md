@@ -24,7 +24,10 @@ title: PHP内核
 /[run-tests.php][runphptest]: 执行/tests下的测试文件，并发送测试报告(后续，我们将详细介绍PHP的测试框架)  
 
 
-未完待续   
+参考资料：  
+- [Cpp参考手册][cppref]  
+
+
 
 [phpnotes]: http://myersguo.github.io/2016/08/09/Understand-PHP-File-Description.html
 [TPI]: http://www.php-internals.com/book/
@@ -34,4 +37,5 @@ title: PHP内核
 [README.RELEASE_PROCESS]: https://github.com/php/php-src/blob/master/README.RELEASE_PROCESS
 [pear]: https://pear.php.net/index.php  
 [runphptest]: https://github.com/php/php-src/blob/master/run-tests.php  
+[cppref]: http://zh.cppreference.com/w/%E9%A6%96%E9%A1%B5  
 
