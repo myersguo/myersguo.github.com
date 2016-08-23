@@ -124,7 +124,18 @@ blogindex {
   cursor: pointer;
   
 }
-header ul {
+
+.article-footer{
+    margin: 0 0 20px 0;
+    border-top: 1px solid #dae0e6;
+    padding-top: 3px;
+    color: #666;
+    font-size: 13px;
+    text-align: right;
+}
+
+
+heager ul {
   display: inline-block;
   list-style:none;
   height:40px;
