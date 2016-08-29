@@ -29,7 +29,7 @@
   <body>
     <div class="wrapper">
       <header>
-        <h1>WELCOME</h1>
+        <h1>{% if page.title %} {{ page.title }} {% else %} WELCOME {% endif %}</h1>
  
 
         <ul>
