@@ -14,7 +14,17 @@ title: Jenkins 相关
 * CVS Plugin   
 统一登录认证服务接入插件。   
 
-* 
+* xunit   
+
+
+
+
+
+
+
+
+
+
 
 2. Jenkins任务的执行   
 如何做到每日自动执行：使用构建触发器:
