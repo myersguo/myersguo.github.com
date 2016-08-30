@@ -2,6 +2,7 @@
 layout: wp
 title: Write To Write Go Code
 ---
+2年前，我开始接触GOLANG，想要认真[学习一下](http://myersguo.github.io/2014/08/20/go-programming-study.html),结果没有坚持下去，就像是跑步，跑了一个月之后就不跑了。GOLANG的学习，因为工作需要，需要继续认真研究一下。   
 
 本文基本来自最后的[参考](#reference).   
 
@@ -60,6 +61,40 @@ import path标识一个package.系统的($GOROOT/src下面的包)包名使用短
 >可执行二进制文件的package name必须是main   
 
 GOLANG包含一个轻量级的test framework,测试文件以_test命名，使用go test进行测试。  
+
+GOLANG的工具go get，可以获取远端的仓库代码，例如：go get github.com/golang/example/hello,执行命令将下载该路径的代码到GOPATH下的src/github中。  
+
+## GO语言规范  
+
+### 格式,注释,名称    
+代码的语言风格虽然是千人千面，但GOLANG用自动化的方式使用go fmt进行代码格式化; GOLANG提供两种注释方式:  
+>block comments /* */,通常用在包的说明，在大端注释或表达式内注释也很有用；  
+>line comments //    
+
+GOLANG的代码文档生成工具GODOC，读取源码。  
+
+>包注释： package前，eg: // Package io provides basic interfaces to I/O primitives.
+>语句注释：导出的变量、函数(大写开头)都应该有注释:  
+
+GOLANG的名称和其他语言不同，命名加入了语义，这个想法真是奇特。名称的首字母大写表示可导出。
+
+Getter: 因为GO的首字母大写表示导出，因此Getter方法，使用大写表示更好，eg: Owner,而不是GetOwner  
+接口名：方法的接口名，建议方法名后加er,eg: Reader,Writter。  
+
+分号：GO代码中不需要使用分号来进行分割（循环中需要），GO的语法解析器将按照某种规则插入分号。但括号不应该在控制语句的下一行，因为分号将会解析后插入控制语句行。将会造成某种意想不到的错误。  
+
+IF语句：使用或括号包含if语句，尤其是在有多行表达式的时候非常有用。  
+
+```
+if err:= file.Chmod(0664); err != nil {
+    return err
+}
+```
+if可以使用一个初始化的语句，用;分割多个表达式。  
+
+
+
+
 
 [未完待续]()
 
