@@ -230,7 +230,8 @@ hr {
     padding: 50px;
     text-align: center;
 }
-.page-nav .item{
+.post-nav .item{
+    padding: 0px 20px;
 }
 
 
