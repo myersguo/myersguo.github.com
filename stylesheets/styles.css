@@ -2,10 +2,12 @@
 
 body {
   font-family: Consolas, Monaco, 'Lucida Console', 'Liberation Mono', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Courier New';
+  /*font-family: "lucida grande", "lucida sans unicode", lucida, helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+   */
+  font-size: 18px;
   color:#555555;
   font-weight:300;
   margin: 0;
-  font-size: 14px;
   line-height: 20px;
 }
 
@@ -25,10 +27,11 @@ h1, h2, h3 {
 h1 {
   font-size:28px;
 }
-
+h2 {
+  background: #E0EBF5;
+}
 h2,h3,h4 {
   color:#393939;
-  background: #E0EBF5;
   padding: 8px;
   line-height: 1.25;
   font-weight: normal 
@@ -36,6 +39,7 @@ h2,h3,h4 {
 
 h3, h4, h5, h6 {
   color:#494949;
+  border-bottom: 1px LightGrey solid;
 }
 
 a {
@@ -211,6 +215,7 @@ section {
   color: #2f2f2f;
   line-height: 1.7;
   clear:both;
+  border:1px solid LightGrey;
 }
 
 small {
