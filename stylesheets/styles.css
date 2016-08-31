@@ -207,7 +207,6 @@ header ul a strong {
 section {
   overflow: hidden;
   word-wrap: break-word;
-  border-left: 1px solid #DDD;
   padding: 20px 50px;
   color: #2f2f2f;
   line-height: 1.7;
