@@ -2,10 +2,11 @@
 
 body {
   font-family: Consolas, Monaco, 'Lucida Console', 'Liberation Mono', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Courier New';
-  color:black;
+  color:#555555;
   font-weight:300;
-  line-height: 1.5em;
   margin: 0;
+  font-size: 14px;
+  line-height: 20px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -79,6 +80,7 @@ code, pre {
   font-family:Monaco, Bitstream Vera Sans Mono, Lucida Console, Terminal;
   color:#333;
   overflow-x: auto;
+  font-size: 12px;
 }
 
 pre {
