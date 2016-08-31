@@ -31,12 +31,15 @@
       <header>
         <h1>{% if page.title %} {{ page.title }} {% else %} WELCOME {% endif %}</h1>
  
-
+        {% if page.shownav != null %}
         <ul>
           <li><a href="/" target="_self">主页</a></li>
           <li><a href="/about/" target="_self">关于</a></li>
           <li><a href="/search/" target="_self">搜索</a></li>
         </ul>
+
+        {% endif %}
+
         
         {% if page.blogindex %}
         <blogindex></blogindex>
