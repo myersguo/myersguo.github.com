@@ -78,7 +78,6 @@ margin: 1em;
 code, pre {
   font-family:Monaco, Bitstream Vera Sans Mono, Lucida Console, Terminal;
   color:#333;
-  font-size:12px;
   overflow-x: auto;
 }
 
@@ -134,7 +133,6 @@ blogindex {
     border-top: 1px solid #dae0e6;
     padding-top: 3px;
     color: #666;
-    font-size: 13px;
     text-align: right;
 }
 
@@ -207,7 +205,6 @@ header ul a strong {
 section {
   overflow: hidden;
   word-wrap: break-word;
-  font-size: 13px;
   border-left: 1px solid #DDD;
   padding: 20px 50px;
 }
