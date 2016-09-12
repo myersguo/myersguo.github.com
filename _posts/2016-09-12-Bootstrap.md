@@ -5,11 +5,11 @@ title: 大话bootstrap
 
 bootstrap4.0截止到今天(2016.09.12)仍在4.0 alpha阶段，增加了工具类的支持(相比它，uikit早就[支持了](https://github.com/uikit/uikit/blob/develop/src/less/core/utility.less#L33))。我们来看一下：  
 
-### 工具类 ###
+### 工具类 ###  
 
 #### 空间类 ####  
 
-命名方式： {property}-{sides}-{size}  
+命名方式： property-sides-size
 其中，property为  
 m——代表margin  
 p——代表padding  
