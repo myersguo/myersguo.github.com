@@ -1,6 +1,7 @@
 ---
 layout: wp
 title: 写代码的同时思考人生
+private: true
 ---
 
 未来看吧。  
