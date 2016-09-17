@@ -7,11 +7,15 @@ title: 做好网页设计
 自己简单看了几个站点的页面设计，简单总结，方便以后参考：   
 
 1）重点突出。   
+
 * 字体大小要区分，不能通篇一种字体大小。突出显示可以使用h1,h2,h3这样的标题。      
+
 * 颜色背景的区分。突出表现，可以使用鲜艳的背景色，比如，错误提示(error notification);  
+
 * 使用图标。常见的网页图标，可辅助文字表述。  
 
 2）布局自然。  
+
 * 单列布局。使用内容少、结构单一的页面。即使如此，单列的宽度也不亦太宽。现在的页面少有单列的了，且看几个例子：
     medium的blog[内容页](https://blog.medium.com/a-look-at-recent-improvements-to-responses-568f78bd2327#.fkqu691ew),宽度:700px  
     facebook的登录页面的输入框[宽度](https://www.facebook.com/login.php?login_attempt=1&lwv=110)：612px  
