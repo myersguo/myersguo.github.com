@@ -3,6 +3,9 @@ layout: wp
 title: 大话bootstrap
 ---
 
+bootstrap包含一些样式工具类，本文重点介绍它。   
+
+
 bootstrap4.0截止到今天(2016.09.12)仍在4.0 alpha阶段，增加了工具类的支持(相比它，uikit早就[支持了](https://github.com/uikit/uikit/blob/develop/src/less/core/utility.less#L33))。我们来看一下：  
 
 ### 工具类 ###  
@@ -62,5 +65,7 @@ bg-primary,bg-success, bg-info, bg-warning, bg-danger, bg-inverse
 
 
 参考：  
+[bootstrap css helper](http://www.w3schools.com/bootstrap/bootstrap_ref_css_helpers.asp)  
+[bootstrap css helper](http://getbootstrap.com/css/#helper-classes)  
 bootstrap grid:[http://v4-alpha.getbootstrap.com/layout/grid/](http://v4-alpha.getbootstrap.com/layout/grid/)  
 bootstrap组件：[http://v4-alpha.getbootstrap.com/components/utilities/](http://v4-alpha.getbootstrap.com/components/utilities/)
