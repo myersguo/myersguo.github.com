@@ -30,16 +30,28 @@ gpgkey=https://yum.dockerproject.org/gpg
 ```
 
 先卸载本地docker:  
+```
 yum -y docker-engine  
+``` 
+
+
 
 执行安装： 
+
+```
 sudo yum -y install docker-engine   
+```  
+
 
 开机启动：  
+```
 sudo systemctl enable docker.service  
+```  
 
 启动docker 服务：  
+```
 sudo systemctl start docker  
+```
 
 安装失败，使用docker -d 出现错误提示：   
 
@@ -50,7 +62,9 @@ docker: relocation error: docker: symbol dm_task_get_info_with_deferred_remove, 
 
 google到[docker issues]中通过升级device-mapper-level解决了([linux device mapper]机制)
 
+```
 yum install device-mapper-devel     
+```
 
 查看docker 的信息：  
 
@@ -117,6 +131,7 @@ time="2016-10-14T15:36:08.573444334+08:00" level=error msg="HTTP Error" err="Can
 ```
 
 why?
+
 ```
 docker version
 Client version: 1.7.1
