@@ -44,11 +44,13 @@ sudo yum -y install docker-engine
 
 
 开机启动：  
+
 ```
 sudo systemctl enable docker.service  
 ```  
 
 启动docker 服务：  
+
 ```
 sudo systemctl start docker  
 ```
@@ -150,8 +152,12 @@ Linux vagrant.localdomain 2.6.32-358.el6.x86_64 #1 SMP Fri Feb 22 00:31:26 UTC 2
 ```
 
 认证问题？  
+
+```
 cat /var/log/dmesg | grep DENIED   
 cat /var/log/audit/audit.log | grep DENIED   
+```
+
 
 都找不出认证问题。   
 
