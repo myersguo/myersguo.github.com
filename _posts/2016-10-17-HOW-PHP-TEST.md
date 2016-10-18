@@ -14,13 +14,13 @@ export TEST_PHP_EXECUTABLE=/home/work/app/php/bin/php
 
 执行测试：  
 
-```
+```php
 /home/work/app/php/bin/php  run-tests.php tests/basic/001.phpt 
 ```
 
 结果：   
 
-```
+```php
 =====================================================================
 PHP         : /home/work/app/php/bin/php 
 PHP_SAPI    : cli
@@ -49,19 +49,19 @@ Time taken      :   11 seconds
 
 设置JUNIT输出：  
 
-```
+```php
 export TEST_PHP_JUNIT="/tmp/php.result"   
 ```
 
 再次执行上述测试，查看php执行结果：  
 
-```
+```shell
 cat /tmp/php.result
 ```
 
 结果：  
 
-```
+```php
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
 <testsuite name="php-src" tests="1" failures="0" errors="0" skip="0" time="10.3658">
@@ -77,7 +77,7 @@ cat /tmp/php.result
 
 检查：  
 
-```
+```php
 pcre扩展，
 PHP_VERSION_ID全局变量(php 5.2.8才有);  
 定义__DIR__(php5.3.0后才有); 
@@ -87,26 +87,26 @@ PHP_VERSION_ID全局变量(php 5.2.8才有);
 
 设置security related env:  
 
-```
+```php
 putenv('SSH_CLIENT=deleted');
 ```
 
 设置：  
 
-```
+```php
 ini_set('pcre.backtrack_limit', PHP_INT_MAX);
 
 ```
 
 清空缓存：  
 
-```
+```php
 while(@ob_end_clean());
 ```
 
 检查环境变量 TEST_PHP_EXECUTABLE,TEST_PHP_CGI_EXECUTABLE：  
 
-```
+```php
 if (getenv('TEST_PHP_EXECUTABLE')) {
     $php = getenv('TEST_PHP_EXECUTABLE');
     if ($php=='auto') {
@@ -132,7 +132,8 @@ if (function_exists('is_executable') && !is_executable($php)) {
 ```
 
 检查LOG的输出详情：  
-```
+
+```php
 if (getenv('TEST_PHP_LOG_FORMAT')) {
     $log_format = strtoupper(getenv('TEST_PHP_LOG_FORMAT'));
 } else {
