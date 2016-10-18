@@ -148,7 +148,7 @@ junit_init();
 write_information: 输出PHP当前信息,eg:  
 
 
-```
+```php
 =====================================================================
 PHP         : /home/work/app/php/bin/php 
 PHP_SAPI    : cli
