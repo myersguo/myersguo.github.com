@@ -19,6 +19,7 @@ export TEST_PHP_EXECUTABLE=/home/work/app/php/bin/php
 ```
 
 结果：   
+
 ```
 =====================================================================
 PHP         : /home/work/app/php/bin/php 
@@ -47,6 +48,7 @@ Time taken      :   11 seconds
 ```
 
 设置JUNIT输出：  
+
 ```
 export TEST_PHP_JUNIT="/tmp/php.result"   
 ```
@@ -74,6 +76,7 @@ cat /tmp/php.result
 下面，我讲逐步讲解run-test.php源码(php源码版本5.3):     
 
 检查：  
+
 ```
 pcre扩展，
 PHP_VERSION_ID全局变量(php 5.2.8才有);  
@@ -87,6 +90,7 @@ PHP_VERSION_ID全局变量(php 5.2.8才有);
 ```
 putenv('SSH_CLIENT=deleted');
 ```
+
 设置：  
 
 ```
@@ -95,6 +99,7 @@ ini_set('pcre.backtrack_limit', PHP_INT_MAX);
 ```
 
 清空缓存：  
+
 ```
 while(@ob_end_clean());
 ```
@@ -141,6 +146,7 @@ junit_init();
 ```
 
 write_information: 输出PHP当前信息,eg:  
+
 
 ```
 =====================================================================
