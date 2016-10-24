@@ -166,15 +166,47 @@ cat /var/log/audit/audit.log | grep DENIED
 有后续的解决方案了，再来补充一下。   
 
 
+### 更新 ###   
 
+我的os版本太低，因此我重新打造了我的[测试环境](https://myersguo.github.io/2016/10/18/set-up-myenv.html),这样按照上述步骤，安装docker,docker registry就一路顺畅了。
 
+启动仓库
+```
+docker run -d -p 5000:5000 --restart=always --name registry -v  /home/work/data/docker/data:/var/lib/registry  registry:2
+```
 
+测试
 
+```
+docker pull centos && docker tag centos localhost:5000/centos
+docker push localhost:5000/centos
+docker pull localhost:5000/centos
 
+```
 
+### 测试网络 ###
 
+参照[这篇文章](http://www.infoq.com/cn/articles/docker-network-and-pipework-open-source-explanation-practice):   
+ 
+```
+#安装pipework
+git clone https://github.com/jpetazzo/pipework
+cp ~/pipework/pipework /usr/local/bin/
+#启动Docker容器。
+docker run -itd --name test1 ubuntu /bin/bash
+#配置容器网络，并连到网桥br0上。网关在IP地址后面加@指定。
+#若主机环境中存在dhcp服务器，也可以通过dhcp的方式获取IP
+#pipework br0 test1 dhcp
+pipework br0 test1 10.10.101.150/24@10.10.101.254
+#将主机eth0桥接到br0上，并把eth0的IP配置在br0上。这里由于是远程操作，中间网络会断掉，所以放在一条命令中执行。
+ip addr add 10.10.101.105/24 dev br0; \
+    ip addr del 10.10.101.105/24 dev eth0; \
+    brctl addif br0 eth0; \
+    ip route del default; \
+    ip route add default gw 10.10.101.254 dev br0
+```
 
-
+这样，就可以使用独立的IP了。
 
 
 
