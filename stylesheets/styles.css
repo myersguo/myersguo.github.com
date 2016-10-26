@@ -79,6 +79,12 @@ blockquote p {
 margin: 1em;
 }
 
+p code{
+    background-color: #eee;
+    padding: 5px;
+    font-size: inherit;
+}
+
 code, pre {
   font-family:Monaco, Bitstream Vera Sans Mono, Lucida Console, Terminal;
   color:#333;
