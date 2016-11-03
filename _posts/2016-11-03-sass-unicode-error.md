@@ -33,6 +33,8 @@ $font-text: "\f26e";
 }
 ```
 
+参见：[sassmeister.com](http://www.sassmeister.com/gist/f438e2d834b915c77d90806b960baf22)   
+
 果然是这个问题！   
 
 我开始熟练的使用google,
