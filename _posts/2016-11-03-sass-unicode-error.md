@@ -37,16 +37,6 @@ $font-text: "\f26e";
 
 果然是这个问题！   
 
-我开始熟练的使用google,
-```
-
-果然是这个问题！   
-
-我开始熟练的,
-```
-
-果然是这个问题！   
-
 我开始熟练的使用google,这个问题果然很多人都遇到了：   
 
 [sass issues#1395](https://github.com/sass/sass/issues/1395)  
