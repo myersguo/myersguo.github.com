@@ -55,9 +55,8 @@ var app =new Vue({
 ```
 
 
-<div id="result" class="window bottom">
-    <iframe name="result" sandbox="allow-forms allow-popups allow-scripts allow-same-origin allow-modals" allowfullscreen="" frameborder="0" src="https//fiddle.jshell.net/myersguo/okrefvjt/show/"></iframe>
-  </div>
+<iframe src="//fiddle.jshell.net/myersguo/okrefvjt/show/light/" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 
 简直帅的不敢相信，有什么理由不学习、使用一下这种先进生产力?  
 
