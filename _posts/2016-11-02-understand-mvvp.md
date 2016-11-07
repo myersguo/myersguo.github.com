@@ -75,5 +75,6 @@ var app =new Vue({
 [http://www.tych.io/tech/2014/07/21/template-of-angularjs.html](http://www.tych.io/tech/2014/07/21/template-of-angularjs.html)  
 [http://blog.qivhou.com/translation/2014/04/03/Understanding-MVVM-A-Guide-For-JavaScript-Developers/](http://blog.qivhou.com/translation/2014/04/03/Understanding-MVVM-A-Guide-For-JavaScript-Developers/)  
 [Single-page application,SPA](https://en.wikipedia.org/wiki/Single-page_application)  
+[Javascript Template library](https://en.wikipedia.org/wiki/JavaScript_templating)  
 
 
