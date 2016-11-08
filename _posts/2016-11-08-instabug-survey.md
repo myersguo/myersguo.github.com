@@ -22,12 +22,12 @@ title: instabug survey
 * [Foundation](https://github.com/zurb/foundation-apps):The first front-end framework created for developing fully responsive web apps.   
 * [what-input](https://github.com/ten1seven/what-input):A global utility for tracking the current input method (mouse, keyboard or touch).   
 * [fancybox](http://fancyapps.com/fancybox/#docs):fancyBox is a tool that offers a nice and elegant way to add zooming functionality for images, html content and multi-media on your webpages. It is built on the top of the popular JavaScript framework jQuery and is both easy to implement and a snap to customize.   
-*[ment.io](https://github.com/jeff-collins/ment.io)Mentions and Macros for Angular  
-*[ngular-loading-bar](http://chieffancypants.github.io/angular-loading-bar/)   
-*[ng-file-upload](https://github.com/danialfarid/ng-file-upload)  
-*[angularjs-dropdown-multiselect](http://dotansimha.github.io/angularjs-dropdown-multiselect/#/)   
-*[angularui](https://github.com/angular-ui)    
-*[angularjs](https://angularjs.org/)  
+* [ment.io](https://github.com/jeff-collins/ment.io):Mentions and Macros for Angular  
+* [ngular-loading-bar](http://chieffancypants.github.io/angular-loading-bar/)   
+* [ng-file-upload](https://github.com/danialfarid/ng-file-upload)  
+* [angularjs-dropdown-multiselect](http://dotansimha.github.io/angularjs-dropdown-multiselect/#/)   
+* [angularui](https://github.com/angular-ui)    
+* [angularjs](https://angularjs.org/)  
 
 
 暂时看到就这么多，看来，前端的很多东西都是『他山之石』，拿来就用即可，尤其是后端程序员，如果时间不充足，根本没有必要去创建新的组件、框架。   
