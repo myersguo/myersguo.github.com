@@ -44,12 +44,14 @@ CouchDB (persistence, business logic, and templating)
 couchapp怎么来创建一个couchdb的web server参见：[https://www.ibm.com/developerworks/cn/opensource/os-cn-couchdb/](https://www.ibm.com/developerworks/cn/opensource/os-cn-couchdb/)和[https://couchapp.readthedocs.io/en/latest/couchapp/gettingstarted.html](https://couchapp.readthedocs.io/en/latest/couchapp/gettingstarted.html),
 
 ![iamge](https://www.ibm.com/developerworks/cn/opensource/os-cn-couchdb/couchapp-diectory-layout.JPG)  
+
 >views— 包含数据库上的视图。它们是 JavaScript 函数，这些函数构建了您想要返回的键和数据的列表，等同于一般的数据库查询。
 >lists— 包含用来构建视图输出格式化版本的列表。 列表是 JavaScript 函数，它读取视图信息并格式化信息（通常是 HTML）用于显示。
 >shows— 显示单个文档，而不是视图中提供的一组文档。和列表一样，显示也是定义为 JavaScript 函数。
 >attachments— 包含应用程序的附件，包括 index.html 和 JavaScript 文件。
 >vendor目录中包含的是 CouchApp 提供的一些 JavaScript 类库；
 >templates目录中包含的是 show 和 list 方法所需的 HTML 模板。在下面的章节中将会具体介绍这些目录中存放的文件。  
+
 
 ### crash 上报  ###  
 
