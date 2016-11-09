@@ -13,6 +13,10 @@ ACRA分为三个部分：
 * acra-storage: couchdb web application，存储ACRA SDK上报的数据
 * acralyzer: ACRA的统计工具  
 
+![draw images](/public/draw_acra.png)   
+
+
+
 ### couchdb web application ###   
 
 传统的WEB框架有三层：   
