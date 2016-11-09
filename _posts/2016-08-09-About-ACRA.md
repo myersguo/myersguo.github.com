@@ -160,7 +160,20 @@ if(data.STACK_TRACE) {
 问题： 这个REPORT_ID是怎么来的？   
 
 
+###  acra-acralyzer ###   
 
+前端工具，调用storage提供的数据接口进行展示。使用的框架有：   
+
+```
+CouchDB
+AngularJS
+Twitter Bootstrap
+Bootstrap-Notify
+d3.js
+JQuery
+prettyprint.js,
+moment.js
+```
 
 
 参考资料：   
