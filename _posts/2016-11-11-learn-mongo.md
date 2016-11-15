@@ -16,28 +16,51 @@ title: learn about mongo
 
 ### 存储与引擎 ###   
 
-<table class="table table-bordered">
-  <tbody><tr>
-    <th>RDBMS</th>
-    <th>MongoDB</th>
-  </tr>
-  <tr>
-    <td>Table</td>
-    <td>Collection</td>
-  </tr>
-  <tr>
-    <td>Column</td>
-    <td>Key</td>
-  </tr>
-  <tr>
-    <td>Value</td>
-    <td>Value</td>
-  </tr>
-  <tr>
-    <td>Records / Rows</td>
-    <td>Document / Object</td>
-  </tr>
-</tbody></table>
+
+<table border="1" class="docutils">
+<colgroup>
+<col width="50%">
+<col width="50%">
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">SQL Terms/Concepts</th>
+<th class="head">MongoDB Terms/Concepts</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>database</td>
+<td><a class="reference internal" ><em class="xref std std-term">database</em></a></td>
+</tr>
+<tr class="row-odd"><td>table</td>
+<td><a class="reference internal" ><em class="xref std std-term">collection</em></a></td>
+</tr>
+<tr class="row-even"><td>row</td>
+<td><a class="reference internal" ><em class="xref std std-term">document</em></a> or <a class="reference internal" href="../glossary/#term-bson"><em class="xref std std-term">BSON</em></a> document</td>
+</tr>
+<tr class="row-odd"><td>column</td>
+<td><a class="reference internal" ><em class="xref std std-term">field</em></a></td>
+</tr>
+<tr class="row-even"><td>index</td>
+<td><a class="reference internal"><em class="xref std std-term">index</em></a></td>
+</tr>
+<tr class="row-odd"><td>table joins</td>
+<td>embedded documents and linking</td>
+</tr>
+<tr class="row-even"><td><p class="first">primary key</p>
+<p class="last">Specify any unique column or column combination as primary
+key.</p>
+</td>
+<td><p class="first"><a class="reference internal"><em class="xref std std-term">primary key</em></a></p>
+<p class="last">In MongoDB, the primary key is automatically set to the
+<a class="reference internal" ><em class="xref std std-term">_id</em></a> field.</p>
+</td>
+</tr>
+<tr class="row-odd"><td>aggregation (e.g. group by)</td>
+<td><p class="first">aggregation pipeline</p>
+</td>
+</tr>
+</tbody>
+</table>
 
 mongo3.2.10的默认存储引擎是,wiredtiger.之前的存储引擎是MMAPV1.  
 
@@ -127,5 +150,10 @@ document是mongo的存储单元，即一条存储记录。不同与传统的RDBM
 
 
 ### Aggregation ###  
+
+
+### 权限控制 ###  
+
+
 
 
