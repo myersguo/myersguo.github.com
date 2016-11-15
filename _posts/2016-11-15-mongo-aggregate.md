@@ -46,7 +46,8 @@ crash_exception_desc: a
 
 我们用MYSQL来统计：   
 
-1。 统计设备TOP5  
+#### 统计设备TOP5 #### 
+
 
 ```
 SELECT COUNT(*) as number,device_model FROM xmapp_crash 
@@ -54,7 +55,7 @@ GROUP BY device_model
 ORDER BY number desc 
 ```
 
-2. 统计CRASH的48小时内每小时的数据  
+#### 统计CRASH的48小时内每小时的数据  ####
 
 ```
 SELECT count(*) as number,DATE_FORMAT(FROM_UNIXTIME(app_crash_time), '%Y-%m-%d %H') as t
@@ -64,7 +65,8 @@ GROUP BY DATE_FORMAT(FROM_UNIXTIME(app_crash_time), '%Y-%m-%d %H')
 ORDER BY t desc
 ```
 
-3. 统计一个月内的数据 
+#### 统计一个月内的数据 ####
+
 
 ```
 SELECT count(*) as number,DATE_FORMAT(FROM_UNIXTIME(app_crash_time), '%Y-%m-%d') as t
@@ -123,7 +125,7 @@ db.app_crash.findOne()
 我们来做统计：   
 
 
-1. 统计设备TOP5
+####  统计设备TOP5 ####
 
 
 ```
@@ -156,7 +158,7 @@ db.crash.group({
 ```
 
 
-2 .#统计CRASH的时间曲线，48小时内每小时
+#### 统计CRASH的时间曲线，48小时内每小时 ####
 
 ```
 db.crash.mapReduce(
@@ -175,7 +177,7 @@ db.crash.mapReduce(
 ```
 
 
-3. 统计一个月内，机型CRASH的分布
+#### 统计一个月内，机型CRASH的分布 ####
 
 ```
 db.crash.mapReduce(
