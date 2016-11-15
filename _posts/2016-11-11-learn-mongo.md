@@ -215,6 +215,383 @@ documents using the <a class="reference internal" href="https://docs.mongodb.com
 </tbody>
 </table>
 
+<table border="1" class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">SQL SELECT Statements</th>
+<th class="head">MongoDB find() Statements</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><div class="first last highlight-sql"><div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="o">*</span>
+<span class="k">FROM</span> <span class="n">users</span>
+</pre></div>
+</div>
+</td>
+<td><div class="first last highlight-javascript"><div class="highlight"><pre><span></span><span class="hll"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">()</span>
+</span></pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><div class="first last highlight-sql"><div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="n">id</span><span class="p">,</span>
+       <span class="n">user_id</span><span class="p">,</span>
+       <span class="n">status</span>
+<span class="k">FROM</span> <span class="n">users</span>
+</pre></div>
+</div>
+</td>
+<td><div class="first last highlight-javascript"><div class="highlight"><pre><span></span><span class="hll"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span>
+</span><span class="hll">    <span class="p">{</span> <span class="p">},</span>
+</span><span class="hll">    <span class="p">{</span> <span class="nx">user_id</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">status</span><span class="o">:</span> <span class="mi">1</span> <span class="p">}</span>
+</span><span class="hll"><span class="p">)</span>
+</span></pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><div class="first last highlight-sql"><div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">status</span>
+<span class="k">FROM</span> <span class="n">users</span>
+</pre></div>
+</div>
+</td>
+<td><div class="first last highlight-javascript"><div class="highlight"><pre><span></span><span class="hll"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span>
+</span><span class="hll">    <span class="p">{</span> <span class="p">},</span>
+</span><span class="hll">    <span class="p">{</span> <span class="nx">user_id</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">status</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">_id</span><span class="o">:</span> <span class="mi">0</span> <span class="p">}</span>
+</span><span class="hll"><span class="p">)</span>
+</span></pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><div class="first last highlight-sql"><div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="o">*</span>
+<span class="k">FROM</span> <span class="n">users</span>
+<span class="k">WHERE</span> <span class="n">status</span> <span class="o">=</span> <span class="ss">&quot;A&quot;</span>
+</pre></div>
+</div>
+</td>
+<td><div class="first last highlight-javascript"><div class="highlight"><pre><span></span><span class="hll"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span>
+</span><span class="hll">    <span class="p">{</span> <span class="nx">status</span><span class="o">:</span> <span class="s2">&quot;A&quot;</span> <span class="p">}</span>
+</span><span class="hll"><span class="p">)</span>
+</span></pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><div class="first last highlight-sql"><div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">status</span>
+<span class="k">FROM</span> <span class="n">users</span>
+<span class="k">WHERE</span> <span class="n">status</span> <span class="o">=</span> <span class="ss">&quot;A&quot;</span>
+</pre></div>
+</div>
+</td>
+<td><div class="first last highlight-javascript"><div class="highlight"><pre><span></span><span class="hll"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span>
+</span><span class="hll">    <span class="p">{</span> <span class="nx">status</span><span class="o">:</span> <span class="s2">&quot;A&quot;</span> <span class="p">},</span>
+</span><span class="hll">    <span class="p">{</span> <span class="nx">user_id</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">status</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">_id</span><span class="o">:</span> <span class="mi">0</span> <span class="p">}</span>
+</span><span class="p">)</span>
+</pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><div class="first last highlight-sql"><div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="o">*</span>
+<span class="k">FROM</span> <span class="n">users</span>
+<span class="k">WHERE</span> <span class="n">status</span> <span class="o">!=</span> <span class="ss">&quot;A&quot;</span>
+</pre></div>
+</div>
+</td>
+<td><div class="first last highlight-javascript"><div class="highlight"><pre><span></span><span class="hll"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span>
+</span><span class="hll">    <span class="p">{</span> <span class="nx">status</span><span class="o">:</span> <span class="p">{</span> <span class="nx">$ne</span><span class="o">:</span> <span class="s2">&quot;A&quot;</span> <span class="p">}</span> <span class="p">}</span>
+</span><span class="hll"><span class="p">)</span>
+</span></pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><div class="first last highlight-sql"><div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="o">*</span>
+<span class="k">FROM</span> <span class="n">users</span>
+<span class="k">WHERE</span> <span class="n">status</span> <span class="o">=</span> <span class="ss">&quot;A&quot;</span>
+<span class="k">AND</span> <span class="n">age</span> <span class="o">=</span> <span class="mi">50</span>
+</pre></div>
+</div>
+</td>
+<td><div class="first last highlight-javascript"><div class="highlight"><pre><span></span><span class="hll"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span>
+</span><span class="hll">    <span class="p">{</span> <span class="nx">status</span><span class="o">:</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span>
+</span><span class="hll">      <span class="nx">age</span><span class="o">:</span> <span class="mi">50</span> <span class="p">}</span>
+</span><span class="hll"><span class="p">)</span>
+</span></pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><div class="first last highlight-sql"><div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="o">*</span>
+<span class="k">FROM</span> <span class="n">users</span>
+<span class="k">WHERE</span> <span class="n">status</span> <span class="o">=</span> <span class="ss">&quot;A&quot;</span>
+<span class="k">OR</span> <span class="n">age</span> <span class="o">=</span> <span class="mi">50</span>
+</pre></div>
+</div>
+</td>
+<td><div class="first last highlight-javascript"><div class="highlight"><pre><span></span><span class="hll"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span>
+</span><span class="hll">    <span class="p">{</span> <span class="nx">$or</span><span class="o">:</span> <span class="p">[</span> <span class="p">{</span> <span class="nx">status</span><span class="o">:</span> <span class="s2">&quot;A&quot;</span> <span class="p">}</span> <span class="p">,</span>
+</span><span class="hll">             <span class="p">{</span> <span class="nx">age</span><span class="o">:</span> <span class="mi">50</span> <span class="p">}</span> <span class="p">]</span> <span class="p">}</span>
+</span><span class="hll"><span class="p">)</span>
+</span></pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><div class="first last highlight-sql"><div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="o">*</span>
+<span class="k">FROM</span> <span class="n">users</span>
+<span class="k">WHERE</span> <span class="n">age</span> <span class="o">&gt;</span> <span class="mi">25</span>
+</pre></div>
+</div>
+</td>
+<td><div class="first last highlight-javascript"><div class="highlight"><pre><span></span><span class="hll"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span>
+</span><span class="hll">    <span class="p">{</span> <span class="nx">age</span><span class="o">:</span> <span class="p">{</span> <span class="nx">$gt</span><span class="o">:</span> <span class="mi">25</span> <span class="p">}</span> <span class="p">}</span>
+</span><span class="hll"><span class="p">)</span>
+</span></pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><div class="first last highlight-sql"><div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="o">*</span>
+<span class="k">FROM</span> <span class="n">users</span>
+<span class="k">WHERE</span> <span class="n">age</span> <span class="o">&lt;</span> <span class="mi">25</span>
+</pre></div>
+</div>
+</td>
+<td><div class="first last highlight-javascript"><div class="highlight"><pre><span></span><span class="hll"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span>
+</span><span class="hll">   <span class="p">{</span> <span class="nx">age</span><span class="o">:</span> <span class="p">{</span> <span class="nx">$lt</span><span class="o">:</span> <span class="mi">25</span> <span class="p">}</span> <span class="p">}</span>
+</span><span class="hll"><span class="p">)</span>
+</span></pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><div class="first last highlight-sql"><div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="o">*</span>
+<span class="k">FROM</span> <span class="n">users</span>
+<span class="k">WHERE</span> <span class="n">age</span> <span class="o">&gt;</span> <span class="mi">25</span>
+<span class="k">AND</span>   <span class="n">age</span> <span class="o">&lt;=</span> <span class="mi">50</span>
+</pre></div>
+</div>
+</td>
+<td><div class="first last highlight-javascript"><div class="highlight"><pre><span></span><span class="hll"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span>
+</span><span class="hll">   <span class="p">{</span> <span class="nx">age</span><span class="o">:</span> <span class="p">{</span> <span class="nx">$gt</span><span class="o">:</span> <span class="mi">25</span><span class="p">,</span> <span class="nx">$lte</span><span class="o">:</span> <span class="mi">50</span> <span class="p">}</span> <span class="p">}</span>
+</span><span class="hll"><span class="p">)</span>
+</span></pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><div class="first last highlight-sql"><div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="o">*</span>
+<span class="k">FROM</span> <span class="n">users</span>
+<span class="k">WHERE</span> <span class="n">user_id</span> <span class="k">like</span> <span class="ss">&quot;%bc%&quot;</span>
+</pre></div>
+</div>
+</td>
+<td><div class="first last highlight-javascript"><div class="highlight"><pre><span></span><span class="hll"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span> <span class="p">{</span> <span class="nx">user_id</span><span class="o">:</span> <span class="sr">/bc/</span> <span class="p">}</span> <span class="p">)</span>
+</span></pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><div class="first last highlight-sql"><div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="o">*</span>
+<span class="k">FROM</span> <span class="n">users</span>
+<span class="k">WHERE</span> <span class="n">user_id</span> <span class="k">like</span> <span class="ss">&quot;bc%&quot;</span>
+</pre></div>
+</div>
+</td>
+<td><div class="first last highlight-javascript"><div class="highlight"><pre><span></span><span class="hll"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span> <span class="p">{</span> <span class="nx">user_id</span><span class="o">:</span> <span class="sr">/^bc/</span> <span class="p">}</span> <span class="p">)</span>
+</span></pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><div class="first last highlight-sql"><div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="o">*</span>
+<span class="k">FROM</span> <span class="n">users</span>
+<span class="k">WHERE</span> <span class="n">status</span> <span class="o">=</span> <span class="ss">&quot;A&quot;</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="n">user_id</span> <span class="k">ASC</span>
+</pre></div>
+</div>
+</td>
+<td><div class="first last highlight-javascript"><div class="highlight"><pre><span></span><span class="hll"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span> <span class="p">{</span> <span class="nx">status</span><span class="o">:</span> <span class="s2">&quot;A&quot;</span> <span class="p">}</span> <span class="p">).</span><span class="nx">sort</span><span class="p">(</span> <span class="p">{</span> <span class="nx">user_id</span><span class="o">:</span> <span class="mi">1</span> <span class="p">}</span> <span class="p">)</span>
+</span></pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><div class="first last highlight-sql"><div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="o">*</span>
+<span class="k">FROM</span> <span class="n">users</span>
+<span class="k">WHERE</span> <span class="n">status</span> <span class="o">=</span> <span class="ss">&quot;A&quot;</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="n">user_id</span> <span class="k">DESC</span>
+</pre></div>
+</div>
+</td>
+<td><div class="first last highlight-javascript"><div class="highlight"><pre><span></span><span class="hll"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span> <span class="p">{</span> <span class="nx">status</span><span class="o">:</span> <span class="s2">&quot;A&quot;</span> <span class="p">}</span> <span class="p">).</span><span class="nx">sort</span><span class="p">(</span> <span class="p">{</span> <span class="nx">user_id</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span> <span class="p">}</span> <span class="p">)</span>
+</span></pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><div class="first last highlight-sql"><div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
+<span class="k">FROM</span> <span class="n">users</span>
+</pre></div>
+</div>
+</td>
+<td><div class="first highlight-javascript"><div class="highlight"><pre><span></span><span class="hll"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">count</span><span class="p">()</span>
+</span></pre></div>
+</div>
+<p><em>or</em></p>
+<div class="last highlight-javascript"><div class="highlight"><pre><span></span><span class="hll"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">().</span><span class="nx">count</span><span class="p">()</span>
+</span></pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><div class="first last highlight-sql"><div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="k">COUNT</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
+<span class="k">FROM</span> <span class="n">users</span>
+</pre></div>
+</div>
+</td>
+<td><div class="first highlight-javascript"><div class="highlight"><pre><span></span><span class="hll"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">count</span><span class="p">(</span> <span class="p">{</span> <span class="nx">user_id</span><span class="o">:</span> <span class="p">{</span> <span class="nx">$exists</span><span class="o">:</span> <span class="kc">true</span> <span class="p">}</span> <span class="p">}</span> <span class="p">)</span>
+</span></pre></div>
+</div>
+<p><em>or</em></p>
+<div class="last highlight-javascript"><div class="highlight"><pre><span></span><span class="hll"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span> <span class="p">{</span> <span class="nx">user_id</span><span class="o">:</span> <span class="p">{</span> <span class="nx">$exists</span><span class="o">:</span> <span class="kc">true</span> <span class="p">}</span> <span class="p">}</span> <span class="p">).</span><span class="nx">count</span><span class="p">()</span>
+</span></pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><div class="first last highlight-sql"><div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
+<span class="k">FROM</span> <span class="n">users</span>
+<span class="k">WHERE</span> <span class="n">age</span> <span class="o">&gt;</span> <span class="mi">30</span>
+</pre></div>
+</div>
+</td>
+<td><div class="first highlight-javascript"><div class="highlight"><pre><span></span><span class="hll"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">count</span><span class="p">(</span> <span class="p">{</span> <span class="nx">age</span><span class="o">:</span> <span class="p">{</span> <span class="nx">$gt</span><span class="o">:</span> <span class="mi">30</span> <span class="p">}</span> <span class="p">}</span> <span class="p">)</span>
+</span></pre></div>
+</div>
+<p><em>or</em></p>
+<div class="last highlight-javascript"><div class="highlight"><pre><span></span><span class="hll"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span> <span class="p">{</span> <span class="nx">age</span><span class="o">:</span> <span class="p">{</span> <span class="nx">$gt</span><span class="o">:</span> <span class="mi">30</span> <span class="p">}</span> <span class="p">}</span> <span class="p">).</span><span class="nx">count</span><span class="p">()</span>
+</span></pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><div class="first last highlight-sql"><div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="k">DISTINCT</span><span class="p">(</span><span class="n">status</span><span class="p">)</span>
+<span class="k">FROM</span> <span class="n">users</span>
+</pre></div>
+</div>
+</td>
+<td><div class="first last highlight-javascript"><div class="highlight"><pre><span></span><span class="hll"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">distinct</span><span class="p">(</span> <span class="s2">&quot;status&quot;</span> <span class="p">)</span>
+</span></pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><div class="first last highlight-sql"><div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="o">*</span>
+<span class="k">FROM</span> <span class="n">users</span>
+<span class="k">LIMIT</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</td>
+<td><div class="first highlight-javascript"><div class="highlight"><pre><span></span><span class="hll"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">findOne</span><span class="p">()</span>
+</span></pre></div>
+</div>
+<p><em>or</em></p>
+<div class="last highlight-javascript"><div class="highlight"><pre><span></span><span class="hll"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">().</span><span class="nx">limit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><div class="first last highlight-sql"><div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="o">*</span>
+<span class="k">FROM</span> <span class="n">users</span>
+<span class="k">LIMIT</span> <span class="mi">5</span>
+<span class="n">SKIP</span> <span class="mi">10</span>
+</pre></div>
+</div>
+</td>
+<td><div class="first last highlight-javascript"><div class="highlight"><pre><span></span><span class="hll"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">().</span><span class="nx">limit</span><span class="p">(</span><span class="mi">5</span><span class="p">).</span><span class="nx">skip</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><div class="first last highlight-sql"><div class="highlight"><pre><span></span><span class="k">EXPLAIN</span> <span class="k">SELECT</span> <span class="o">*</span>
+<span class="k">FROM</span> <span class="n">users</span>
+<span class="k">WHERE</span> <span class="n">status</span> <span class="o">=</span> <span class="ss">&quot;A&quot;</span>
+</pre></div>
+</div>
+</td>
+<td><div class="first last highlight-javascript"><div class="highlight"><pre><span></span><span class="hll"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span> <span class="p">{</span> <span class="nx">status</span><span class="o">:</span> <span class="s2">&quot;A&quot;</span> <span class="p">}</span> <span class="p">).</span><span class="nx">explain</span><span class="p">()</span>
+</span></pre></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+
+
+<table border="1" class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">SQL Update Statements</th>
+<th class="head">MongoDB update() Statements</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><div class="first last highlight-sql"><div class="highlight"><pre><span></span><span class="k">UPDATE</span> <span class="n">users</span>
+<span class="k">SET</span> <span class="n">status</span> <span class="o">=</span> <span class="ss">&quot;C&quot;</span>
+<span class="k">WHERE</span> <span class="n">age</span> <span class="o">&gt;</span> <span class="mi">25</span>
+</pre></div>
+</div>
+</td>
+<td><div class="first last highlight-javascript"><div class="highlight"><pre><span></span><span class="hll"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span>
+</span><span class="hll">   <span class="p">{</span> <span class="nx">age</span><span class="o">:</span> <span class="p">{</span> <span class="nx">$gt</span><span class="o">:</span> <span class="mi">25</span> <span class="p">}</span> <span class="p">},</span>
+</span><span class="hll">   <span class="p">{</span> <span class="nx">$set</span><span class="o">:</span> <span class="p">{</span> <span class="nx">status</span><span class="o">:</span> <span class="s2">&quot;C&quot;</span> <span class="p">}</span> <span class="p">},</span>
+</span><span class="hll">   <span class="p">{</span> <span class="nx">multi</span><span class="o">:</span> <span class="kc">true</span> <span class="p">}</span>
+</span><span class="hll"><span class="p">)</span>
+</span></pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><div class="first last highlight-sql"><div class="highlight"><pre><span></span><span class="k">UPDATE</span> <span class="n">users</span>
+<span class="k">SET</span> <span class="n">age</span> <span class="o">=</span> <span class="n">age</span> <span class="o">+</span> <span class="mi">3</span>
+<span class="k">WHERE</span> <span class="n">status</span> <span class="o">=</span> <span class="ss">&quot;A&quot;</span>
+</pre></div>
+</div>
+</td>
+<td><div class="first last highlight-javascript"><div class="highlight"><pre><span></span><span class="hll"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span>
+</span><span class="hll">   <span class="p">{</span> <span class="nx">status</span><span class="o">:</span> <span class="s2">&quot;A&quot;</span> <span class="p">}</span> <span class="p">,</span>
+</span><span class="hll">   <span class="p">{</span> <span class="nx">$inc</span><span class="o">:</span> <span class="p">{</span> <span class="nx">age</span><span class="o">:</span> <span class="mi">3</span> <span class="p">}</span> <span class="p">},</span>
+</span><span class="hll">   <span class="p">{</span> <span class="nx">multi</span><span class="o">:</span> <span class="kc">true</span> <span class="p">}</span>
+</span><span class="hll"><span class="p">)</span>
+</span></pre></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+
+<table border="1" class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">SQL Delete Statements</th>
+<th class="head">MongoDB remove() Statements</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><div class="first last highlight-sql"><div class="highlight"><pre><span></span><span class="k">DELETE</span> <span class="k">FROM</span> <span class="n">users</span>
+<span class="k">WHERE</span> <span class="n">status</span> <span class="o">=</span> <span class="ss">&quot;D&quot;</span>
+</pre></div>
+</div>
+</td>
+<td><div class="first last highlight-javascript"><div class="highlight"><pre><span></span><span class="hll"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span> <span class="p">{</span> <span class="nx">status</span><span class="o">:</span> <span class="s2">&quot;D&quot;</span> <span class="p">}</span> <span class="p">)</span>
+</span></pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><div class="first last highlight-sql"><div class="highlight"><pre><span></span><span class="k">DELETE</span> <span class="k">FROM</span> <span class="n">users</span>
+</pre></div>
+</div>
+</td>
+<td><div class="first last highlight-javascript"><div class="highlight"><pre><span></span><span class="hll"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">remove</span><span class="p">({})</span>
+</span></pre></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+
 
 
 mongo3.2.10的默认存储引擎是,wiredtiger.之前的存储引擎是MMAPV1.  
