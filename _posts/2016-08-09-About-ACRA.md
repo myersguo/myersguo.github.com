@@ -175,6 +175,14 @@ prettyprint.js,
 moment.js
 ```
 
+### 系统截图 ###   
+
+
+![dash](/public/acra.dashboard.png) 
+![bugs](/public/acra.bugs.png) 
+![dash](/public/acra.reports.png) 
+
+
 
 参考资料：   
 [couchdb web app](https://couchapp.readthedocs.io/en/latest/intro/what-is-couchapp.html)   
