@@ -592,6 +592,256 @@ documents using the <a class="reference internal" href="https://docs.mongodb.com
 </tbody>
 </table>
 
+<table class="doctable informaltable">
+   
+    <thead>
+     <tr>
+      <th>SQL查询语句</th>
+      <th>Mongo查询语句</th>
+     </tr>
+
+    </thead>
+
+
+    <tbody class="tbody">
+     <tr>
+      <td>
+       <em>CREATE TABLE USERS (a Number, b Number)</em>
+      </td>
+      <td>
+       隐式的创建，或 <span class="function"><a href="mongodb.createcollection.php" class="function">MongoDB::createCollection()</a></span>.
+      </td>
+     </tr>
+
+      <tr>
+      <td>
+       <em>INSERT INTO USERS VALUES(1,1)</em>
+      </td>
+      <td>
+       <em>$db-&gt;users-&gt;insert(array("a" =&gt; 1, "b" =&gt; 1));</em>
+      </td>
+     </tr>
+
+     <tr>
+      <td>
+       <em>SELECT a,b FROM users</em>
+      </td>
+      <td>
+       <em>$db-&gt;users-&gt;find(array(), array("a" =&gt; 1, "b" =&gt; 1));</em>
+      </td>
+     </tr>
+
+     <tr>
+      <td>
+       <em>SELECT * FROM users WHERE age=33</em>
+      </td>
+      <td>
+       <em>$db-&gt;users-&gt;find(array("age" =&gt; 33));</em>
+      </td>
+     </tr>
+
+     <tr>
+      <td>
+       <em>SELECT a,b FROM users WHERE age=33</em>
+      </td>
+      <td>
+       <em>$db-&gt;users-&gt;find(array("age" =&gt; 33), array("a" =&gt; 1, "b" =&gt; 1));</em>
+      </td>
+     </tr>
+
+     <tr>
+      <td>
+       <em>SELECT a,b FROM users WHERE age=33 ORDER BY name</em>
+      </td>
+      <td>
+       <em>$db-&gt;users-&gt;find(array("age" =&gt; 33), array("a" =&gt; 1, "b" =&gt; 1))-&gt;sort(array("name" =&gt; 1));</em>
+      </td>
+     </tr>
+
+     <tr>
+      <td>
+       <em>SELECT * FROM users WHERE age&gt;33</em>
+      </td>
+      <td>
+       <em>$db-&gt;users-&gt;find(array("age" =&gt; array('$gt' =&gt; 33)));</em>
+      </td>
+     </tr>
+
+     <tr>
+      <td>
+       <em>SELECT * FROM users WHERE age&lt;33</em>
+      </td>
+      <td>
+       <em>$db-&gt;users-&gt;find(array("age" =&gt; array('$lt' =&gt; 33)));</em>
+      </td>
+     </tr>
+
+     <tr>
+      <td>
+       <em>SELECT * FROM users WHERE name LIKE "%Joe%"</em>
+      </td>
+      <td>
+       <em>$db-&gt;users-&gt;find(array("name" =&gt; new MongoRegex("/Joe/")));</em>
+      </td>
+     </tr>
+
+     <tr>
+      <td>
+       <em>SELECT * FROM users WHERE name LIKE "Joe%"</em>
+      </td>
+      <td>
+       <em>$db-&gt;users-&gt;find(array("name" =&gt; new MongoRegex("/^Joe/")));</em>
+      </td>
+     </tr>
+
+     <tr>
+      <td>
+       <em>SELECT * FROM users WHERE age&gt;33 AND age&lt;=40</em>
+      </td>
+      <td>
+       <em>$db-&gt;users-&gt;find(array("age" =&gt; array('$gt' =&gt; 33, '$lte' =&gt; 40)));</em>
+      </td>
+     </tr>
+
+     <tr>
+      <td>
+       <em>SELECT * FROM users ORDER BY name DESC</em>
+      </td>
+      <td>
+       <em>$db-&gt;users-&gt;find()-&gt;sort(array("name" =&gt; -1));</em>
+      </td>
+     </tr>
+
+     <tr>
+      <td>
+       <em>CREATE INDEX myindexname ON users(name)</em>
+      </td>
+      <td>
+       <em>$db-&gt;users-&gt;ensureIndex(array("name" =&gt; 1));</em>
+      </td>
+     </tr>
+
+     <tr>
+      <td>
+       <em>CREATE INDEX myindexname ON users(name,ts DESC)</em>
+      </td>
+      <td>
+       <em>$db-&gt;users-&gt;ensureIndex(array("name" =&gt; 1, "ts" =&gt; -1));</em>
+      </td>
+     </tr>
+
+     <tr>
+      <td>
+       <em>SELECT * FROM users WHERE a=1 and b='q'</em>
+      </td>
+      <td>
+       <em>$db-&gt;users-&gt;find(array("a" =&gt; 1, "b" =&gt; "q"));</em>
+      </td>
+     </tr>
+
+     <tr>
+      <td>
+       <em>SELECT * FROM users LIMIT 20, 10</em>
+      </td>
+      <td>
+       <em>$db-&gt;users-&gt;find()-&gt;limit(10)-&gt;skip(20);</em>
+      </td>
+     </tr>
+
+     <tr>
+      <td>
+       <em>SELECT * FROM users WHERE a=1 or b=2</em>
+      </td>
+      <td>
+       <em>$db-&gt;users-&gt;find(array('$or' =&gt; array(array("a" =&gt; 1), array("b" =&gt; 2))));</em>
+      </td>
+     </tr>
+
+     <tr>
+      <td>
+       <em>SELECT * FROM users LIMIT 1</em>
+      </td>
+      <td>
+       <em>$db-&gt;users-&gt;find()-&gt;limit(1);</em>
+      </td>
+     </tr>
+
+     <tr>
+      <td>
+       <em>EXPLAIN SELECT * FROM users WHERE z=3</em>
+      </td>
+      <td>
+       <em>$db-&gt;users-&gt;find(array("z" =&gt; 3))-&gt;explain()</em>
+      </td>
+     </tr>
+
+     <tr>
+      <td>
+       <em>SELECT DISTINCT last_name FROM users</em>
+      </td>
+      <td>
+       <em>$db-&gt;command(array("distinct" =&gt; "users", "key" =&gt; "last_name"));</em>
+      </td>
+     </tr>
+
+     <tr>
+      <td>
+       <em>SELECT COUNT(*y) FROM users</em>
+      </td>
+      <td>
+       <em>$db-&gt;users-&gt;count();</em>
+      </td>
+     </tr>
+
+     <tr>
+      <td>
+       <em>SELECT COUNT(*y) FROM users where AGE &gt; 30</em>
+      </td>
+      <td>
+       <em>$db-&gt;users-&gt;find(array("age" =&gt; array('$gt' =&gt; 30)))-&gt;count();</em>
+      </td>
+     </tr>
+
+     <tr>
+      <td>
+       <em>SELECT COUNT(AGE) from users</em>
+      </td>
+      <td>
+       <em>$db-&gt;users-&gt;find(array("age" =&gt; array('$exists' =&gt; true)))-&gt;count();</em>
+      </td>
+     </tr>
+
+     <tr>
+      <td>
+       <em>UPDATE users SET a=1 WHERE b='q'</em>
+      </td>
+      <td>
+       <em>$db-&gt;users-&gt;update(array("b" =&gt; "q"), array('$set' =&gt; array("a" =&gt; 1)));</em>
+      </td>
+     </tr>
+
+     <tr>
+      <td>
+       <em>UPDATE users SET a=a+2 WHERE b='q'</em>
+      </td>
+      <td>
+       <em>$db-&gt;users-&gt;update(array("b" =&gt; "q"), array('$inc' =&gt; array("a" =&gt; 2)));</em>
+      </td>
+     </tr>
+
+     <tr>
+      <td>
+       <em>DELETE FROM users WHERE z="abc"</em>
+      </td>
+      <td>
+       <em>$db-&gt;users-&gt;remove(array("z" =&gt; "abc"));</em>
+      </td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
 
 
 mongo3.2.10的默认存储引擎是,wiredtiger.之前的存储引擎是MMAPV1.  
