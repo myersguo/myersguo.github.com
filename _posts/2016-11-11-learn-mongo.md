@@ -62,6 +62,53 @@ key.</p>
 </tbody>
 </table>
 
+<table border="1" class="docutils">
+<colgroup>
+<col width="50%">
+<col width="50%">
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">SQL Terms, Functions, and Concepts</th>
+<th class="head">MongoDB Aggregation Operators</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>WHERE</td>
+<td><a class="reference internal" href="https://docs.mongodb.com/manual/reference/operator/aggregation/match/#pipe._S_match" title="$match"><tt class="xref mongodb mongodb-pipeline docutils literal"><span class="pre">$match</span></tt></a></td>
+</tr>
+<tr class="row-odd"><td>GROUP BY</td>
+<td><a class="reference internal" href="https://docs.mongodb.com/manual/reference/operator/aggregation/group/#pipe._S_group" title="$group"><tt class="xref mongodb mongodb-pipeline docutils literal"><span class="pre">$group</span></tt></a></td>
+</tr>
+<tr class="row-even"><td>HAVING</td>
+<td><a class="reference internal" href="https://docs.mongodb.com/manual/reference/operator/aggregation/match/#pipe._S_match" title="$match"><tt class="xref mongodb mongodb-pipeline docutils literal"><span class="pre">$match</span></tt></a></td>
+</tr>
+<tr class="row-odd"><td>SELECT</td>
+<td><a class="reference internal" href="https://docs.mongodb.com/manual/reference/operator/aggregation/project/#pipe._S_project" title="$project"><tt class="xref mongodb mongodb-pipeline docutils literal"><span class="pre">$project</span></tt></a></td>
+</tr>
+<tr class="row-even"><td>ORDER BY</td>
+<td><a class="reference internal" href="https://docs.mongodb.com/manual/reference/operator/aggregation/sort/#pipe._S_sort" title="$sort"><tt class="xref mongodb mongodb-pipeline docutils literal"><span class="pre">$sort</span></tt></a></td>
+</tr>
+<tr class="row-odd"><td>LIMIT</td>
+<td><a class="reference internal" href="https://docs.mongodb.com/manual/reference/operator/aggregation/limit/#pipe._S_limit" title="$limit"><tt class="xref mongodb mongodb-pipeline docutils literal"><span class="pre">$limit</span></tt></a></td>
+</tr>
+<tr class="row-even"><td>SUM()</td>
+<td><a class="reference internal" href="https://docs.mongodb.com/manual/reference/operator/aggregation/sum/#grp._S_sum" title="$sum"><tt class="xref mongodb mongodb-group docutils literal"><span class="pre">$sum</span></tt></a></td>
+</tr>
+<tr class="row-odd"><td>COUNT()</td>
+<td><a class="reference internal" href="https://docs.mongodb.com/manual/reference/operator/aggregation/sum/#grp._S_sum" title="$sum"><tt class="xref mongodb mongodb-group docutils literal"><span class="pre">$sum</span></tt></a></td>
+</tr>
+<tr class="row-even"><td>join</td>
+<td><p class="first"><a class="reference internal" href="https://docs.mongodb.com/manual/reference/operator/aggregation/lookup/#pipe._S_lookup" title="$lookup"><tt class="xref mongodb mongodb-pipeline docutils literal"><span class="pre">$lookup</span></tt></a></p>
+<div class="last versionadded">
+<p><span class="versionmodified">New in version 3.2.</span></p>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+
+
+
 mongo3.2.10的默认存储引擎是,wiredtiger.之前的存储引擎是MMAPV1.  
 
 它包含三种[存储引擎](https://docs.mongodb.com/v3.2/core/storage-engines/):  
