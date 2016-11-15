@@ -107,6 +107,114 @@ key.</p>
 </tbody>
 </table>
 
+<table border="1" class="docutils">
+<colgroup>
+<col width="50%">
+<col width="50%">
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">SQL Schema Statements</th>
+<th class="head">MongoDB Schema Statements</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><div class="first last highlight-sql"><div class="highlight"><pre><span></span><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">users</span> <span class="p">(</span>
+    <span class="n">id</span> <span class="n">MEDIUMINT</span> <span class="k">NOT</span> <span class="k">NULL</span>
+        <span class="n">AUTO_INCREMENT</span><span class="p">,</span>
+    <span class="n">user_id</span> <span class="nb">Varchar</span><span class="p">(</span><span class="mi">30</span><span class="p">),</span>
+    <span class="n">age</span> <span class="nb">Number</span><span class="p">,</span>
+    <span class="n">status</span> <span class="nb">char</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+    <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="p">(</span><span class="n">id</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</td>
+<td><p class="first">Implicitly created on first <a class="reference internal" href="https://docs.mongodb.com/manual/reference/method/db.collection.insert/#db.collection.insert" title="db.collection.insert()"><tt class="xref mongodb mongodb-method docutils literal"><span class="pre">insert()</span></tt></a> operation. The primary key <tt class="docutils literal"><span class="pre">_id</span></tt>
+is automatically added if <tt class="docutils literal"><span class="pre">_id</span></tt> field is not specified.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="hll"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span> <span class="p">{</span>
+</span><span class="hll">    <span class="nx">user_id</span><span class="o">:</span> <span class="s2">"abc123"</span><span class="p">,</span>
+</span><span class="hll">    <span class="nx">age</span><span class="o">:</span> <span class="mi">55</span><span class="p">,</span>
+</span><span class="hll">    <span class="nx">status</span><span class="o">:</span> <span class="s2">"A"</span>
+</span><span class="hll"> <span class="p">}</span> <span class="p">)</span>
+</span></pre></div>
+</div>
+<p>However, you can also explicitly create a collection:</p>
+<div class="last highlight-javascript"><div class="highlight"><pre><span></span><span class="hll"><span class="nx">db</span><span class="p">.</span><span class="nx">createCollection</span><span class="p">(</span><span class="s2">"users"</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><div class="first last highlight-sql"><div class="highlight"><pre><span></span><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">users</span>
+<span class="k">ADD</span> <span class="n">join_date</span> <span class="n">DATETIME</span>
+</pre></div>
+</div>
+</td>
+<td><p class="first">Collections do not describe or enforce the structure of its
+documents; i.e. there is no structural alteration at the
+collection level.</p>
+<p>However, at the document level, <a class="reference internal" href="https://docs.mongodb.com/manual/reference/method/db.collection.update/#db.collection.update" title="db.collection.update()"><tt class="xref mongodb mongodb-method docutils literal"><span class="pre">update()</span></tt></a> operations can add fields to existing
+documents using the <a class="reference internal" href="https://docs.mongodb.com/manual/reference/operator/update/set/#up._S_set" title="$set"><tt class="xref mongodb mongodb-update docutils literal"><span class="pre">$set</span></tt></a> operator.</p>
+<div class="last highlight-javascript"><div class="highlight"><pre><span></span><span class="hll"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span>
+</span><span class="hll">    <span class="p">{</span> <span class="p">},</span>
+</span><span class="hll">    <span class="p">{</span> <span class="nx">$set</span><span class="o">:</span> <span class="p">{</span> <span class="nx">join_date</span><span class="o">:</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">()</span> <span class="p">}</span> <span class="p">},</span>
+</span><span class="hll">    <span class="p">{</span> <span class="nx">multi</span><span class="o">:</span> <span class="kc">true</span> <span class="p">}</span>
+</span><span class="hll"><span class="p">)</span>
+</span></pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><div class="first last highlight-sql"><div class="highlight"><pre><span></span><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">users</span>
+<span class="k">DROP</span> <span class="k">COLUMN</span> <span class="n">join_date</span>
+</pre></div>
+</div>
+</td>
+<td><p class="first">Collections do not describe or enforce the structure of its
+documents; i.e. there is no structural alteration at the collection
+level.</p>
+<p>However, at the document level, <a class="reference internal" href="https://docs.mongodb.com/manual/reference/method/db.collection.update/#db.collection.update" title="db.collection.update()"><tt class="xref mongodb mongodb-method docutils literal"><span class="pre">update()</span></tt></a> operations can remove fields from
+documents using the <a class="reference internal" href="https://docs.mongodb.com/manual/reference/operator/update/unset/#up._S_unset" title="$unset"><tt class="xref mongodb mongodb-update docutils literal"><span class="pre">$unset</span></tt></a> operator.</p>
+<div class="last highlight-javascript"><div class="highlight"><pre><span></span><span class="hll"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span>
+</span><span class="hll">    <span class="p">{</span> <span class="p">},</span>
+</span><span class="hll">    <span class="p">{</span> <span class="nx">$unset</span><span class="o">:</span> <span class="p">{</span> <span class="nx">join_date</span><span class="o">:</span> <span class="s2">""</span> <span class="p">}</span> <span class="p">},</span>
+</span><span class="hll">    <span class="p">{</span> <span class="nx">multi</span><span class="o">:</span> <span class="kc">true</span> <span class="p">}</span>
+</span><span class="hll"><span class="p">)</span>
+</span></pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><div class="first last highlight-sql"><div class="highlight"><pre><span></span><span class="k">CREATE</span> <span class="k">INDEX</span> <span class="n">idx_user_id_asc</span>
+<span class="k">ON</span> <span class="n">users</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
+</pre></div>
+</div>
+</td>
+<td><div class="first last highlight-javascript"><div class="highlight"><pre><span></span><span class="hll"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">createIndex</span><span class="p">(</span> <span class="p">{</span> <span class="nx">user_id</span><span class="o">:</span> <span class="mi">1</span> <span class="p">}</span> <span class="p">)</span>
+</span></pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><div class="first last highlight-sql"><div class="highlight"><pre><span></span><span class="k">CREATE</span> <span class="k">INDEX</span>
+       <span class="n">idx_user_id_asc_age_desc</span>
+<span class="k">ON</span> <span class="n">users</span><span class="p">(</span><span class="n">user_id</span><span class="p">,</span> <span class="n">age</span> <span class="k">DESC</span><span class="p">)</span>
+</pre></div>
+</div>
+</td>
+<td><div class="first last highlight-javascript"><div class="highlight"><pre><span></span><span class="hll"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">createIndex</span><span class="p">(</span> <span class="p">{</span> <span class="nx">user_id</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">age</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span> <span class="p">}</span> <span class="p">)</span>
+</span></pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><div class="first last highlight-sql"><div class="highlight"><pre><span></span><span class="k">DROP</span> <span class="k">TABLE</span> <span class="n">users</span>
+</pre></div>
+</div>
+</td>
+<td><div class="first last highlight-javascript"><div class="highlight"><pre><span></span><span class="hll"><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">drop</span><span class="p">()</span>
+</span></pre></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+
 
 
 mongo3.2.10的默认存储引擎是,wiredtiger.之前的存储引擎是MMAPV1.  
