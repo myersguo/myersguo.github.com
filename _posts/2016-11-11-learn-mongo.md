@@ -592,8 +592,10 @@ documents using the <a class="reference internal" href="https://docs.mongodb.com
 </tbody>
 </table>
 
-<table class="doctable informaltable">
-   
+php的实现如下：  
+
+
+<table>
     <thead>
      <tr>
       <th>SQL查询语句</th>
