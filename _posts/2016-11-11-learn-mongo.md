@@ -681,11 +681,37 @@ document是mongo的存储单元，即一条存储记录。不同与传统的RDBM
 
 
 
-### Aggregation ###  
+### [Aggregation](https://docs.mongodb.com/manual/aggregation/) ###  
+
+mongo提供三种聚合方法： aggregation pipeline; map-reduce function, single purpose aggregation methods;  
+
+
+#### aggragation pipeline #### 
+
+![pipeline](https://docs.mongodb.com/manual/_images/aggregation-pipeline.png)  
+
+
+
+#### Map-Reduce #### 
+
+>Map-reduce uses custom JavaScript functions to perform the map and reduce operations, as well as the optional finalize operation. While the custom JavaScript provide great flexibility compared to the aggregation pipeline, in general, map-reduce is less efficient and more complex than the aggregation pipeline.
+
+![map-reduce](https://docs.mongodb.com/manual/_images/map-reduce.png)  
+
+#### single purpose aggregation methods ####  
+
+![group](https://docs.mongodb.com/manual/_images/distinct.png)  
+
+
 
 
 ### 权限控制 ###  
 
 
+
+#### 参考资料 ####  
+
+
+[https://github.com/mongodb/cookbook/blob/master/content/patterns/unique_items_map_reduce.txt](https://github.com/mongodb/cookbook/blob/master/content/patterns/unique_items_map_reduce.txt)  
 
 
