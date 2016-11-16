@@ -28,6 +28,7 @@ title: instabug survey
 * [angularjs-dropdown-multiselect](http://dotansimha.github.io/angularjs-dropdown-multiselect/#/)   
 * [angularui](https://github.com/angular-ui)    
 * [angularjs](https://angularjs.org/)  
+* [highcharts](http://www.highcharts.com/):Highcharts makes it easy for developers to set up interactive charts in their web pages  
 
 
 暂时看到就这么多，看来，前端的很多东西都是『他山之石』，拿来就用即可，尤其是后端程序员，如果时间不充足，根本没有必要去创建新的组件、框架。   
