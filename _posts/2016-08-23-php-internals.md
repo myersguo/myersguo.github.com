@@ -24,9 +24,22 @@ title: PHP内核
 /[run-tests.php][runphptest]: 执行/tests下的测试文件，并发送测试报告(后续，我们将详细介绍PHP的测试框架)  
 
 
+### 编译PHP ###   
+
+```
+sudo yum install autoconf213 -y 
+export PHP_AUTOCONF=/usr/bin/autoconf-2.13
+./configure --prefix=/tmp/php_src
+
+
+
+###  understand php code line by line ###
+
+
+
 参考资料：  
 - [Cpp参考手册][cppref]  
-
+- [kernel space definition][kernel_define]
 
 
 [phpnotes]: http://myersguo.github.io/2016/08/09/Understand-PHP-File-Description.html
@@ -38,4 +51,5 @@ title: PHP内核
 [pear]: https://pear.php.net/index.php  
 [runphptest]: https://github.com/php/php-src/blob/master/run-tests.php  
 [cppref]: http://zh.cppreference.com/w/%E9%A6%96%E9%A1%B5  
+[kernel_define]: http://www.linfo.org/kernel_space.html   
 
