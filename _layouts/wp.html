@@ -29,7 +29,9 @@
   <body>
     <div class="wrapper">
       <header>
-        <h1>{% if page.title %} {{ page.title }} {% else %} WELCOME {% endif %}</h1>
+      {% if page.title %}
+      <h1> {{ page.title }} </h1>
+      {% endif %}
  
         {% if page.shownav != null %}
         <ul>
