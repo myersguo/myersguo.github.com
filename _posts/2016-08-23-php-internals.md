@@ -32,14 +32,25 @@ export PHP_AUTOCONF=/usr/bin/autoconf-2.13
 ./configure --prefix=/tmp/php_src
 
 
+####  编译PHP扩展  ####  
+
+>php源码： ./configure --enable-opcache    
+>percl: percl install apcu-4.0.2   
+>php源码: ./config.nice --enable-apcu; ./configure --enable-apcu   
+>phpize: phpize; ./configure --with-php-config=$php_dir/bin/php-config
+
+
 
 ###  understand php code line by line ###
+
 
 
 
 参考资料：  
 - [Cpp参考手册][cppref]  
 - [kernel space definition][kernel_define]
+- [phpinternalsbook](http://www.phpinternalsbook.com/build_system/building_php.html)
+
 
 
 [phpnotes]: http://myersguo.github.io/2016/08/09/Understand-PHP-File-Description.html
