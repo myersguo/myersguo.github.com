@@ -13,7 +13,9 @@ title: php session to redis
 
 
 我们看到php的[session.name](https://github.com/php/php-src/blob/PHP-5.3/ext/session/session.c#L793)初始值是"PHPSESSID"。   
+
 >The session name references the name of the session, which is used in cookies and URLs (e.g. PHPSESSID). It should contain only alphanumeric characters; it should be short and descriptive (i.e. for users with enabled cookie warnings). If name is specified, the name of the current session is changed to its value.   
+
 
 
 session name 存储的值，就是session id,即：   
