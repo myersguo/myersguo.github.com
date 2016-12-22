@@ -188,7 +188,174 @@ private Solo(Config config, Instrumentation instrumentation, Activity activity) 
  
 ####  ActivityUtils ####    
 
-封装了activity相关的方法，比如：获取当前activity,
+封装了activity相关的方法，比如：获取当前activity,获取activitymonitor等。    
+
+
+我们来看它的获取当前的activity:   
+
+```
+/**
+     * Returns the current {@code Activity}.
+     *
+     * @param shouldSleepFirst whether to sleep a default pause first
+     * @param waitForActivity whether to wait for the activity
+     * @return the current {@code Activity}
+     */
+
+    public Activity getCurrentActivity(boolean shouldSleepFirst, boolean waitForActivity) {
+        if(shouldSleepFirst){
+            sleeper.sleep();
+        }
+        if(!config.trackActivities){
+            return activity;
+        }
+        
+        if(waitForActivity){
+            waitForActivityIfNotAvailable();
+        }
+        if(!activityStack.isEmpty()){
+            activity=activityStack.peek().get();
+        }
+        return activity;
+    }
+/**
+     * Waits for an activity to be started if one is not provided
+     * by the constructor.
+     */
+
+    private final void waitForActivityIfNotAvailable(){
+        if(activityStack.isEmpty() || activityStack.peek().get() == null){
+
+            if (activityMonitor != null) {
+                Activity activity = activityMonitor.getLastActivity();
+                while (activity == null){
+                    sleeper.sleepMini();
+                    activity = activityMonitor.getLastActivity();
+                }
+                addActivityToStack(activity);
+            }
+            else if(config.trackActivities){
+                sleeper.sleepMini();
+                setupActivityMonitor();
+                waitForActivityIfNotAvailable();
+            }
+        }
+    }
+/**
+     * This is were the activityMonitor is set up. The monitor will keep check
+     * for the currently active activity.
+     */
+
+    private void setupActivityMonitor() {
+        if(config.trackActivities){
+            try {
+                IntentFilter filter = null;
+                activityMonitor = inst.addMonitor(filter, null, false);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+```
+
+简单解释一下：   
+首先需要初始化一个activity monitor,来监视activity(`inst.addMonitor`);   
+monitor来获取最后一个activity:`Activity activity = activityMonitor.getLastActivity();`:   
+
+>Retrieve the most recent activity class that was seen by this monitor.   
+
+把这个activity加入堆栈中：`activitiesStoredInActivityStack.push(activity.toString());`和`activityStack.push(weakActivityReference);`   
+
+当前的activity，就从堆栈中的顶部即是`
+activity=activityStack.peek().get();`   
+
+那有activity移除了，怎么办？所以，要有一个线程监听activity 才对：    
+
+```
+/**
+     * This is were the activityStack listener is set up. The listener will keep track of the
+     * opened activities and their positions.
+     */
+
+    private void setupActivityStackListener() {
+        if(activityMonitor == null){
+            return;
+        }
+
+        setRegisterActivities(true);
+
+        activityThread = new RegisterActivitiesThread(this);
+        activityThread.start();
+    }
+```
+
+来看监听的详细代码：    
+
+
+```
+private static final class RegisterActivitiesThread extends Thread {
+
+        public static final long REGISTER_ACTIVITY_THREAD_SLEEP_MS = 16L;
+        private final WeakReference<ActivityUtils> activityUtilsWR;
+
+        RegisterActivitiesThread(ActivityUtils activityUtils) {
+            super("activityMonitorThread");
+            activityUtilsWR = new WeakReference<ActivityUtils>(activityUtils);
+            setPriority(Thread.MIN_PRIORITY);
+        }
+
+        @Override
+        public void run() {
+            while (shouldMonitor()) {
+                monitorActivities();
+                SystemClock.sleep(REGISTER_ACTIVITY_THREAD_SLEEP_MS);
+            }
+        }
+
+        private boolean shouldMonitor() {
+            ActivityUtils activityUtils = activityUtilsWR.get();
+
+            return activityUtils != null && activityUtils.shouldRegisterActivities();
+        }
+
+        private void monitorActivities() {
+            ActivityUtils activityUtils = activityUtilsWR.get();
+            if (activityUtils != null) {
+                activityUtils.monitorActivities();
+            }
+        }
+    }
+    void monitorActivities() {
+        if(activityMonitor != null){
+            Activity activity = activityMonitor.waitForActivityWithTimeout(2000L);
+
+            if(activity != null){
+                if (activitiesStoredInActivityStack.remove(activity.toString())){
+                    removeActivityFromStack(activity);
+                }
+                if(!activity.isFinishing()){
+                    addActivityToStack(activity);
+                }
+            }
+        }
+    }
+```
+
+
+每隔16ms检查一次，对当前的activity(`Activity activity = activityMonitor.waitForActivityWithTimeout(2000L);`)做检查：   
+从stack中移除activity,如果activity没有结束的话，再把它加入stack中;   
+如果stack中本来就没有此activity,则只会加入stack了；    
+
+因此，能保证activity都在堆栈里面了。所以，获取当前堆栈只需要从stack中取就行了。   
+
+
+   
+#### Swiper & Tapper  #### 
+
+Swiper和Tapper都只有一个`generateSwipeGesture`方法,内部都调用`MotionEvent.obtain`来绘制手势操作。    
+
+
+(未完待续)   
 
 
 
