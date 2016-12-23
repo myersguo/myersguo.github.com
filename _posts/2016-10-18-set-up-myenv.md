@@ -284,8 +284,10 @@ CONF="${REDIS_DIR}/etc/${REDISPORT}.conf"
 ```
 yum install -y usbutils
 yum install -y cmake ncurses ncurses-devel
+yum install -y yajl-devel 
 ```
 #### 问题 ####  
+
 我启动mysql的时候报需要权限： 
 ```
 service mysql start
@@ -296,6 +298,56 @@ Authenticating as: root
 Password: 
 ==== AUTHENTICATION COMPLETE ===
 ```
+
+nginx 无法启动，pcre库找不到。   
+
+```
+ldd /home/work/app/nginx/sbin/nginx 
+        linux-vdso.so.1 =>  (0x00007fff4a5d1000)
+        libpthread.so.0 => /lib64/libpthread.so.0 (0x00007fc3374df000)
+        libdl.so.2 => /lib64/libdl.so.2 (0x00007fc3372db000)
+        libcrypt.so.1 => /lib64/libcrypt.so.1 (0x00007fc3370a3000)
+        libyajl.so.2 => /lib64/libyajl.so.2 (0x00007fc336e99000)
+        libpcre.so.0 => not found
+        libssl.so.10 => /lib64/libssl.so.10 (0x00007fc336c2b000)
+        libcrypto.so.10 => /lib64/libcrypto.so.10 (0x00007fc336843000)
+        libz.so.1 => /lib64/libz.so.1 (0x00007fc33662d000)
+        libluajit-5.1.so.2 => not found
+        libm.so.6 => /lib64/libm.so.6 (0x00007fc33632a000)
+        libc.so.6 => /lib64/libc.so.6 (0x00007fc335f68000)
+        /lib64/ld-linux-x86-64.so.2 (0x00007fc337705000)
+        libfreebl3.so => /lib64/libfreebl3.so (0x00007fc335d64000)
+        libgssapi_krb5.so.2 => /lib64/libgssapi_krb5.so.2 (0x00007fc335b18000)
+        libkrb5.so.3 => /lib64/libkrb5.so.3 (0x00007fc335833000)
+        libcom_err.so.2 => /lib64/libcom_err.so.2 (0x00007fc33562e000)
+        libk5crypto.so.3 => /lib64/libk5crypto.so.3 (0x00007fc3353fc000)
+        libkrb5support.so.0 => /lib64/libkrb5support.so.0 (0x00007fc3351ed000)
+        libkeyutils.so.1 => /lib64/libkeyutils.so.1 (0x00007fc334fe8000)
+        libresolv.so.2 => /lib64/libresolv.so.2 (0x00007fc334dce000)
+        libselinux.so.1 => /lib64/libselinux.so.1 (0x00007fc334ba8000)
+        libpcre.so.1 => /lib64/libpcre.so.1 (0x00007fc334947000)
+        liblzma.so.5 => /lib64/liblzma.so.5 (0x00007fc334722000)
+```
+
+#### smb目录无法访问 #### 
+
+查看 SELinux 的政策 (Policy)    
+`sestatus`  
+
+`setenforce 0`   
+
+vi /etc/sysconfig/selinux更改一下模式:   
+
+
+#### mysql 初始化 ####   
+
+```
+ mysql_install_db --user=root --basedir=/home/work/app/mysql --ldata=/home/work/app/mysql/data
+
+SET PASSWORD FOR 'root'@'localhost' = PASSWORD('root');
+
+```
+ 
 
 
 

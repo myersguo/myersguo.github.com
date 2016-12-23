@@ -349,10 +349,134 @@ private static final class RegisterActivitiesThread extends Thread {
 因此，能保证activity都在堆栈里面了。所以，获取当前堆栈只需要从stack中取就行了。   
 
 
+#### ViewFetcher ####    
+
+获取view,`getCurrentViews`,`getViews`,`getCurrentImageViews`:   
+
+
+```
+/**
+     * Returns true if the view is sufficiently shown
+     *
+     * @param view the view to check
+     * @return true if the view is sufficiently shown
+     */
+
+    public final boolean isViewSufficientlyShown(View view){
+        final int[] xyView = new int[2];
+        final int[] xyParent = new int[2];
+
+        if(view == null)
+            return false;
+
+        final float viewHeight = view.getHeight();
+        final View parent = getScrollOrListParent(view);
+        view.getLocationOnScreen(xyView);
+
+        if(parent == null){
+            xyParent[1] = 0;
+        }
+        else{
+            parent.getLocationOnScreen(xyParent);
+        }
+
+        if(xyView[1] + (viewHeight/2.0f) > getScrollListWindowHeight(view))
+            return false;
+
+        else if(xyView[1] + (viewHeight/2.0f) < xyParent[1])
+            return false;
+
+        return true;
+    }
+
+    /**
+     * Returns the height of the scroll or list view parent
+     * @param view the view who's parents height should be returned
+     * @return the height of the scroll or list view parent
+     */
+
+    @SuppressWarnings("deprecation")
+    public float getScrollListWindowHeight(View view) {
+        final int[] xyParent = new int[2];
+        View parent = getScrollOrListParent(view);
+        final float windowHeight;
+
+        if(parent == null){
+            WindowManager windowManager = (WindowManager) 
+                    instrumentation.getTargetContext().getSystemService(Context.WINDOW_SERVICE);
+
+            windowHeight = windowManager.getDefaultDisplay().getHeight();
+        }
+
+        else{
+            parent.getLocationOnScreen(xyParent);
+            windowHeight = xyParent[1] + parent.getHeight();
+        }
+        parent = null;
+        return windowHeight;
+    }
+````
+
+上面的代码检查view是否sufficiently shown     
+
+
+```
+public ArrayList<View> getAllViews(boolean onlySufficientlyVisible) {
+        final View[] views = getWindowDecorViews();
+        final ArrayList<View> allViews = new ArrayList<View>();
+        final View[] nonDecorViews = getNonDecorViews(views);
+        View view = null;
+
+        if(nonDecorViews != null){
+            for(int i = 0; i < nonDecorViews.length; i++){
+                view = nonDecorViews[i];
+                try {
+                    addChildren(allViews, (ViewGroup)view, onlySufficientlyVisible);
+                } catch (Exception ignored) {}
+                if(view != null) allViews.add(view);
+            }
+        }
+
+        if (views != null && views.length > 0) {
+            view = getRecentDecorView(views);
+            try {
+                addChildren(allViews, (ViewGroup)view, onlySufficientlyVisible);
+            } catch (Exception ignored) {}
+
+            if(view != null) allViews.add(view);
+        }
+
+        return allViews;
+    }
+```
+
+#### Searcher ####     
+
+
+搜索类,核心的查找方法。    
+
+
+
+
+
+
+
+#### Checker ####    
+
+一些检查类，比如：isButtonChecked：   
+
+`return (waiter.waitForAndGetView(index, expectedClass).isChecked());`
+
+`Waits for and returns a View.`
+
+
+
    
 #### Swiper & Tapper  #### 
 
 Swiper和Tapper都只有一个`generateSwipeGesture`方法,内部都调用`MotionEvent.obtain`来绘制手势操作。    
+
+
 
 
 (未完待续)   
