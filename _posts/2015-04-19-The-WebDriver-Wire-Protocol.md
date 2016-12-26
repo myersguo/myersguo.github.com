@@ -5,12 +5,14 @@ comments: true
 ---
 
 
-##The WebDriver Wire Protocol
+## The WebDriver Wire Protocol
 
-###介绍
+### 介绍
+
 WebDriver与本地或远程浏览器 [https://code.google.com/p/selenium/wiki/RemoteWebDriver](RemoteWebDriver)通过『common wire protocol』通用无线接口协议进行通信。 这个无线协议定义了使用JSON的Restful风格的HTTP接口。
 
-###基本概念和术语  
+### 基本概念和术语  
+
 **client**：  
 使用WebDriver API的机器  
 **server**：
@@ -90,6 +92,7 @@ Proxy的描述：
 ### 消息  
 
 #### Commands 命令
+
  WebDriver命令消息满足[http://www.w3.org/Protocols/rfc2616/rfc2616-sec5.html#sec5](HTTP/1.1请求标准).虽然服务器端可能发送其他的content-type，但wire protocal只对 application/json;charset=UTF-8的头识别。   
  
  每一个WebDriver service的命令都被一种特殊的http方法路径标识。 如下面的资源请求被映射如下：  
@@ -98,7 +101,8 @@ Proxy的描述：
 
 通过此种映射，服务器端返回/favorite/color/Jack 和 /favorite/color/Jill的GET请求。变量:name返回了Jack和Jill。  
 
-####Responses  
+#### Responses  
+
 命令返回遵守[http://www.w3.org/Protocols/rfc2616/rfc2616-sec6.html#sec6](HTTP/1.1X响应标准)。如果服务器端必须返回一个4xx的响应，头应该为text/plain，body为描述信息.其他情况下都应该为application/json的返回，body为JSON对象。  
 |Key| Type| Description|
 |sessionId | string,null | |
