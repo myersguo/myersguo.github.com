@@ -456,7 +456,43 @@ public ArrayList<View> getAllViews(boolean onlySufficientlyVisible) {
 搜索类,核心的查找方法。    
 
 
+根据正则搜索：  
 
+
+```
+public <T extends TextView> T searchFor(Callable<Collection<T>> viewFetcherCallback, String regex, int expectedMinimumNumberOfMatches, long timeout, boolean scroll) throws Exception {
+        final long endTime = SystemClock.uptimeMillis() + timeout;  
+        Collection<T> views;
+
+        while (true) {
+            final boolean timedOut = timeout > 0 && SystemClock.uptimeMillis() > endTime;
+
+            if(timedOut){
+                logMatchesFound(regex);
+                return null;
+            }
+
+            views = viewFetcherCallback.call();
+
+            for(T view : views){
+                if (RobotiumUtils.getNumberOfMatches(regex, view, uniqueTextViews) == expectedMinimumNumberOfMatches) {
+                    uniqueTextViews.clear();
+                    return view;
+                }
+            }
+            if(scroll && !scroller.scrollDown()){
+                logMatchesFound(regex);
+                return null; 
+            }
+            if(!scroll){
+                logMatchesFound(regex);
+                return null; 
+            }
+        }
+}
+```
+
+在当前的views中，查找匹配的view.   
 
 
 
