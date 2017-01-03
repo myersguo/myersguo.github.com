@@ -1,6 +1,6 @@
 ---
 layout: wp
-title: [笔记]Elasticsearch Reference 
+title: Elasticsearch Reference 
 ---
 
 
