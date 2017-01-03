@@ -1,7 +1,8 @@
 ---
 layout: wp
-title: [笔记]Elasticsearch Reference
+title: [笔记]Elasticsearch Reference 
 ---
+
 
 这是一篇对ES的[参考](https://www.elastic.co/guide/en/elasticsearch/reference/current/getting-started.html)的翻译笔记。  
 
