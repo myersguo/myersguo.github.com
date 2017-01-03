@@ -28,7 +28,7 @@ Type:索引的类别，比如：blog,comment,users.
 Document:全文搜索内容。  
   
 
->MySQL => Databases => Tables => Columns/Rows
+>MySQL => Databases => Tables => Columns/Rows   
 >Elasticsearch => Indices => Types => Documents with Properties
 
 
@@ -52,11 +52,30 @@ tar xvf elasticsearch-5.1.1.tar.gz
 
 ```
 
+我本机配置不高，因此更改了ES的启动配置(config/jvm.options).   
+
+启动后是这样的：   
+
+
+```
+ /home/work/app/jdk1.8.0_111/bin/java -Xms128m -Xmx128m -XX:+UseConcMarkSweepGC -XX:CMSInitiatingOccupancyFraction=75 -XX:+UseCMSInitiatingOccupancyOnly -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -server -Xss512k -Djava.awt.headless=true -Dfile.encoding=UTF-8 -Djna.nosys=true -Djdk.io.permissionsUseCanonicalPath=true -Dio.netty.noUnsafe=true -Dio.netty.noKeySetOptimization=true -Dlog4j.shutdownHookEnabled=false -Dlog4j2.disable.jmx=true -Dlog4j.skipJansi=true -XX:+HeapDumpOnOutOfMemoryError -Des.path.home=/home/work/app/elasticsearch-5.1.1 -cp /home/work/app/elasticsearch-5.1.1/lib/elasticsearch-5.1.1.jar:/home/work/app/elasticsearch-5.1.1/lib/* org.elasticsearch.bootstrap.Elasticsearch
+```
+
+
+
+
 start es:  
 
 ```
 nohup /bin/bash bin/elasticsearch &
 ```
+
+或者：   
+
+```
+bin/elasticsearch -d -p pid
+```
+
 
 ### 使用(Operate) ###   
 
@@ -116,6 +135,12 @@ curl -X PUT "http://localhost:9200/customer/external/1?pretty" -d  '{"name": "Jo
   "created" : true
 }
 ```
+_index:索引名称,_type:类型。_version:版本号。
+_shards:索引分片。total:分片个数。successful:成功设置的索引分片个数。  
+
+
+
+
 
 查看一下：
 
@@ -133,7 +158,15 @@ name: "John Doe"
 }
 ```
 
+_source:document内容。
+
 其中`_source`是document的内容。   
+
+可以直接返回_source:   
+
+```
+ curl -X GET "http://localhost:9200/customer/external/1/_source?pretty"
+```
 
 
 如果不指定ID，使用随机生成的ID:  
@@ -171,6 +204,15 @@ curl -X POST "http://localhost:9200/customer/external/1/_update?pretty" -d '{"do
 
 注意：`PUT`方法将更新整个DOC，而`POST`+`_udpate`只对DOC中的相应字段进行更新。   
 
+删除数据：  
+
+```
+curl -XDELETE  "http://localhost:9200/customer/external/1" 
+```
+
+
+
+
 
 #### 批量操作 ####  
 
@@ -182,7 +224,43 @@ curl -XPOST 'localhost:9200/customer/external/_bulk?pretty&pretty' -d'
 {"name": "Jane Doe" }'
 ```
 
-....   
+查询：  
+
+```
+curl 'localhost:9200/bank/account/_mget?pretty' -d '{
+    "docs" : [
+        {
+            "_id" : "1"
+        },
+        {
+            "_id" : "2"
+        }
+    ]
+}'
+
+```
+
+或者：  
+
+```
+curl 'localhost:9200/_mget?pretty' -d '{
+    "docs" : [
+        {
+            "_index" : "bank",
+            "_type": "account",
+            "_id" : "1"
+        },
+        {
+            "_index" : "bank",
+            "_type": "account",
+            "_id" : "2"
+        }
+    ]
+}'
+```
+
+
+
 
 
 #### 搜索 ####  
@@ -330,6 +408,8 @@ curl -XGET 'localhost:9200/bank/_search?pretty' -d'
 }'
 
 ```
+
+
 
 site: 0 标识只显示聚合内容，不显示搜索的结果。  
 
@@ -532,6 +612,208 @@ curl -XGET 'localhost:9200/bank/_search?pretty' -d'
 是不是很强大..  
 
 
+### 聚合2 ###   
+
+#### Buckets #### 
+
+符合条件的文档集合。
+
+#### Metrics #### 
+
+基于Buckets进行统计分析的指标。eg: count, avg, sum,etc.   
+
+eg:
+
+求平均数年龄：  
+
+```
+curl -XGET "localhost:9200/bank/_search?pretty" -d '{
+    "size" : 0,
+    "aggs" : {
+        "avg_age" : { "avg" : { "field" : "age"}}
+    }   
+}'
+
+```
+
+##### Cardinality(基数) Aggregation #####    
+
+
+如果fiel 如果field是text先设置fielddata为ture:   
+
+```
+curl -XPUT 'localhost:9200/bank/_mapping/account?pretty' -d'
+{
+    "properties": {
+        "firstname": {
+            "type":     "text",
+            "fielddata": true
+        }
+    }
+}'
+
+```
+
+否则，会报错：  
+
+```
+"Fielddata is disabled on text fields by default. Set fielddata=true
+```
+
+>
+>Most fields can use index-time, on-disk doc_values for this data access pattern, but text fields do not support doc_values.
+>   
+>Instead, text fields use a query-time in-memory data structure called fielddata. This data structure is built on demand the first time that a field is used for aggregations, sorting, or in a script. It is built by reading the entire inverted index for each segment from disk, inverting the term ↔︎ document relationship, and storing the result in memory, in the JVM heap.
+>
+
+
+好，我们统计，用户个数：  
+
+```
+curl -XGET "localhost:9200/bank/_search?pretty" -d '{
+    "size" : 0,
+    "aggs" : {
+        "customer_count": {
+            "cardinality": {"field": "firstname"}
+        }
+    }
+}'
+```
+
+
+将返回聚合结果：  
+
+```
+"aggregations" : {
+    "customer_count" : {
+      "value" : 993
+    }
+  }
+```
+
+#####  stat aggregation #####   
+
+统计年龄分布：  
+
+```
+curl -XGET "localhost:9200/bank/account/_search?pretty" -d '{
+    "size" : 0,
+    "aggs" : {
+        "age_stat" : {
+            "stats" : { "field" : "age"}
+        }
+    }
+}'
+```
+
+将返回数量，min,max,avg,sum的聚合结果。  
+
+
+
+##### extended stat aggregation #####   
+
+
+统计年龄分布：  
+
+```
+curl -XGET "localhost:9200/bank/account/_search?pretty" -d '{
+    "size" : 0,
+    "aggs" : {
+        "age_stats" : {
+                "extended_stats" : { "field" : "age"}
+        }
+    }
+}'
+```
+
+最大/小aggregation,eg:最大/小年龄：  
+
+```
+curl -XGET "localhost:9200/bank/account/_search?pretty" -d '{
+    "size" : 0,
+    "aggs" : {
+        "max_ages" : {
+            "max" : { "field" : "age"}
+        }
+    }
+}'
+```
+
+max->min   
+
+
+##### percentiles aggregation #####   
+
+百分位统计，比如统计年龄分布：  
+
+```
+curl -XGET "localhost:9200/bank/account/_search?pretty" -d '{
+    "size" : 0,
+    "aggs" : {
+        "percentiles_ages" : {
+            "percentiles" : { "field" : "age"}
+        }
+    }
+}'
+```
+
+结果返回： 
+
+```
+  "aggregations" : {
+    "percentiles_ages" : {
+      "values" : {
+        "1.0" : 20.0,
+        "5.0" : 21.0,
+        "25.0" : 25.000000000000004,
+        "50.0" : 30.999999999999996,
+        "75.0" : 35.0,
+        "95.0" : 39.0,
+        "99.0" : 40.0
+      }
+    }
+  }
+```
+
+即，20岁以下站1%，21岁以下占比5%,25岁以下占比25%,,,,    
+
+可以指定value,来获取percentiles:   
+
+```
+curl -XGET "localhost:9200/bank/account/_search?pretty" -d '{
+    "size" : 0,
+    "aggs" : {
+        "percentiles_ages" : {
+            "percentile_ranks" : { "field" : "age", "values":[20,30,39]}
+        }
+    }
+}'
+
+```
+
+将返回20，30，39岁以内的占比。  
+
+
+
+聚合的查询结构：  
+
+
+```
+"aggregations" : {
+    "<aggregation_name>" : {
+        "<aggregation_type>" : {
+            <aggregation_body>
+        }
+        [,"meta" : {  [<meta_data_body>] } ]?
+        [,"aggregations" : { [<sub_aggregation>]+ } ]?
+    }
+    [,"<aggregation_name_2>" : { ... } ]*
+}
+```
+
+#### Bucket Aggregations #### 
+
+桶聚合不像metrics聚合那样计算指标的个数，它将document放到桶当中。每一个桶满足一定条件。
 
 
 ### 参考资料 ###  
