@@ -109,6 +109,11 @@ curl -X DELETE "http://localhost:9200/customer?pretty"
 curl -X GET "http://localhost:9200/_cat/indices?v"
 ```
 
+
+
+
+
+
 #### 添加数据(Document) ####
 
 向ES中插入(灌入)数据：   
@@ -814,6 +819,125 @@ curl -XGET "localhost:9200/bank/account/_search?pretty" -d '{
 #### Bucket Aggregations #### 
 
 桶聚合不像metrics聚合那样计算指标的个数，它将document放到桶当中。每一个桶满足一定条件。
+
+
+**** Children aggregation *****   
+
+产品评论和评论回复为父子关系：  
+
+```
+curl -XPUT 'localhost:9200/product?pretty' -d'
+{
+    "mappings": {
+        "reply" : {
+            "_parent" : {
+                "type" : "comment"
+            }
+        }
+    }
+}'
+```
+添加一个评论：  
+
+```
+curl -XPUT 'localhost:9200/product/comment/1?pretty' -d'
+{
+    "body": "good product ",
+    "title": "This is really good",
+    "tags": [
+        "good",
+        "nice"
+    ]
+}'
+```
+
+添加一个回复：  
+
+```
+curl -XPUT 'localhost:9200/product/reply/3?parent=1&refresh&pretty' -d'
+{
+    "owner": {
+        "display_name": "Myers Liu",
+        "id": 3
+    },
+    "body": "reply4 for comment 1",
+    "creation_date": "2009-05-04T13:45:37.030"
+}'
+```
+
+...
+
+#### Date Histogram & Range Aggregation ####  
+
+
+这个应该是最常见的聚合。按照时间进行。  
+
+
+```
+{
+    "aggs" : {
+        "articles_over_time" : {
+            "date_histogram" : {
+                "field" : "date",
+                "interval" : "month"
+            }
+        }
+    }
+}
+```
+
+[时间格式](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket-daterange-aggregation.html#date-format-pattern)   
+时间间隔： Available expressions for interval: year, quarter, month, week, day, hour, minute, second   
+
+
+
+```
+{
+    "aggs": {
+        "range": {
+            "date_range": {
+                "field": "date",
+                "format": "MM-yyy",
+                "ranges": [
+                    { "to": "now-10M/M" }, 
+                    { "from": "now-10M/M" } 
+                ]
+            }
+        }
+    }
+}
+```
+
+#### filter aggregation ####  
+
+```
+{
+    "aggs" : {
+        "red_products" : {
+            "filter" : { "term": { "color": "red" } },
+            "aggs" : {
+                "avg_price" : { "avg" : { "field" : "price" } }
+            }
+        }
+    }
+}
+```
+
+#### terms aggregation ####   
+
+
+去重聚合。  
+
+```
+{
+    "aggs" : {
+        "genres" : {
+            "terms" : { "field" : "genre" }
+        }
+    }
+}
+```
+
 
 
 ### 参考资料 ###  
