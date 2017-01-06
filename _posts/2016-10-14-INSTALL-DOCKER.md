@@ -158,6 +158,9 @@ cat /var/log/dmesg | grep DENIED
 cat /var/log/audit/audit.log | grep DENIED   
 ```
 
+And Why?   
+
+Cause OS version is too low,update to linux kernel to 3.x will solve this problem...  
 
 都找不出认证问题。   
 
