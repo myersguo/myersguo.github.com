@@ -5,7 +5,7 @@ title: 读书笔记---移动APP性能评测与优化
 
 ### 内存  ###   
 
-工具：Android Device Monitor, Eclipse Memory Analyzer Tool(MAT),dumpsys meminfo <package name | pid>,
+工具：Android Device Monitor, Eclipse Memory Analyzer Tool(MAT),dumpsys meminfo <package name/pid>,
 
 
 测试用例：   
@@ -80,9 +80,33 @@ Battery Historian,adb shell dumpsys batteryinfo/batterystats,
 * 横竖屏切换   
 
 
-### FPS ###   
+### [FPS,Frames Per Seconds](https://en.wikipedia.org/wiki/Frame_rate) ###   
 
-(未完，待续）  
+[UI性能](https://developer.android.com/training/testing/performance.html)的指用户交互是否顺畅(buttery smooth),
+
+测试工具：   
+
+traceview, systrace,  adb shell dumpsys gfxinfo,hierarchy viewer,Tracer for OpenGL ES   
+
+测试用例：   
+
+* 过度绘制  
+* UI布局合理性  
+* UI渲染逻辑,渲染耗时排行   
 
 
-* 
+### 参考资料  ###   
+
+
+[http://www.nvidia.com/object/what-is-gpu-computing.html](http://www.nvidia.com/object/what-is-gpu-computing.html)  
+[https://google.github.io/android-testing-support-library/](https://google.github.io/android-testing-support-library/)   
+[https://codelabs.developers.google.com/codelabs/android-perf-testing/index.html?index=..%2F..%2Findex#0](https://codelabs.developers.google.com/codelabs/android-perf-testing/index.html?index=..%2F..%2Findex#0)     
+
+[https://codelabs.developers.google.com/codelabs/firebase-test-lab/index.html?index=..%2F..%2Findex#0](https://codelabs.developers.google.com/codelabs/firebase-test-lab/index.html?index=..%2F..%2Findex#0)  
+
+[https://developer.android.com/training/testing/index.html](https://developer.android.com/training/testing/index.html)   
+
+[https://codelabs.developers.google.com/codelabs/android-testing/index.html?index=..%2F..%2Findex#0](https://codelabs.developers.google.com/codelabs/android-testing/index.html?index=..%2F..%2Findex#0)   
+
+[https://www.youtube.com/watch?v=WH9AFhgwmDw](https://www.youtube.com/watch?v=WH9AFhgwmDw)   
+
