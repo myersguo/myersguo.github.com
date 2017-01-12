@@ -1,12 +1,13 @@
 ---
 layout: wp
-tittle: work list of my life
+title: 生活轨迹
 ---
 
 2017:     
 
 
-## 跑步打卡  ##   
+## 跑步打卡 ##   
+
 
 2016.01.07   
 
