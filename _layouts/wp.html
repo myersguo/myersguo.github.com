@@ -60,7 +60,9 @@
 		{{ content }}
 		{% if page.shownav == null %}
 		<p class="article-footer">
+                {% if page.date %}
                  <span class="post-footers">提交于{{ page.date | date: "%A, %B %-d, %Y" }} </span> <span class="separator">|</span> <a  href="http://myersguo.github.io/about/">联系作者</a>
+                 {% endif %}
                 </p>	
 		<div class="post-nav">
 					 {% if page.previous.url %} 
