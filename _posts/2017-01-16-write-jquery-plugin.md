@@ -1,7 +1,7 @@
 ---
 layout: wp
-title: How to writejquery plugin——译AND想 
---
+title: How to writejquery plugin——译AND想
+---
 
 ### 基本插件开发 ###  
 
