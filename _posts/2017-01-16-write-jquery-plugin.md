@@ -188,7 +188,7 @@ $( "#green" ).hilight({
 
 
 
-##y 参考资料 ###  
+### 参考资料 ###  
 
 [https://learn.jquery.com/plugins/basic-plugin-creation/](https://learn.jquery.com/plugins/basic-plugin-creation/)  
 [http://javascript.ruanyifeng.com/jquery/plugin.html](http://javascript.ruanyifeng.com/jquery/plugin.html)   
