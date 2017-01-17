@@ -28,13 +28,13 @@ exec app_process $base/bin com.android.commands.monkey.Monkey $*
 
 app_process是Android的系统启动进程,用于启动`zygote`和其他`java`进程:   
 
-···
+```
  if (zygote) {
         runtime.start("com.android.internal.os.ZygoteInit", args, zygote);
     } else if (className) {
         runtime.start("com.android.internal.os.RuntimeInit", args, zygote);
     }
-···
+```
 
 更详细的内容，需要阅读android源码，这里不做详细扩展。   
 
