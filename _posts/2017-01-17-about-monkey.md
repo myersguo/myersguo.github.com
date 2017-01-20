@@ -79,6 +79,11 @@ private int run(String[] args) {
     getMainApps();//获取要执行的activity
     mEventSource = new MonkeySourceRandom(mRandom, mMainApps,
                     mThrottle, mRandomizeThrottle, mPermissionTargetSystem);//产生一个随机事件
+    ((MonkeySourceRandom) mEventSource).setFactors(i, mFactors[i]);
+    mEventSource.validate();//验证事件，并调整比例
+    mNetworkMonitor.start();//监听网络变化
+    crashedAtCycle = runMonkeyCycles();//monkey核心逻辑
+
 }
 ```
 
@@ -113,12 +118,176 @@ public abstract class MonkeyEvent {
 ```
 
 
+monkey有11种事件，在`MonkeyEventSource`中有事件的比例设置。   
+
+下面，我们来看monekey的核心执行逻辑；  
+
+```
+while (!systemCrashed && cycleCounter < mCount) {
+    //检查是否发生了ANR
+    if (mRequestAnrBugreport){
+        getBugreport("anr_" + mReportProcessName + "_");
+        mRequestAnrBugreport = false;
+    }
+    //检查系统watchdog是否报告bug
+     if (mRequestWatchdogBugreport) {
+         System.out.println("Print the watchdog report");
+         getBugreport("anr_watchdog_");
+         mRequestWatchdogBugreport = false;
+     }
+    //检查是否发生了CRASH
+    if (mRequestAppCrashBugreport){
+        getBugreport("app_crash" + mReportProcessName + "_");
+        mRequestAppCrashBugreport = false;
+    }
+    //检查bugreport报告生成
+     if (mRequestPeriodicBugreport){
+         getBugreport("Bugreport_");
+         mRequestPeriodicBugreport = false;
+     }
+    //报告系统信息，ANR时出发
+     if (mRequestDumpsysMemInfo) {
+         mRequestDumpsysMemInfo = false;
+         shouldReportDumpsysMemInfo = true;
+     }
+    //获取下一个随机时间
+    MonkeyEvent ev = mEventSource.getNextEvent();    
+    //注入事件
+     int injectCode = ev.injectEvent(mWm, mAm, mVerbose);
+}
+
+```
+
+回到之前的代码逻辑，这个`mEventSource`有三种来源：   
+
+```
+//脚本模式
+            mEventSource = new MonkeySourceScript(mRandom, mScriptFileNames.get(0), mThrottle,
+                    mRandomizeThrottle, mProfileWaitTime, mDeviceSleepTime);
+     mEventSource = new MonkeySourceRandomScript(mSetupFileName,
+                        mScriptFileNames, mThrottle, mRandomizeThrottle, mRandom,
+                        mProfileWaitTime, mDeviceSleepTime, mRandomizeScript);
+//网络模式，monkeyrunner的使用方式
+ mEventSource = new MonkeySourceNetwork(mServerPort);
+//默认模式，一般都使用随机事件
+mEventSource = new MonkeySourceRandom(mRandom, mMainApps,
+                    mThrottle, mRandomizeThrottle, mPermissionTargetSystem);
+```
+
+好，我们这里展开说一下脚本模式怎么使用monkey.先写一个简单的monkey事件脚本文件:   
+
+```
+/**
+ * monkey event queue. It takes a script to produce events sample script format:
+ *
+ * <pre>
+ * type= raw events
+ * count= 10
+ * speed= 1.0
+ * start data &gt;&gt;
+ * captureDispatchPointer(5109520,5109520,0,230.75429,458.1814,0.20784314,0.06666667,0,0.0,0.0,65539,0)
+ * captureDispatchKey(5113146,5113146,0,20,0,0,0,0)
+ * captureDispatchFlip(true)
+ * ...
+ * </pre>
+ */
+    
+#我们以小米商城为例，进入商城，滑动到最下面
+type= user
+count= 49
+speed= 1.0
+start data >>
+LaunchActivity(com.xiaomi.shop, com.xiaomi.shop.activity.MainTabActivity)
+#wait for launch
+UserWait(10000)
+#drag to down
+Drag(542,1326,542,560,15)
+#wait for 500 milliseconds
+UserWait(500)
+#tap second tab
+Tap(346,1868)
+
+```
+
+那这个脚本是怎么解析的呢？（这里不详细展开）:   
+
+```
+readHeader();//打开文件，读文件头，设置参数,文件头的结尾必须是：STARTING_DATA_LINE    
+当然，脚本中也可以不写文件头的。   
+readLines();
+readNextBatch();
+processLine();//处理每一行命令，加入事件队列中。命令包括：  
+
+```
+    // event key word in the capture log
+    private static final String EVENT_KEYWORD_POINTER = "DispatchPointer";
+    private static final String EVENT_KEYWORD_TRACKBALL = "DispatchTrackball";
+    private static final String EVENT_KEYWORD_ROTATION = "RotateScreen";
+    private static final String EVENT_KEYWORD_KEY = "DispatchKey";
+    private static final String EVENT_KEYWORD_FLIP = "DispatchFlip";
+    private static final String EVENT_KEYWORD_KEYPRESS = "DispatchPress";
+    private static final String EVENT_KEYWORD_ACTIVITY = "LaunchActivity";
+    private static final String EVENT_KEYWORD_INSTRUMENTATION = "LaunchInstrumentation";
+    private static final String EVENT_KEYWORD_WAIT = "UserWait";
+    private static final String EVENT_KEYWORD_LONGPRESS = "LongPress";
+    private static final String EVENT_KEYWORD_POWERLOG = "PowerLog";
+    private static final String EVENT_KEYWORD_WRITEPOWERLOG = "WriteLog";
+    private static final String EVENT_KEYWORD_RUNCMD = "RunCmd";
+    private static final String EVENT_KEYWORD_TAP = "Tap";//点击,轻触
+
+    private static final String EVENT_KEYWORD_PROFILE_WAIT = "ProfileWait";
+    private static final String EVENT_KEYWORD_DEVICE_WAKEUP = "DeviceWakeUp";
+    private static final String EVENT_KEYWORD_INPUT_STRING = "DispatchString";
+    private static final String EVENT_KEYWORD_PRESSANDHOLD = "PressAndHold"; //
+    private static final String EVENT_KEYWORD_DRAG = "Drag"; //拖动
+    private static final String EVENT_KEYWORD_PINCH_ZOOM = "PinchZoom";
+    private static final String EVENT_KEYWORD_START_FRAMERATE_CAPTURE = "StartCaptureFramerate";
+    private static final String EVENT_KEYWORD_END_FRAMERATE_CAPTURE = "EndCaptureFramerate";
+    private static final String EVENT_KEYWORD_START_APP_FRAMERATE_CAPTURE =
+            "StartCaptureAppFramerate";
+    private static final String EVENT_KEYWORD_END_APP_FRAMERATE_CAPTURE = "EndCaptureAppFramerate";
+```
+
+就是酱紫。执行一下我们的脚本(命令列表):   
+
+```
+adb -s 8b52f091 push d:\script.txt /sdcard/data
+monkey -f /sdcard/data/script.txt 1
+```
+你可以看到，我们滑动到了底部，然后打开了第二个TAB。当然，我们可以直接通过adb shell来执行上面的操作：  
+
+```
+adb shell input swipe 542 1326 560 15
+adb shell input swipe 542 1326 560 15
+adb shell input tap 346 1868
+
+```
+
+这里使用的是input命令来执行。和monkey一样，input是一个脚本,执行的是`/system/framework/input.jar`:   
+
+```
+$ cat /system/bin/input
+# Script to start "input" on the device, which has a very rudimentary
+# shell.
+#
+base=/system
+export CLASSPATH=$base/framework/input.jar
+exec app_process $base/bin com.android.commands.input.Input "$@"
+```
+
+回到monkey上去。    
+
 
 
 ### 备注 ###   
 
-* Android系统通过Binder机制给应用提供一系列系统服务，如am,wm..,提供了跨进成通信的方式，Binder是客户端和服务端通信的媒介。    
+* Android系统通过Binder机制给应用提供一系列系统服务，如am,wm..,提供了跨进成通信的方式，Binder是客户端和服务端通信的媒介。   
+* Android系统异常，包括ANR(系统超过5秒没有响应，在/data/anr下生成traces.txt),CRASH(JAVA异常),NDK CRASH(Android Native Crash,/data/tombstones/tombstone_xx)    
 
+* 手势事件  
+![gestures](/public/
+
+ 
 
 ### 参考资料 ###  
 
@@ -127,4 +296,5 @@ public abstract class MonkeyEvent {
 [https://android.googlesource.com/platform/development/+/master/cmds/monkey/src/com/android/commands/monkey/Monkey.java](https://android.googlesource.com/platform/development/+/master/cmds/monkey/src/com/android/commands/monkey/Monkey.java)   
 [http://www.cnblogs.com/samchen2009/p/3294713.html](http://www.cnblogs.com/samchen2009/p/3294713.html)  
 [http://gityuan.com/android/](http://gityuan.com/android/)   
+[https://developer.sony.com/2013/11/28/how-to-include-the-sony-gesture-api-in-your-google-tv-app-2/](https://developer.sony.com/2013/11/28/how-to-include-the-sony-gesture-api-in-your-google-tv-app-2/)  
 
