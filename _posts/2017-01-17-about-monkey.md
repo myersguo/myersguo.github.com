@@ -285,7 +285,7 @@ exec app_process $base/bin com.android.commands.input.Input "$@"
 * Android系统异常，包括ANR(系统超过5秒没有响应，在/data/anr下生成traces.txt),CRASH(JAVA异常),NDK CRASH(Android Native Crash,/data/tombstones/tombstone_xx)    
 
 * 手势事件  
-![gestures](/public/
+![gestures](/public/gesture.png)  
 
  
 
