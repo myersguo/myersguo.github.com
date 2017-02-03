@@ -122,7 +122,7 @@ monkey有11种事件，在`MonkeyEventSource`中有事件的比例设置。
 
 下面，我们来看monekey的核心执行逻辑；  
 
-```
+```java
 while (!systemCrashed && cycleCounter < mCount) {
     //检查是否发生了ANR
     if (mRequestAnrBugreport){
@@ -218,7 +218,8 @@ readLines();
 readNextBatch();
 processLine();//处理每一行命令，加入事件队列中。命令包括：  
 
-```
+
+```java
     // event key word in the capture log
     private static final String EVENT_KEYWORD_POINTER = "DispatchPointer";
     private static final String EVENT_KEYWORD_TRACKBALL = "DispatchTrackball";
@@ -275,9 +276,75 @@ export CLASSPATH=$base/framework/input.jar
 exec app_process $base/bin com.android.commands.input.Input "$@"
 ```
 
-回到monkey上去。    
+回到monkey上去,上面说到   
 
+`int injectCode = ev.injectEvent(mWm, mAm, mVerbose);`    
 
+这个事件来源三类，我们现在看默认的随机事件(MonkeySourceRandom),它的getnextevent返回多种随机事件，这里以`MonkeyMotionEvent`为例进行说明
+
+```java
+@Override
+    public int injectEvent(IWindowManager iwm, IActivityManager iam, int verbose) {
+        MotionEvent me = getEvent();
+        if ((verbose > 0 && !mIntermediateNote) || verbose > 1) {
+            StringBuilder msg = new StringBuilder(":Sending ");
+            msg.append(getTypeLabel()).append(" (");
+            switch (me.getActionMasked()) {
+                case MotionEvent.ACTION_DOWN:
+                    msg.append("ACTION_DOWN");
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    msg.append("ACTION_MOVE");
+                    break;
+                case MotionEvent.ACTION_UP:
+                    msg.append("ACTION_UP");
+                    break;
+                case MotionEvent.ACTION_CANCEL:
+                    msg.append("ACTION_CANCEL");
+                    break;
+                case MotionEvent.ACTION_POINTER_DOWN:
+                    msg.append("ACTION_POINTER_DOWN ").append(me.getPointerId(me.getActionIndex()));
+                    break;
+                case MotionEvent.ACTION_POINTER_UP:
+                    msg.append("ACTION_POINTER_UP ").append(me.getPointerId(me.getActionIndex()));
+                    break;
+                default:
+                    msg.append(me.getAction());
+                    break;
+            }
+            msg.append("):");
+
+            int pointerCount = me.getPointerCount();
+            for (int i = 0; i < pointerCount; i++) {
+                msg.append(" ").append(me.getPointerId(i));
+                msg.append(":(").append(me.getX(i)).append(",").append(me.getY(i)).append(")");
+            }
+            System.out.println(msg.toString());
+        }
+        try {
+            //InputManager.getInstance返回input manager的实例
+            //Injects an input event into the event system on behalf of an application
+            //注入事件
+            if (!InputManager.getInstance().injectInputEvent(me,
+                    InputManager.INJECT_INPUT_EVENT_MODE_WAIT_FOR_RESULT)) {
+                return MonkeyEvent.INJECT_FAIL;
+            }
+        } finally {
+            me.recycle();
+        }
+        return MonkeyEvent.INJECT_SUCCESS;
+    }
+
+```
+
+其他如MonkeyRotationEvent，使用`iwm.freezeRotation(mRotationDegree);`来实现旋转屏幕。   
+
+ 
+### 总结 ###   
+
+* monkey事件来源三种：默认随机事件、脚本定义事件、network网络事件；  
+* monkey事件根据类型比例生成事件队列，循环查找事件;   
+* monkey事件的实现使用系统内部API(activemanager,inputmanager,windowmanager)来实现；  
 
 ### 备注 ###   
 
@@ -285,7 +352,9 @@ exec app_process $base/bin com.android.commands.input.Input "$@"
 * Android系统异常，包括ANR(系统超过5秒没有响应，在/data/anr下生成traces.txt),CRASH(JAVA异常),NDK CRASH(Android Native Crash,/data/tombstones/tombstone_xx)    
 
 * 手势事件  
-![gestures](/public/gesture.png)  
+![gestures](/public/gesture.jpg)   
+
+  
 
  
 
