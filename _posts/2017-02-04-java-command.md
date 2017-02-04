@@ -38,3 +38,21 @@ java [options] -jar file.jar [ argument ...]
 -Xssn:设置线程stack大小;     
 
 
+#### 其他 ####
+
+启动java 程序：   
+
+```
+#!/bin/bash
+cd `dirname $0`
+BIN_PATH=`pwd`
+cd ..
+SRC_PATH=`pwd`
+JAVA_HOME="/home/work/app/java"
+LIB_DIR=$SRC_PATH/lib/*.jar
+JAVA_OPTIONS=“”
+JAVA_CLASS=""
+$JAVA_HOME/bin/java $JAVA_OPTIONS -cp $LIB_DIR $JAVA_CLASS
+```
+
+启动后可以通过jps查看进程(jps -lvV)
