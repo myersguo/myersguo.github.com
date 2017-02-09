@@ -20,6 +20,12 @@ touch requirements.txt
 source env/bin/activate
 ```
 
+可以获取本地环境的依赖：  
+
+`pip freeze > requirements.txt`  
+
+
+
 ### 未完待续 ###
 
 
@@ -29,5 +35,6 @@ source env/bin/activate
 ### 参考资料 ###
 
 [http://docs.python-guide.org/en/latest/dev/virtualenvs/](http://docs.python-guide.org/en/latest/dev/virtualenvs/)  
+[http://pythonguidecn.readthedocs.io/zh/latest/dev/virtualenvs.html](http://pythonguidecn.readthedocs.io/zh/latest/dev/virtualenvs.html)  
 
 
