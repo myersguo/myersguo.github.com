@@ -5,7 +5,7 @@ title: overview of Appium
 
 ### 说在前面 ###
 
-本文针对appium(version:1.6.4-beta)「比较粗糙」的介绍了下它的实现流程。难免有不妥支出，有任何问题，可直接沟通交流。   
+本文针对appium(version:1.6.4-beta)「比较粗糙」的介绍了下它的源码的实现流程。难免有不妥支出，有任何问题，可直接沟通交流。   
 
 
 ## Appium的架构 ##
@@ -40,14 +40,23 @@ npm install
 
 
 /build/main.js是由/lib/main.js经babel翻译后的结果，所以，我们来看下/lib/main.js来理解appium的流程。    
-
+(备注：由于appium源码执行都是执行的编译后的方法，即build目录下，因此如果你想要调试进行测试，需要在各个模块build目录下更改调试,如果更改源码，需要gulp transpile进行编译)       
 
 ### appium server ###
 
 ![appium uml](/public/images/appium_uml.png)  
 
 
-appium server端实现了HTTP REST API接口，将client端发来的API请求，解析，发送给执行端。我们看一下appium server的源码实现。
+appium server端实现了HTTP REST API接口，将client端发来的API请求，解析，发送给执行端。apium server,以及其他的driver（android,ios）都实现了basedriver类。basedriver定义了session的创建，命令的执行方式(cmd执行)。  
+
+appium server(appium driver)大致的流程为：
+
+* 解析命令行参数  
+* 注册路由方法  
+* 解析路由    
+
+
+我们看一下[appium server的源码](https://github.com/appium/appium/blob/master/lib/main.js)实现。  
 
 ```
 import { server as baseServer } from 'appium-base-driver';
@@ -112,13 +121,16 @@ function getAppiumRouter (args) {
 
 #### URL路由解析 #### 
 
-上面的总揽可以看到基本流程如下：   
+上面说道，路由注册。所有支持的请求都[METHOD_MAP](https://github.com/appium/appium-base-driver/blob/master/lib/mjsonwp/routes.js)这个全局变量里面。它是一个path:commd的对象集合。路由执行过程是：  
 
-```
-parse arguments -> register route -> process route
-```
 
-我们看一下命令的具体执行逻辑(appium-base-driver\lib\mjsonwp\Mjsonwp.js):   
+* 检查命令类型(是否包含session)   
+* 设置代理   
+* 检查命令类型与参数  
+* 执行命令   
+
+
+我们来详细看一下(routeConfiguringFunction)到底做了什么(appium-base-driver\lib\mjsonwp\Mjsonwp.js):   
 
 
 ```javascript
@@ -228,8 +240,8 @@ function buildHandler (app, method, path, spec, driver, isSessCmd) {
 
 ### 创建session 与 executeCommand ###
 
-(lib\appium.js) 
-
+[lib\appium.js](https://github.com/appium/appium/blob/master/lib/appium.js)   
+ 
 上面说了`appium server`已经启动了，第一件事情，当然是创建***session***,然后把command交给这个session的不同driver去执行了。  
 appium先根据caps进行session创建（`getDriverForCaps`）,然后保存InnerDriver到当前session,以后每次执行命令(executeDCommand)会判断是否为appiumdriver的命令，不是则转给相应的driver去执行命令(android,ios等)。  
 
@@ -417,8 +429,8 @@ appium --nodeconfig /path/to/nodeconfig.json
 
 
 
+### 参考资料 ###
 
-###　参考资料 ###
 
 [https://github.com/appium/appium/blob/master/CONTRIBUTING.md](https://github.com/appium/appium/blob/master/CONTRIBUTING.md)   
 [https://github.com/appium/appium/blob/master/docs/en/contributing-to-appium/appium-packages.md](https://github.com/appium/appium/blob/master/docs/en/contributing-to-appium/appium-packages.md)   
