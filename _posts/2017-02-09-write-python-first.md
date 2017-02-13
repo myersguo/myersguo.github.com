@@ -25,9 +25,7 @@ source env/bin/activate
 `pip freeze > requirements.txt`  
 
 
-
-### 未完待续 ###
-
+###
 
 
 
