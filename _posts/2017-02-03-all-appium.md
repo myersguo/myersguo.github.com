@@ -130,7 +130,7 @@ function getAppiumRouter (args) {
 * 执行命令   
 
 
-我们来详细看一下(routeConfiguringFunction)到底做了什么(appium-base-driver\lib\mjsonwp\Mjsonwp.js):   
+我们来详细看一下(routeConfiguringFunction)到底做了什么([appium-base-driver\lib\mjsonwp\Mjsonwp.js](https://github.com/appium/appium-base-driver/blob/master/lib/mjsonwp/mjsonwp.js)):   
 
 
 ```javascript
@@ -292,7 +292,7 @@ appium先根据caps进行session创建（`getDriverForCaps`）,然后保存Inner
 
 ### android 执行命令 ###
 
-我们以`uiautomator2`(\appium-uiautomator2-driver\build\lib)为例看一下它的`cmd`执行情况。    
+我们以`uiautomator2`([\appium-uiautomator2-driver\build\lib](https://github.com/appium/appium-uiautomator2-driver/tree/master/lib))为例看一下它的`cmd`执行情况。    
 
 以`getAttribute`(appium-uiautomator2-driver\lib\commands\element.js)为例说明：  
 
@@ -311,7 +311,11 @@ await this.adb.forwardPort(this.opts.systemPort, DEVICE_PORT);
 //设备端口号：6790
 ```
 
-(未完待续)
+### appium-uiautomator2-server ###
+
+android的server端实现了`netty`的http server,端口号:6790.    
+
+
 
 
 
@@ -393,7 +397,7 @@ appium --nodeconfig /path/to/nodeconfig.json
 
 
 
-<h4 id="route_config">路由配置(appium-base-driver\lib\mjsonwp\routes.js)</h4>   
+<h4 id="route_config">路由配置([appium-base-driver\lib\mjsonwp\routes.js](https://github.com/appium/appium-base-driver/blob/master/lib/mjsonwp/routes.js)</h4>   
 
 ```
   const METHOD_MAP = {

@@ -1,7 +1,9 @@
 ---
 layout: wp
-title: 笔记,JAVA启动命令
+title: write java first
 ---
+
+### java command line ###
 
 java的命令行启动命令。它创建一个JAVA的运行时环境，加载待执行的类并调用该类`main`方法。
 
@@ -55,4 +57,43 @@ JAVA_CLASS=""
 $JAVA_HOME/bin/java $JAVA_OPTIONS -cp $LIB_DIR $JAVA_CLASS
 ```
 
-启动后可以通过jps查看进程(jps -lvV)
+启动后可以通过jps查看进程(jps -lvV)   
+
+### gradle ###
+
+gradle 默认会在当前目录下寻找build.gradle并根据settings.gradle寻找子项目.
+
+`settings.gradle`包含所有的子模块。   
+
+build.gradle常见属性：   
+
+
+allprojects: project及所有子project的属性。
+dependencies: 依赖管理。 
+buildScript:构建脚本依赖   
+buildDri: 生成脚本的目录  
+rootDir: 项目根目录  
+rootProject: 父项目project   
+
+
+#### android compile ####
+
+![images](/public/images/build-process_2x.png)   
+
+android {
+    compileSdkVersion 编译版本
+    buildToolsVersion 构建版本    
+
+    defaultConfig { //默认配置
+    }
+    buildTypes { //构建类型,debug or release
+
+    }
+    productFlavors { //产品分类，不同的渠道包
+    
+    }
+}
+
+### 参考资料 ###
+
+
