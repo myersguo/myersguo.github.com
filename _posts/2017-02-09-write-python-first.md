@@ -25,6 +25,11 @@ source env/bin/activate
 `pip freeze > requirements.txt`  
 
 
+## How import work ##  
+
+
+
+
 ## in list or tuple ##
 
 
@@ -91,13 +96,9 @@ list(time: 0.531000137329) is fast than tuple time(0.531999826431)
 
 list(time: 2.17700028419) is slow than tuple time(2.17199969292)
 ```
-再多测试几次挥发现，出现`list(time: 5.91100049019) is fast than tuple time(6.1219997406)`,因此可以判断，list和tuple在查找上(in)速度差不多。   
+再多测试几次挥发现，出现`list(time: 5.91100049019) is fast than tuple time(6.1219997406)`,因此可以判断，list和tuple在查找上(in)速度差不多((/ □ \))   
 
 如果固定不变，就用tuple，不需要考虑性能问题。   
-
-
-
-
 
 
 
