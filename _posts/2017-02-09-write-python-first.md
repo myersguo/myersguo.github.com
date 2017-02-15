@@ -3,7 +3,7 @@ layout: wp
 title: write python first
 ---
 
-### 安装虚拟环境 ###
+## 安装虚拟环境 ##
 
 >
 >[虚拟环境](http://docs.python-guide.org/en/latest/dev/virtualenvs/)解决不同的项目依赖版本不同的问题。保持本地全局包的干净。  
@@ -25,7 +25,79 @@ source env/bin/activate
 `pip freeze > requirements.txt`  
 
 
-###
+## in list or tuple ##
+
+
+比如判断是否为windows环境：   
+
+```
+def is_windows():
+    if os.name in ('nt','ce'):
+        return True
+    return False
+```
+
+这里 os.name in `('nt','ce')` 能否更改为 ` os.name in ['nt','ce']` 呢？   
+
+当然可以，但那个速度够快呢，我们做个测试：  
+
+```
+import time
+import random
+
+a = []
+for x in range(9999999):
+    a.append(x)
+
+
+b = tuple(a)
+
+suma = 0
+sumb = 0
+y = 0
+while y<10:
+    r = random.randrange(1,9999999)
+    start = time.time()
+    check = r in a
+    end = time.time()
+    diff = end-start
+    suma += diff
+    start2 = time.time()
+    check2 = r in b
+    end2 = time.time()
+    diff2 = end2-start2
+    sumb += diff2
+    print 'list(time: %s) is %s than tuple time(%s)' % (diff, 'fast' if diff2>diff else 'slow',diff2)
+    y +=1
+
+print 'list(time: %s) is %s than tuple time(%s)' % (suma, 'fast' if sumb>suma else 'slow',sumb)
+
+
+```
+
+测试结果为：  
+
+```
+list(time: 0.297999858856) is slow than tuple time(0.296000003815)
+list(time: 0.0820000171661) is slow than tuple time(0.0769999027252)
+list(time: 0.503000020981) is slow than tuple time(0.496999979019)
+list(time: 0.113000154495) is fast than tuple time(0.116999864578)
+list(time: 0.261000156403) is fast than tuple time(0.286999940872)
+list(time: 0.00500011444092) is slow than tuple time(0.000999927520752)
+list(time: 0.131999969482) is slow than tuple time(0.128000020981)
+list(time: 0.197000026703) is slow than tuple time(0.186000108719)
+list(time: 0.0549998283386) is slow than tuple time(0.0510001182556)
+list(time: 0.531000137329) is fast than tuple time(0.531999826431)
+
+list(time: 2.17700028419) is slow than tuple time(2.17199969292)
+```
+再多测试几次挥发现，出现`list(time: 5.91100049019) is fast than tuple time(6.1219997406)`,因此可以判断，list和tuple在查找上(in)速度差不多。   
+
+如果固定不变，就用tuple，不需要考虑性能问题。   
+
+
+
+
 
 
 
