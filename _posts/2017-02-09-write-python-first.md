@@ -25,7 +25,8 @@ source env/bin/activate
 `pip freeze > requirements.txt`  
 
 
-## How import work ##  
+## package & module ##
+
 
 
 
