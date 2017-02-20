@@ -76,7 +76,30 @@ mvn的安装目录下的conf/settings.xml添加如下[配置](https://wiki.jenki
 mvn -U org.jenkins-ci.tools:maven-hpi-plugin:create   
 ```
 
+![jenkins](/public/images/jenkins.hello.png)    
+
 然后，你就看到jenkins的插件Downloading....then一步一步的填写相关配置,你已经创建好了jenkins插件的helloworld工程。    
+
+
+```
+└─hello
+    └─src
+        └─main
+            ├─java
+            │  └─io
+            │      └─github
+            │          └─myersguo
+            │              └─jenkins
+            │                  └─hello
+            └─resources
+                └─io
+                    └─github
+                        └─myersguo
+                            └─jenkins
+                                └─hello
+                                    └─HelloWorldBuilder
+```
+
 
 
 

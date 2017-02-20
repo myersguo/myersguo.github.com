@@ -1,0 +1,15 @@
+{
+  "name": "bloger",
+  "version": "0.0.1",
+  "description": "bloger",
+  "main": "",
+  "devDependencies": {
+    "cz-conventional-changelog": "^1.2.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
+
