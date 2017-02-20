@@ -4,6 +4,86 @@ title: 简单的jenkins插件
 comments: true
 ---  
 
+### 前言  ###
+
+一般公司内部的发布系统和jenkins的持续集成结合时，往往官方的插件不足以满足我们的需求。因此我们需要自己动手，写一个定制化的jenkins插件。  
+
+###　起步 ###
+
+在动手之前，一定要先走以下几步：   
+
+*  搜索[plugin list](https://wiki.jenkins-ci.org/display/JENKINS/Plugins)接近你的需求的插件；  
+*  搜索插件仓库https://github.com/jenkinsci   
+*  google search 是否有类似需求讨论  
+*  搜索邮件列表https://groups.google.com/forum/#!forum/jenkinsci-users   
+
+当你发现所有人的需求都和你不同时，你就可以开始动手(copy and write)了。   
+
+
+### 写一个简单的jenkins插件 ###
+
+(前提是准备好eclipse,mvn)   
+
+#### 添加jenkins的mvn仓库 ####
+
+mvn的安装目录下的conf/settings.xml添加如下[配置](https://wiki.jenkins-ci.org/display/JENKINS/Plugin+tutorial#Plugintutorial-SettingUpEnvironment), 比如我的机器的配置为：    
+
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" 
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+ 
+ <!--<settings> -->
+  <pluginGroups>
+    <pluginGroup>org.jenkins-ci.tools</pluginGroup>
+  </pluginGroups>
+
+  <profiles>
+    <!-- Give access to Jenkins plugins -->
+    <profile>
+      <id>jenkins</id>
+      <activation>
+        <activeByDefault>true</activeByDefault> <!-- change this to false, if you don't like to have it on per default -->
+      </activation>
+      <repositories>
+        <repository>
+          <id>repo.jenkins-ci.org</id>
+          <url>https://repo.jenkins-ci.org/public/</url>
+        </repository>
+      </repositories>
+      <pluginRepositories>
+        <pluginRepository>
+          <id>repo.jenkins-ci.org</id>
+          <url>https://repo.jenkins-ci.org/public/</url>
+        </pluginRepository>
+      </pluginRepositories>
+    </profile>
+  </profiles>
+  <mirrors>
+    <mirror>
+      <id>repo.jenkins-ci.org</id>
+      <url>https://repo.jenkins-ci.org/public/</url>
+      <mirrorOf>m.g.o-public</mirrorOf>
+    </mirror>
+  </mirrors>
+</settings>
+```
+
+
+```
+mvn -U org.jenkins-ci.tools:maven-hpi-plugin:create   
+```
+
+然后，你就看到jenkins的插件Downloading....then一步一步的填写相关配置,你已经创建好了jenkins插件的helloworld工程。    
+
+
+
+
+
+-------------------------old version -----    
+
+
 ### 需求描述  
 代码的发布和配置的发布是隔离的，在jenkins发布代码后希望配置也发布，或者可单独发布配置;
 
@@ -40,6 +120,7 @@ file_content
 
 
 #### 前言   
+
 jenkins的一个优势就是插件特性。现在jenkins插件库里的插件成百上千，几乎每周都有新的插件发布到jenkins平台中。因此，在开发插件之前，应该先从插件库中搜索，是否现有的插件满足你的需求。
 
 如果你认为你的需求独特，需要编写一个插件，请参考：  
@@ -59,13 +140,17 @@ jenkins 社区鼓励插件开发者上传插件。为了方便其他用户可以
 * 注册jenkins帐号，方便反馈问题
 
 ####  Jenkins插件的作用  
+
 jenkins提供了基本的构建系统的扩展接口和抽象方法。这些接口定义了一些必须实现的**约定**,jenkins允许插件实现这些[接口功能](https://wiki.jenkins-ci.org/display/JENKINS/Extension+points#Extensionpoints-ExtensionPointsinJenkinsCoreBuildingJenkins)。  
 
-#### 开发环境  
+#### 开发环境
+
+
 1. maven  
 2. JDK 6.0 or later  
 
 ### 开发准备  
+
 mvn -U org.jenkins-ci.tools:maven-hpi-plugin:create
 (mvn的[插件全称](https://maven.apache.org/pom.html)：groupid:artifactId:version:packaging),(命名空间:项目名：版本号：包名)
 (http://repo.jenkins-ci.org/public/org/jenkins-ci/tools/maven-hpi-plugin/)
@@ -75,6 +160,7 @@ create: 目标(mvn goal)
 
 
 大概的输出即 :  
+
 
 ```
 [INFO] Defaulting package to group ID + artifact ID: com.xiaomi.test.xmtest.scm
@@ -96,9 +182,11 @@ create: 目标(mvn goal)
 [INFO] Final Memory: 17M/121M
 [INFO] ------------------------------------------------------------------------  
 ``` 
+
 这里我设置项目名为: xmtest.scm  
 组名：com.xiaomi.test  
 xmtest.scm的大致目录结构即:  
+
 
 ````
 └─src
@@ -118,8 +206,10 @@ xmtest.scm的大致目录结构即:
                                 └─HelloWorldBuilder
 
 ```
-`
+
+
 mvn install 执行编译打包：  结果生成插件xmtest.scm.hpi：  
+
 ````
 [INFO]
 [INFO] --- maven-license-plugin:1.7:process (default) @ xmtest.scm ---
@@ -143,6 +233,7 @@ mvn install 执行编译打包：  结果生成插件xmtest.scm.hpi：
 
 
 #### 开发过程  
+
 1) pom.xml:  
 parent: 每个jenkins插件都必须包含parent，为：org.jenkins-ci.plugins:plugins:2.2  
 2) 架构（代码结构）:  
@@ -153,6 +244,7 @@ src/main/java: java源码；src/main/resources: jelly/groovy 视图.  src/main/w
 
 singleton pattern:  
 eg:
+
 ```
 /**
  * Extension point that defines different kinds of animals
@@ -168,6 +260,7 @@ public abstract class Animal implements ExtensionPoint {
     }
 }
 ```
+
 实现插件的接口定义如下：  
 ```
 @Extension
@@ -189,6 +282,7 @@ lanch jenkins:
 
 
 #### 我的步骤
+
 1) 搜索plugin list，查找关键词file,找到file system scm这个插件与需求类似。  
 https://wiki.jenkins-ci.org/display/JENKINS/File+System+SCM  
 2）
