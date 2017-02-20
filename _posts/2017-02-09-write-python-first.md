@@ -27,7 +27,61 @@ source env/bin/activate
 
 ## package & module ##
 
+[module search path](https://docs.python.org/2/tutorial/modules.html)  
 
+python的module查找是从`sys.path`中，sys.path来自：   
+
+
+* 输入脚本的当前目录。   
+* PYTHONPATH,一系列目录名，在python安装的时候就已经确定。   
+* 安装时默认值   
+
+如果想要让python找到不在sys.path中的模块，就需要添更改sys.path:   
+
+
+```
+import os, sys
+sys.path.append(os.path.dirname(os.path.abspath(__file__))+"/../../")
+```
+
+想要追看python的执行过程：  
+
+```
+python -m trace -c -t xxx.py
+```
+
+
+一个简单的测试：  
+
+```
+test
+--modulea
+----a.py
+--moduleb
+----b.py
+test.py
+```
+
+其中`a.py`导入b.py：　　　
+
+```
+from module b import b
+```
+
+执行`python a.py`会报错:   
+
+```
+ImportError: No module named xxx
+```
+
+因为执行时sys.path找不到moduleb，那怎么才不报错：   
+test.py作为入口，导入a,执行就不会报错了．  
+
+```
+#test.py
+from module import a
+
+```
 
 
 
