@@ -100,367 +100,99 @@ mvn -U org.jenkins-ci.tools:maven-hpi-plugin:create
                                     └─HelloWorldBuilder
 ```
 
+编译打包:`mvn install`    
+将在target目录下生成hello.hpi(jenkins插件,hello.jar的封装包)     
+
+打开jenkins进行安装，然后建一个job，执行以下就能看到熟悉的hello,world了。   
+
+![jenkins plugin](/public/images/plugin.png)   
+![jenkins plugin](/public/images/plugin2.png)     
 
 
+### 写一个自己的插件 ###
 
+上面利用[maven-hpi-plugin](https://github.com/jenkinsci/maven-hpi-plugin)自动创建了一个jenkins插件工程。我们写自己的插件就从上面的工程**按照约定**编写相应的工程即可。约定是什么呢？  
 
+* resources: jelly/groovy 视图  
+* main: 插件源码逻辑   
 
--------------------------old version -----    
+**插件视图设置**   
 
+**config.jelly**配置插件的变量参数；   
+**global.jelly**配置插件的全局参数（系统设置参数）;  
 
-### 需求描述  
-代码的发布和配置的发布是隔离的，在jenkins发布代码后希望配置也发布，或者可单独发布配置;
+**插件代码逻辑**   
 
-配置的发布流程：   
-1）从配置平台拉取配置 http get 请求，需要经过认证
-2) 将配置内容写入文件中
+详情了解jenkins的架构可以阅读[官方文档](https://wiki.jenkins-ci.org/display/JENKINS/Architecture):jenkins基于stapler构建了基于url的MVC框架。我们只需要按照jenkins插件规范来写插件即可，这里修改默认生成的构建类，进行设置：  
 
-或者：
-直接下载配置文件
+构建的插件都要继承自`Builder`类，我们以创建文件为例写一个插件：  
 
-请求的参数格式:
-project_id
-env
-site
+通过注解DataBoundConstructor和[DataBoundSetter](https://github.com/stapler/stapler/blob/master/core/src/main/java/org/kohsuke/stapler/DataBoundSetter.java)将config.jelly的配置传递到插件对象中。    
 
-返回的格式:
-file_name
-file_path
-file_content
-
-### 需要的功能
-1）HTTP请求
-2）写文件操作
-
-
-### jenkins提供的功能
-1) SCM plugin 不满足功能
-
-### 从头开发一个jenkins支持此功能
-
-
-
-### jenkins 插件指南(翻译)
-
-
-#### 前言   
-
-jenkins的一个优势就是插件特性。现在jenkins插件库里的插件成百上千，几乎每周都有新的插件发布到jenkins平台中。因此，在开发插件之前，应该先从插件库中搜索，是否现有的插件满足你的需求。
-
-如果你认为你的需求独特，需要编写一个插件，请参考：  
-1. 搜索[plugin list](https://wiki.jenkins-ci.org/display/JENKINS/Plugins)接近你的需求的插件；
-2. 搜索插件仓库https://github.com/jenkinsci
-3. google search 是否有类似需求讨论
-4. 搜索邮件列表https://groups.google.com/forum/#!forum/jenkinsci-users
-5. 加入jenkinscli-dev 邮件列表。
-
-jenkins 插件中心：  
-jenkins 社区鼓励插件开发者上传插件。为了方便其他用户可以通过jenkins平台安装插件，插件的开发者需要：  
-* 提供插件的id,不能包含jenkins和plugin。例如：enkins-snapchat-notification-plugin，应该更改为snapchat-notification。
-插件ID需要仔细选择,已经选定不可更改。
-* 提供插件的描述。
-* 上传插件代码到github(https://github.com/jenkinsci)
-* 提供open source 的协议(大多数使用MIT)
-* 注册jenkins帐号，方便反馈问题
-
-####  Jenkins插件的作用  
-
-jenkins提供了基本的构建系统的扩展接口和抽象方法。这些接口定义了一些必须实现的**约定**,jenkins允许插件实现这些[接口功能](https://wiki.jenkins-ci.org/display/JENKINS/Extension+points#Extensionpoints-ExtensionPointsinJenkinsCoreBuildingJenkins)。  
-
-#### 开发环境
-
-
-1. maven  
-2. JDK 6.0 or later  
-
-### 开发准备  
-
-mvn -U org.jenkins-ci.tools:maven-hpi-plugin:create
-(mvn的[插件全称](https://maven.apache.org/pom.html)：groupid:artifactId:version:packaging),(命名空间:项目名：版本号：包名)
-(http://repo.jenkins-ci.org/public/org/jenkins-ci/tools/maven-hpi-plugin/)
--U: 更新相关插件  
-hpi: jenkins HPI Plugin  
-create: 目标(mvn goal)  
-
-
-大概的输出即 :  
-
+[代码示例](https://github.com/myersguo/fileoperate_jenkins/blob/master/src/main/java/com/xiaomi/test/xmtest/fileoperate/ConfigUpdate.java)  
 
 ```
-[INFO] Defaulting package to group ID + artifact ID: com.xiaomi.test.xmtest.scm
-[INFO] ----------------------------------------------------------------------------
-[INFO] Using following parameters for creating Archetype: maven-hpi-plugin:1.117
-[INFO] ----------------------------------------------------------------------------
-[INFO] Parameter: groupId, Value: com.xiaomi.test
-[INFO] Parameter: package, Value: com.xiaomi.test.xmtest.scm
-[INFO] Parameter: artifactId, Value: xmtest.scm
-[INFO] Parameter: basedir, Value: d:\work\workspace
-[INFO] Parameter: version, Value: 1.0-SNAPSHOT
-[INFO] ********************* End of debug info from resources from generated POM ***********************
-[INFO] Archetype created in dir: d:\work\workspace\xmtest.scm
-[INFO] ------------------------------------------------------------------------
-[INFO] BUILD SUCCESS
-[INFO] ------------------------------------------------------------------------
-[INFO] Total time: 09:02 min
-[INFO] Finished at: 2016-06-29T22:05:04+08:00
-[INFO] Final Memory: 17M/121M
-[INFO] ------------------------------------------------------------------------  
+public class ConfigUpdate extends Builder {
+
+    public String filePath = "";
+    public String fileContent = "";
+    public String fileOption = "overWrite";
+    //config.jelly中的配置是数据来源
+    @DataBoundConstructor
+    public  ConfigUpdate(String filePath, String fileContent, String fileOption) {
+        this.filePath = filePath;
+        this.fileContent = fileContent;
+        this.fileOption = fileOption;
+    }
+    //settter & getter
+    @DataBoundSetter
+    public void setFilePath(String outputFile) {
+        this.filePath = outputFile;
+    }
+    @DataBoundSetter
+    public void setFileContent(String fileContent){this.fileContent = fileContent;}
+
+    @Override
+    public boolean perform(AbstractBuild<?,?> build, Launcher launcher, BuildListener listener)
+            throws InterruptedException,IOException {
+        //插件业务逻辑,这里省略
+        return true;
+    }
+
+    
+    @Extension
+    public static final class DescriptorImpl extends BuildStepDescriptor<Builder> {
+
+        public DescriptorImpl() {
+            load();
+        }
+
+        //构建检查
+        public FormValidation doCheckFilePath(@QueryParameter String value)
+                throws IOException, ServletException {
+            if (value.length() == 0)
+                return FormValidation.error("请设置文件路径");
+
+            return FormValidation.ok();
+        }
+
+        public FormValidation doCheckFileContent(@QueryParameter String value)
+                throws IOException, ServletException {
+            if (value.length() == 0)
+                return FormValidation.error("请输入文件内容");
+
+            return FormValidation.ok();
+        }
+
+    }
+}
+
+
 ``` 
 
-这里我设置项目名为: xmtest.scm  
-组名：com.xiaomi.test  
-xmtest.scm的大致目录结构即:  
+这样，我们`copy and write`，jenkins的mvn插件给我把代码脚手架安装好。我们就按照步骤更改，就能写出定制化的插件了。   
 
 
-````
-└─src
-    └─main
-        ├─java
-        │  └─com
-        │      └─xiaomi
-        │          └─test
-        │              └─xmtest
-        │                  └─scm
-        └─resources
-            └─com
-                └─xiaomi
-                    └─test
-                        └─xmtest
-                            └─scm
-                                └─HelloWorldBuilder
-
-```
-
-
-mvn install 执行编译打包：  结果生成插件xmtest.scm.hpi：  
-
-````
-[INFO]
-[INFO] --- maven-license-plugin:1.7:process (default) @ xmtest.scm ---
-[INFO] Generated d:\work\workspace\xmtest.scm\target\xmtest.scm\WEB-INF\licenses.xml
-[INFO]
-[INFO] --- jacoco-maven-plugin:0.7.2.201409121644:report (report) @ xmtest.scm ---
-[INFO] Analyzed bundle 'TODO Plugin' with 2 classes
-[INFO]
-[INFO] --- maven-hpi-plugin:1.115:hpi (default-hpi) @ xmtest.scm ---
-[INFO] Generating d:\work\workspace\xmtest.scm\target\xmtest.scm\META-INF\MANIFEST.MF
-[INFO] Checking for attached .jar artifact ...
-[INFO] Generating jar d:\work\workspace\xmtest.scm\target\xmtest.scm.jar
-[INFO] Building jar: d:\work\workspace\xmtest.scm\target\xmtest.scm.jar
-[INFO] Exploding webapp...
-[INFO] Copy webapp webResources to d:\work\workspace\xmtest.scm\target\xmtest.scm
-[INFO] Assembling webapp xmtest.scm in d:\work\workspace\xmtest.scm\target\xmtest.scm
-[INFO] Generating hpi d:\work\workspace\xmtest.scm\target\xmtest.scm.hpi
-[INFO] Building jar: d:\work\workspace\xmtest.scm\target\xmtest.scm.hpi
-````  
-
-
-
-#### 开发过程  
-
-1) pom.xml:  
-parent: 每个jenkins插件都必须包含parent，为：org.jenkins-ci.plugins:plugins:2.2  
-2) 架构（代码结构）:  
-src/main/java: java源码；src/main/resources: jelly/groovy 视图.  src/main/webapp:插件的静态HTML资源.  
-3) jenkins core定义了插件的集合,作为插件的入口。插件的扩展点定义有两种方式：  
-  *singleton pattern  
-  *Describale/Descriptor pattern(build on signgleton pattern)  
-
-singleton pattern:  
-eg:
-
-```
-/**
- * Extension point that defines different kinds of animals
- */
-public abstract class Animal implements ExtensionPoint {
-    ...
-
-    /**
-     * All registered {@link Animal}s.
-     */
-    public static ExtensionList<Animal> all() {
-        return Jenkins.getActiveInstance().getExtensionList(Animal.class); // getActiveInstance() starting with Jenkins 1.590, else getInstance()
-    }
-}
-```
-
-实现插件的接口定义如下：  
-```
-@Extension
-public class Lion extends Animal { ... }
-```
-**Describable/Descriptor pattern**  
-定义
-1) 可描述的对象显示ExtensionPoinit;  
-2) 描述点实现对扩展的描述和行为。  
-
-启动插件：   
-lanch jenkins:   
-    mvn Debug hpi:run  
-    mvn hpi:run -Djetty.port=8090  
-打包： mvn package  
-
-
-
-
-
-#### 我的步骤
-
-1) 搜索plugin list，查找关键词file,找到file system scm这个插件与需求类似。  
-https://wiki.jenkins-ci.org/display/JENKINS/File+System+SCM  
-2）
-
-参考资料:  
-1) https://wiki.jenkins-ci.org/display/JENKINS/Before+starting+a+new+plugin  
-2） https://wiki.jenkins-ci.org/display/JENKINS/Plugin+tutorial  
-3) jenkins plugin source code:   
-https://wiki.jenkins-ci.org/display/JENKINS/GitHub+Repositories  
-4) https://issues.jenkins-ci.org/secure/Dashboard.jspa  
-
-5) maven配置:  
-maven配置(setting.xml)包含两个level:  
-* User Level: 用户级别。特定用户的独立配置.${user.home}/.m2/settings.xml.  
-* Global Level: 全局配置。所有用户的配置.${maven.home}/conf/settings.xml.  
-
-5) 包管理工具:  
-• RubyGems / Bundler (Ruby)  
-• PIP / PyPI (Python)  
-• Packagist / Composer (PHP)  
-• NPM (Node.JS)  
-• Bower (JS, CSS, HTML)  
-• CocoaPods (Objective-C)  
-• Maven (Java)  
-• Lein (Clojure)  
-
-6. mvn插件搜索  
-mvn dependency:get  
-(全称：org.apache.maven.plugins:maven-dependency-plugin:2.10:get)  
-maven 是由插件(org/apache/maven/plugins)组成的框架，所有的mvn任务都由插件完成。maven的核心插件包括：build plugins(构建插件)和reporting plugins(报告插件)  
-maven核心插件:  
-mvn clean/compiler/deploy/failsafe/install/resources/site/surefire/verifier  
-maven打包工具插件:  
-mvn ear/ejb/jar/rar/war/app-client/acr/shade/source  
-maven report插件:  
-mvn changelog/changes/checksytle/doap/docck/javadoc/jdeps/jxr/linkcheck/pmd/project-info-reports/surfire-report  
-maven 工具插件:  
-ant/antrun/archetype/assembly/dependency/enforcer/gpg/help/invoker/jarsigner/patch/pdf/plugin/release/remote-resources/repository/scm/scm-publish/stage/toolchains    
-
-7. mvn 部署生命周期：    
-validate->compile->test->package->verify->instaall->deploy  
-
-8. mvn 包的查找方式：  
-比如依赖如下：  
-
-````
-<dependency>
-      <groupId>org.mortbay.jetty</groupId>
-      <artifactId>maven-jetty-plugin</artifactId>
-      <version>6.1.1</version>
-</dependency>
-````
-对应的包资源在：  
-https://maven-repository.com/artifact/org.mortbay.jetty/maven-jetty-plugin  
-
-9. jenkins架构:https://wiki.jenkins-ci.org/display/JENKINS/Architecture  
-* MVC框架： stapler:  
-* 视图渲染： Views:Jelly(jsp+jstl)  
-* Taglibs  
-* 持久化存储 Persistence:XStream:  
-
-10. stapler  
-stapler将应用程序与URL绑定，方便创建WEB应用。核心思想是自动分配URL给对象，创建URL的架构。  
-通常，JSP&servlet工作方式是：使用参数和确切的路径找到分配的对象，传递参数执行动作（如渲染HTML）。  
-假定，你正在创建一个web应用（比如java.net），它提供projects,mailing list,documents,file section等等。下图表示stapler的工作过程：  ![stapler arch](http://stapler.kohsuke.org/stapler.png)  
-
-左侧是面线对象的开发代码，右侧是stapler通过发射将URL分配给应用对象。应用的跟对象代表URL： "/"。同时，stapller允许分配JSP给对象。
-stapler解决的servlet/jsp的问题。  
-* 1)：  
-  将stapler.jar放入WEB-INF/lib目录。  
-  WEB-INFO/web.xml中加入：  
-````
-    <servlet>
-        <servlet-name>Stapler</servlet-name>
-        <servlet-class>org.kohsuke.stapler.Stapler</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>Stapler</servlet-name>
-        <url-pattern>/</url-pattern>
-    </servlet-mapping>
-    <listener>
-        <listener-class>example.WebAppMain</listener-class>
-    </listener>
-````
-
-* 2)注册根路径Stapler.setRoot  
-```
-package example;
-import org.kohsuke.stapler.Stapler;
-
-public class WebAppMain implements ServletContextListener {
-    public void contextInitialized(ServletContextEvent event) {
-        // BookStore.theStore is the singleton instance of the application
-        Stapler.setRoot(event,BookStore.theStore);
-    }
-
-    public void contextDestroyed(ServletContextEvent event) {
-    }
-}
-```
-
-* 3) 例子:bookstore  
-WEB-INF/side-files/example/BookStore/index.jsp  
-```
-<html>...<body>
-  <%-- side files can include static resources. --%>
-  <img src="logo.png">
-
-  <h2>Inventory</h2>
-  <c:forEach var="i" items="${it.items}">
-    <a href="items/${i.key}">${i.value.title}</a><br>
-  </c:forEach>
-```
-
-/items/b1,  
-get items = bookStore.getItems()  
-get b1 = items.get("b1")   
-b1返回一个book对象,因此/WEB-INF/side-files/example/book/index.jsp被解析  
-URL的解析仅通过get对象来实现。  
-
-* 4) action  
-
-```
-public void doHello( StaplerRequest request, StaplerResponse response) {
-    ...
-    response.forward(this, "helloJSP", request);
-}
-````
-
-* 5) jelly 
-jelly script can be used as view files.  
-
-11. jelly  
-12.  xstream  
-13. java servlet & web/http server & cgi  
-java servlet解决了CGI在JAVA实现中的性能问题，提供了WEB访问的协议接口.java web servlet类似PHP或ASP.net实现了WEB解析功能。但servlet通常处理web server container，如tomcat的请求。  
-java servlet 通过web.xml来配置，一般java web app的架构如下：  
-webapp(dir):
-```
-WEB-INF(dir,元数据)  
-  web.xml(web应用的信息，java web server container解析该文件,)  
-  classes(dir,编译后的所有java class)  
-  lib(库文件)  
-->index.jsp  
-````
-
-11. jenkins的扩展点：  https://wiki.jenkins-ci.org/display/JENKINS/Extension+points  
-
-12. jenkins piple line plugin:  
-可创建自定义的工作流，可使用Groovy脚本语言来创建工作流。  
-[pipe line](https://github.com/jenkinsci/pipeline-plugin/blob/master/TUTORIAL.md)  
-
-13. 使用xstream把JAVA对象序列化为XML   
-https://www.ibm.com/developerworks/cn/xml/x-xstream   
+(完)   
 
 
