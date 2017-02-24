@@ -156,6 +156,20 @@ list(time: 2.17700028419) is slow than tuple time(2.17199969292)
 如果固定不变，就用tuple，不需要考虑性能问题。   
 
 
+### subprocess ###
+
+[subprocess](https://docs.python.org/2/library/subprocess.html)这个模块的设计目的是代替：  
+
+```
+os.system.*
+os.spawn.*
+os.popen.*
+popen2.*
+commands.*
+```
+
+
+
 
 
 ### 参考资料 ###
