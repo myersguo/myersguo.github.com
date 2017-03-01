@@ -27,7 +27,32 @@ android在AndroidManifest.xml中对APP进行版本的说明。其中:
 
 >major.minor[.build[.revision]]   
 >or   
->major.minor[.maintenance[.build]]   
+>major.minor[.maintenance[.build]]     
+
+
+这个在`JAVA`版本中也有：   
+
+```
+major  minor Java platform version 
+45       3           1.0
+45       3           1.1
+46       0           1.2
+47       0           1.3
+48       0           1.4
+49       0           1.5
+50       0           1.6
+51       0           1.7
+52       0           1.8
+```
+
+有时候我们看到：   
+
+```
+requires Java7 or later, but you are running 1.6.0_37-b06 
+java.lang.UnsupportedClassVersionError: 50.0
+```
+这里面出现了三个版本相关的词：`JAVA7`,`1.6.0_37-b06`,`50.0`,乍一看，让人迷惑不解。    
+类似这样的报错。50.0，就是对应的版本：java1.6,即JAVA 6,其中Version 1.6是给开发者看的(version string)。JAVA 6是给平台或产品名称(Platform/Product Name)       
 
 
 

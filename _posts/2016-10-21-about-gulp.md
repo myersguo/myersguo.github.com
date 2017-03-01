@@ -1,6 +1,7 @@
 ---
 layout: wp
 title: about gulp
+webcomments: true
 ---
 
 在执行gulp的时候报错：
@@ -28,6 +29,18 @@ error { [Error: spawn ENOENT] code: 'ENOENT', errno: 'ENOENT', syscall: 'spawn' 
 
 
 我现在的项目使用的是grunt,速度执行有点慢，现在切换到gulp。以下是一个简单的gulp介绍。  
+
+什么是gulp呢？[官方介绍](https://github.com/gulpjs/gulp)如下：         
+
+```
+Automate and enhance your workflow
+Automation - gulp is a toolkit that helps you automate painful or time-consuming tasks in your development workflow.
+Platform-agnostic - Integrations are built into all major IDEs and people are using gulp with PHP, .NET, Node.js, Java, and other platforms.
+Strong Ecosystem - Use npm modules to do anything you want + over 2000 curated plugins for streaming file transformations
+Simple - By providing only a minimal API surface, gulp is easy to learn and simple to use
+```
+gulp是一个基于`nodejs`的构建流工具。用于构建项目，比如scss编译，ES2016的编译转换等。     
+
 
 
 #### install #### 
