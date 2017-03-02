@@ -15,8 +15,9 @@ shownav: false
 {% if post.private != true %}
 <ul class="entries">
    <li>{{ post.date | date: "%A, %B %-d, %Y" }} <a href="{{ post.url }}">{{ post.title }}</a></li>
-  <div class="content">
+<!--  <div class="content">
     {{ post.content | strip_html | truncatewords: 3 }}
+-->
   </div>
 </ul>
 {% endif %}
