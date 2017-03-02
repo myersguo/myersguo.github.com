@@ -95,7 +95,7 @@ TotalTime: 2107
 
 （跑个题，使用am start启动京东客户端：adb -s e088ebb0 shell `am start -S -W com.jingdong.app.mall/com.jingdong.app.mall.MainFrameActivity` 时直接报错：java.lang.SecurityException: Permission Denial: starting Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER], 京东这么小心，启动的必须是lancher）    
 
-### 内存  ###    
+### [内存](https://developer.android.com/topic/performance/memory.html)  ###    
 
 查看内存的方法[有很多](https://developer.android.com/studio/profile/investigate-ram.html)：    
 
@@ -113,6 +113,22 @@ TotalTime: 2107
 
 ### 测试方法 ###
 
+
+```
+adb shell dumpsys meminfo
+adb shell cat /proc/meminfo
+```
+
+哪些值是我们关心的呢?
+**heap siez**,因为这是程序员可以控制的。     
+
+android[官方](https://developer.android.com/topic/performance/memory.html)提供了一些注意事项，告诉我们应该怎么样写对内存优化的代码。包括：    
+
+>监听低内存事件(Release memory in response to events)   
+>注意当前可用内存(Check how much memory you should use)  
+>谨慎使用`service`(Use services sparingly)  
+>使用android系统优化的对象，比如SparseArray, SparseBooleanArray, and LongSparseArray.(Use optimized data containers)   
+>...   
 
 
 
