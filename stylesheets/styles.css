@@ -73,9 +73,9 @@ blockquote {
     font-family: Consolas, Monaco, 'Andale Mono', monospace;
     -moz-border-radius: 1em;
     -webkit-border-radius: 1em;
-    border-radius: 1em;
+    border-radius: 0.4em;
     font-family: Consolas, Monaco, 'Andale Mono', monospace;
-    border-width: 0.3em;
+    border-width: 0.1em;
     border-color: #e0dfcc;
     border-style: solid;
     text-shadow: 0 1px white;
@@ -100,7 +100,7 @@ code, pre {
 }
 
 pre {
-  padding:8px 15px;
+  padding:2px;
   background: #f8f8f8;  
   border-radius:5px;
   border:1px solid #e5e5e5;
