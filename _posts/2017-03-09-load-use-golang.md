@@ -5,9 +5,9 @@ title: 压力测试工具 vegeta
 
 介绍一下用`golang`写的压力测试工具[vegeta](https://github.com/tsenart/vegeta)（发音：喂，吉他），还是很强大的。   
 
-如果不需要作为lib库使用，直接下载二进制文件即可.[点击下载](https://github.com/tsenart/vegeta/releases)   
+如果不需要作为lib库使用，直接下载二进制文件即可.[点击下载](https://github.com/tsenart/vegeta/releases)     
 
-###直接使用###
+### 直接使用 ###
 
 
 ```
@@ -30,9 +30,12 @@ echo "GET https://github.com" |./vegeta attack -duration=10s -rate=100 >results.
 
 ```
 ./vegeta report -inputs=results.bin --reporter=plot  > plot.html
-```
+```   
 
-###增加HTTP头###
+
+### 增加HTTP头 ###
+
+
 
 假如有需要登录的操作，可提前在web上登录，然后拿到cookie信息,vegeta命令执行时加入cookie即可。如：    
 
@@ -48,9 +51,13 @@ post的参数都是放到文件中的,提前写到文件中:
 
 ```
 echo "POST http://localhost" |./vegeta attack -body /tmp/body.txt --duration=1s -rate=10 > results.bin
+
 ```
 
+
 ### 多个请求 ###
+
+
 
 `vegeta`可以读文件来发起多个请求.   
 
@@ -79,6 +86,8 @@ HEAD http://goku:9090/path/to/success
 ```
 
 
+
 ### 实现原理 ###
+
 
 (未完待续) 
