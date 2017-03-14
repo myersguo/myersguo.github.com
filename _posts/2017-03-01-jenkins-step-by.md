@@ -40,6 +40,14 @@ title: jenkins enviroment step by step
 ![jenkins public result](./public/images/jenkins_monkey_result.png)     
 
 
+备注：如果构建中遇到了报错:    
+
+```
+Blocked script execution in 'index.html' because the document's frame is sandboxed and the 'allow-scripts' permission is not set.
+```
+
+需要把jenkins的[安全限制](https://wiki.jenkins-ci.org/display/JENKINS/Configuring+Content+Security+Policy)放开(jenkins 启动文件config.xml中配置-Dhudson.model.DirectoryBrowserSupport.CSP=)    
+
 
 ## jenkins uiautomator plugin  ##
 
