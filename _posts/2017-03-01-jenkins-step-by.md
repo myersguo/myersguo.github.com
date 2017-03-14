@@ -18,12 +18,20 @@ title: jenkins enviroment step by step
 
 ### jenkin job ###
 
-在源码管理中拉取源码https://github.com/myersguo/PythonExamples.git/   
+第一步：  
+
+在源码管理中拉取源码**https://github.com/myersguo/PythonExamples.git/**   
 
 ![jenkins monkey job](/public/images/jenkins_monkey_job.png)   
 
 
 在构建中添加shell/bat:   
+
+```
+cd adb
+python tools/monkey.py  -p com.example.android.testing.uiautomator.BasicSample --pct-syskeys 0 --pct-motion 0 --throttle 300 --bugreport 1000
+
+```
 
 ![jenkins monkey shell](/public/images/jenkins_monkey_shell.png)   
 
@@ -36,6 +44,8 @@ title: jenkins enviroment step by step
 
 
 执行构建后，查看html report:   
+
+构建之后，`jenkin html report`这个插件会把指定的`archive`的所有html(这里是workspace/$jobname/adb/output)复制到`jobs/$jobname/htmlreports`文件夹下。     
 
 ![jenkins public result](/public/images/jenkins_monkey_result.png)     
 

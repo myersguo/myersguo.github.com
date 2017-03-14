@@ -49,7 +49,11 @@ echo "GET http://github.com/" | ./vegeta attack -header="Cookie:xxx=QkJEMURGOEUz
 ```
 
 
-###POST数据###
+
+
+### POST ###
+
+
 
 
 post的参数都是放到文件中的,提前写到文件中:   
