@@ -20,24 +20,24 @@ title: jenkins enviroment step by step
 
 在源码管理中拉取源码https://github.com/myersguo/PythonExamples.git/   
 
-![jenkins monkey job](./public/images/jenkins_monkey_job.png)   
+![jenkins monkey job](/public/images/jenkins_monkey_job.png)   
 
 
 在构建中添加shell/bat:   
 
-![jenkins monkey shell](./public/images/jenkins_monkey_shell.png)   
+![jenkins monkey shell](/public/images/jenkins_monkey_shell.png)   
 
 
 
 构建后，public html report:    
 
 
-![jenkins public html](./public/images/jenkins_monkey_html.png)   
+![jenkins public html](/public/images/jenkins_monkey_html.png)   
 
 
 执行构建后，查看html report:   
 
-![jenkins public result](./public/images/jenkins_monkey_result.png)     
+![jenkins public result](/public/images/jenkins_monkey_result.png)     
 
 
 备注：如果构建中遇到了报错:    
