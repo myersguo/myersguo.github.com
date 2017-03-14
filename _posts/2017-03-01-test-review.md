@@ -13,7 +13,7 @@ title: review test tools
 >CheckStyle  
 >SonarCube   
 
-持续集成工具:   
+持续集成列表:   
 
 >gitflow  
 >unit tests  
