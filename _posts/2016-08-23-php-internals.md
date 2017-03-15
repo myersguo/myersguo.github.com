@@ -44,6 +44,74 @@ export PHP_AUTOCONF=/usr/bin/autoconf-2.13
 ###  understand php code line by line ###
 
 
+[词法分析](http://re2c.org/)：  
+词法规则文件：   
+Zend/zend_language_scanner.l   
+Zend/zend_language_parser.py   
+
+
+编译(opcode)处理:   
+Zend/zend_compiler.c   
+Zend/zend_vm_opcodes.h  
+
+
+opcode代码执行：   
+Zend/zend_vm_execute.h   
+
+
+php处理逻辑：   
+main/main.c    
+
+
+Zend引擎处理逻辑:   
+Zend/zend.c   
+Zend/execute_API.c    
+
+ 
+Zend全局变量定义：  
+Zend/zend_globals.h   
+
+Zend全局变量相关宏定义：  
+Zend/zend_globals_macros.h   
+
+
+PHP变量定义：   
+main/php_variables.c   
+
+SAPI处理逻辑:
+main/SAPI.c   
+
+
+内部函数定义(zend_version,strlen,define,error_reporting)等：   
+Zend/zend_builtin_functions.c   
+
+
+HTTP协议接口：   
+main/rfc1867.c   
+
+
+hashtable的定义:   
+
+Zend/zend.h,
+Zend/zend.c   
+
+链表定义:  
+
+Zend/zend_list.h  
+Zend/zend_list.c  
+Zend/zend_llist.h  
+Zend/zend_llist.c   
+
+常量定义：   
+
+Zend/zend_constants.h   
+Zend/zend_constants.c   
+
+
+
+### 更改一下日志输出 ###
+
+
 
 
 参考资料：  
