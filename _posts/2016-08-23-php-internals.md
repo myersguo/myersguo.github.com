@@ -41,21 +41,19 @@ export PHP_AUTOCONF=/usr/bin/autoconf-2.13
 
 
 
-###  understand php code line by line ###
+###  php source code files ###
 
 
 [词法分析](http://re2c.org/)：  
 词法规则文件：   
 Zend/zend_language_scanner.l   
+
+语法解析:   
 Zend/zend_language_parser.py   
-
-
-编译(opcode)处理:   
 Zend/zend_compiler.c   
 Zend/zend_vm_opcodes.h  
 
-
-opcode代码执行：   
+编译并执行opcode代码执行：   
 Zend/zend_vm_execute.h   
 
 
@@ -106,6 +104,11 @@ Zend/zend_llist.c
 
 Zend/zend_constants.h   
 Zend/zend_constants.c   
+
+
+
+### 扩展的加载流程 ###
+
 
 
 
