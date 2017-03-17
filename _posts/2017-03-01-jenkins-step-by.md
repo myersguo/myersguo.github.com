@@ -61,7 +61,39 @@ Blocked script execution in 'index.html' because the document's frame is sandbox
 
 ## jenkins uiautomator plugin  ##
 
-(未完待续)   
+
+
+
+`[spoon](http://square.github.io/spoon/)`解决了基于instrumentation的测试用力的测试报告的功能。只需要使用spoon来执行你的测试用例即可：    
+
+`java -jar spoon-runner.jar --apk app-debug.apk --test-apk app-debug-androidTest.apk --output ./results`   
+
+在results下面生成的报告：    
+
+![spoon results](/public/images/spoon_reports.png)   
+
+
+so,我们用uiautomator实现了测试用例之后，用jenkins集成就更简单了，只需要在jenkins上添加BAT/SHELL：   
+
+```
+java -jar E:\jenkins_tools\spoon-runner.jar --apk E:\TestExamples\AndroidTestExample\app\build\outputs\apk\app-debug.apk --test-apk E:\TestExamples\AndroidTestExample\app\build\outputs\apk\app-debug-androidTest.apk --output E:\jenkins_tools\results
+```
+
+
+然后，public html reports，把spoon结果路径填写上即可。     
+
+问题   
+
+1:这样每次都只能保存一次测试结果，如何保存多份?   
+
+2:每次都执行固定的测试，如果动态的执行测试用例?    
+
+回答：  
+
+1. 最简单的用python遍历目录，然后生成一个archive的index.html   
+2. 固定有什么不好?哈哈哈     
+
+
 
 
 
