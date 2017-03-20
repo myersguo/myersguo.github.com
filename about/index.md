@@ -31,7 +31,10 @@ Find me as following:
   
 
 <p>
-微信公众账号：myersguo  </br>
+微信公众账号：myersguo   
+
+<br>
+
 <img src="/public/mywechat.jpg" title="wechat" />
 </p>
 
@@ -43,7 +46,7 @@ yours.<br/>
 如果，我写的内容对你有帮助，欢迎打赏支持一下。      
 
 
-<img src="/public/wechat.png" title="wechat" />
+<img src="/public/wechat2.png" title="wechat"/>
 <img src="/public/alipay.png" title="alipay" />
 
 
