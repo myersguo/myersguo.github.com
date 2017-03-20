@@ -106,13 +106,190 @@ Zend/zend_constants.h
 Zend/zend_constants.c   
 
 
+内存管理：  
+Zend/zend_alloc.c   
+
+
 
 ### 扩展的加载流程 ###
 
 
+PHP执行流程(启动，启动扩展，接受请求，关闭请求，关闭扩展)：     
 
 
-### 更改一下日志输出 ###
+```
+sapi/cli/php_cli.c: 
+sapi_startup ->  
+cli_sapi_module.startup -> 
+    php_module_startup ( /main/main.c)
+    zend_startup ( zend/zend.c)
+php_request_startup ->  
+
+php_request_shutdown ->  
+php_module_shutdown ->   
+sapi_shutdown 
+```
+
+一个模块的入口，以CGI为例：   
+
+```
+static zend_module_entry cgi_module_entry = {
+    STANDARD_MODULE_HEADER,
+    "cgi-fcgi",
+    NULL,
+    PHP_MINIT(cgi),
+    PHP_MSHUTDOWN(cgi),
+    NULL,
+    NULL,
+    PHP_MINFO(cgi),
+    NO_VERSION_YET,
+    STANDARD_MODULE_PROPERTIES
+};
+```
+
+
+
+
+php_module_startup,是PHP扩展的加载流程:   
+
+
+
+```
+#start up extensions staticly compiled in
+php_register_internal_extensions_func(TSRMLS_C);
+#start additional PHP extensions
+php_register_extensions(&additional_modules, num_additional_modules TSRMLS_CC);
+# load and startup extentions compiled as shared objects
+php_ini_register_extnesions_TSRMLS_C);
+zend_startup_modules(TSRMLS_C);
+#start zend extensions
+zend_startup_extensions();
+#register additionnal functions
+```
+
+(可以直接使用`ext_skel`来生成扩展骨架)  
+
+ 以`json`扩展(module）的定义方法：     
+
+1. 定义扩展：   
+
+
+```
+zend_module_entry foo_module_entry = {
+#if ZEND_MODULE_API_NO >= 20010901
+    STANDARD_MODULE_HEADER,
+#endif
+    "foo",                /* 扩展名,extension name */
+    foo_functions,        /* 扩展函数列表,extension function list */
+    NULL,                 /* extension-wide startup function */
+    NULL,                 /* extension-wide shutdown function */
+    PHP_RINIT(foo),       /* per-request startup function */
+    PHP_RSHUTDOWN(foo),   /* per-request shutdown function */
+    PHP_MINFO(foo),       /* information function */
+#if ZEND_MODULE_API_NO >= 20010901
+    FOO_VERSION,          /* extension version number (string) */
+#endif
+    STANDARD_MODULE_PROPERTIES
+};
+```
+
+,比如`curl`扩展的模块定义:   
+
+```
+zend_module_entry json_module_entry = {
+    STANDARD_MODULE_HEADER,
+    "json",
+    json_functions,
+    PHP_MINIT(json),
+    NULL,
+    NULL,
+    NULL,
+    PHP_MINFO(json),
+    PHP_JSON_VERSION,
+    PHP_MODULE_GLOBALS(json),
+    PHP_GINIT(json),
+    NULL,
+    NULL,
+    STANDARD_MODULE_PROPERTIES_EX
+};
+```
+
+2.  定义函数列表：  
+
+
+```
+static PHP_FUNCTION(json_encode);
+```
+
+
+
+```
+static const function_entry json_functions[] = {
+    PHP_FE(json_encode, arginfo_json_encode)
+    PHP_FE(json_decode, arginfo_json_decode)
+    PHP_FE(json_last_error, arginfo_json_last_error)
+    PHP_FE_END
+};
+``` 
+
+
+3. 实现函数列表   
+
+
+参数信息：   
+
+```
+ZEND_BEGIN_ARG_INFO_EX(arginfo_json_encode, 0, 0, 1)
+    ZEND_ARG_INFO(0, value)
+    ZEND_ARG_INFO(0, options)
+ZEND_END_ARG_INFO()
+```
+
+
+功能实现：   
+
+```
+static PHP_FUNCTION(json_encode)
+{
+    zval *parameter;
+    smart_str buf = {0};
+    long options = 0;
+
+    if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "z|l", &parameter, &options) == FAILURE) {
+        return;
+    }
+
+    JSON_G(error_code) = PHP_JSON_ERROR_NONE;
+
+    php_json_encode(&buf, parameter, options TSRMLS_CC);
+
+    ZVAL_STRINGL(return_value, buf.c, buf.len, 1);
+
+    smart_str_free(&buf);
+}
+```
+
+4. 编译   
+
+1) 方法1:phpize
+
+```
+cd my_extension
+/home/work/app/php/bin/phpize  
+./configure --with-php-config=/home/work/app/php/bin/php-config
+make
+```
+
+2) 方法2(php-src)   
+
+./configure --prefix=/home/work/app/php --enable-my_extension
+
+ 
+
+### 日志扩展 ###
+
+
+
 
 
 
