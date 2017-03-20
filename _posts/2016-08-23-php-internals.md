@@ -289,8 +289,109 @@ make
 ### 日志扩展 ###
 
 
+我们模仿`zend_error`的实现，将其扩展改写为一个扩展.    
 
 
+* 编写`glog.proto`文件，内容如下：   
+
+```
+void g_error(mixed data)
+void g_warning(mixed data)
+void g_notice(mixed data)
+void g_trace(mixed data)
+void g_debug(mixed data)
+
+```
+
+* 生成骨架：   
+
+```
+./ext_skel --proto=../glog.proto --extname=glog   
+```
+
+* 完成扩展内容:    
+
+
+```
+//定义日志级别php_glog.h
+
+#define PHP_GLOG_LOG_LEVEL  (1<<0)
+#define PHP_GLOG_LOG_LEVEL_ERROR (1<<0)
+#define PHP_GLOG_LOG_LEVEL_WARNI (1<<1)
+#define PHP_GLOG_LOG_LEVEL_NOTIC (1<<2)
+#define PHP_GLOG_LOG_LEVEL_TRACE (1<<3)
+#define PHP_GLOG_LOG_LEVEL_DEBUG (1<<4)       
+
+```
+
+```
+//参数配置： 
+
+//函数入口
+const zend_function_entry glog_functions[] = {
+    PHP_FE(g_error, arginfo_fmt)
+    PHP_FE(g_warning,   arginfo_fmt)
+    PHP_FE(g_notice,    arginfo_fmt)
+    PHP_FE(g_trace, arginfo_fmt)                                                                                
+    PHP_FE(g_debug, arginfo_fmt)
+    PHP_FE_END  /* Must be the last line in glog_functions[] */
+};
+//扩展入口
+/* {{{ glog_module_entry
+ */
+zend_module_entry glog_module_entry = {
+    STANDARD_MODULE_HEADER,
+    "glog",
+    glog_functions,
+    PHP_MINIT(glog),
+    PHP_MSHUTDOWN(glog),
+    NULL,
+    NULL,                                                                                                       
+    PHP_MINFO(glog),
+    "0.1",
+    STANDARD_MODULE_PROPERTIES
+};  
+/* }}} */
+
+//ini变量
+PHP_INI_BEGIN()
+    STD_PHP_INI_ENTRY("glog.log_path",      "/home/work/logs/applogs", PHP_INI_ALL, NULL)                       
+PHP_INI_END()
+
+//模块初始化函数
+PHP_MINIT_FUNCTION(glog)
+{
+    REGISTER_LONG_CONSTANT("PHP_GLOG_LOG_LEVEL", PHP_GLOG_LOG_LEVEL, CONST_CS | CONST_PERSISTENT);              
+    REGISTER_LONG_CONSTANT("PHP_GLOG_LOG_LEVEL_ERROR", PHP_GLOG_LOG_LEVEL_ERROR, CONST_CS | CONST_PERSISTENT);
+    REGISTER_LONG_CONSTANT("PHP_GLOG_LOG_LEVEL_WARNI", PHP_GLOG_LOG_LEVEL_WARNI, CONST_CS | CONST_PERSISTENT);
+    REGISTER_LONG_CONSTANT("PHP_GLOG_LOG_LEVEL_NOTIC", PHP_GLOG_LOG_LEVEL_NOTIC, CONST_CS | CONST_PERSISTENT);
+    REGISTER_LONG_CONSTANT("PHP_GLOG_LOG_LEVEL_TRACE", PHP_GLOG_LOG_LEVEL_TRACE, CONST_CS | CONST_PERSISTENT);
+    REGISTER_LONG_CONSTANT("PHP_GLOG_LOG_LEVEL_DEBUG", PHP_GLOG_LOG_LEVEL_DEBUG, CONST_CS | CONST_PERSISTENT);
+    return SUCCESS;
+}
+//
+
+```
+
+
+* 更改`config.m4`：    
+
+```
+PHP_ARG_ENABLE(glog, whether to enable glog support,
+[  --enable-glog           Enable glog support])
+
+if test "$PHP_GLOG" != "no"; then
+  PHP_NEW_EXTENSION(glog, glog.c, $ext_shared)
+fi
+```
+
+* 编译   
+
+```
+/home/work/app/php/bin/phpize 
+./configure --with-php-config=/home/work/app/php/bin/php-config 
+
+```
 
 
 
