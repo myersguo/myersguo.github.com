@@ -44,7 +44,7 @@ yours.<br/>
 
 
 <img src="/public/wechat.png" title="wechat" />
-<img src="/public/alipay.jpg" title="alipay" />
+<img src="/public/alipay.png" title="alipay" />
 
 
 <p>
