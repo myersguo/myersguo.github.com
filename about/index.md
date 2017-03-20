@@ -40,11 +40,11 @@ best wishes.<br/>
 yours.<br/>
 
 
-如果，我写的内容对你有帮助，欢迎打赏支持一下。   
+如果，我写的内容对你有帮助，欢迎打赏支持一下。      
 
-![wechat][/public/wechat.png]  
-![alipay][/public/alipay.jpg]   
 
+<img src="/public/wechat.png" title="wechat" />
+<img src="/public/alipay.jpg" title="alipay" />
 
 
 <p>
