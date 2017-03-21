@@ -46,8 +46,7 @@ yours.<br/>
 如果，我写的内容对你有帮助，欢迎打赏支持一下。      
 
 
-<img src="/public/wechat2.png" title="wechat"/>
-<img src="/public/alipay.png" title="alipay" />
+<img src="/public/wepay.png" title="wepay" />
 
 
 <p>
