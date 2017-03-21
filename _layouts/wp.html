@@ -59,13 +59,13 @@
       <section id="article">
 		{{ content }}
 		{% if page.shownav == null %}
-        <p>
+        <p style+'text-align:center">
             <button id="shbtn" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-                <span style="display: inline-block; width: 80px; height: 35px; border-radius: 5px; color: #fff; font-weight: 400; font-style: normal; font-variant: normal; font-stretch: normal; font-size: 18px; font-family: "Microsoft Yahei"; background: #f44336;">赏</span>
+                <span>赏</span>
             </button>
-                <div id="QR" style="display: none;">
+            <div id="QR" style="display: none;">
                     <img id="wepay_qr" src="/public/wepay.png" alt= WePay"/>
-                </div> 
+            </div> 
         </p>
 		<p class="article-footer">
                 {% if page.date %}
