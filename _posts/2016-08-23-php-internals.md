@@ -322,9 +322,6 @@ void g_debug(mixed data)
 #define PHP_GLOG_LOG_LEVEL_TRACE (1<<3)
 #define PHP_GLOG_LOG_LEVEL_DEBUG (1<<4)       
 
-```
-
-```
 //参数配置： 
 
 //函数入口
@@ -337,8 +334,6 @@ const zend_function_entry glog_functions[] = {
     PHP_FE_END  /* Must be the last line in glog_functions[] */
 };
 //扩展入口
-/* {{{ glog_module_entry
- */
 zend_module_entry glog_module_entry = {
     STANDARD_MODULE_HEADER,
     "glog",
@@ -351,7 +346,6 @@ zend_module_entry glog_module_entry = {
     "0.1",
     STANDARD_MODULE_PROPERTIES
 };  
-/* }}} */
 
 //ini变量
 PHP_INI_BEGIN()
@@ -369,7 +363,6 @@ PHP_MINIT_FUNCTION(glog)
     REGISTER_LONG_CONSTANT("PHP_GLOG_LOG_LEVEL_DEBUG", PHP_GLOG_LOG_LEVEL_DEBUG, CONST_CS | CONST_PERSISTENT);
     return SUCCESS;
 }
-//
 
 ```
 
