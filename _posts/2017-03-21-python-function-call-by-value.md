@@ -39,7 +39,7 @@ dir(f)
 f.func_code
 ```
 
-既然一切都是对象，python[对象的分配](https://docs.python.org/2/c-api/memory.html)应该都在`private heap`中。而不存在于`stack`中。python中的`a = 1`，其实是将a执行1这个整数对象,如果`a=2`，a的地址将发生变化。   
+既然一切都是对象，python[对象的分配](https://docs.python.org/2/c-api/memory.html)应该都在`private heap`中。而不存在于`stack`中。python中的`a = 1`，其实是将 a 指向 1 这个整数对象,如果 `a=2`，a 的地址将发生变化。   
 
 
 
@@ -53,7 +53,7 @@ print id(b)
 
 ```
 
-可以看到 a,b 先后指向统一个地址，后 a 指向 2 这个对象所在地址。   
+可以看到 a,b 先后指向同一个地址，后 a 指向 2 这个对象所在地址。   
 
 
 回到我们的问题中的例子，我们打印出地址：   
