@@ -11,6 +11,7 @@ title: 郭亮勇
 **邮箱：**                     myersguo at gmail dot com    
 **地址：**                     北京海淀   
 **手机号：**                     130-5184-7507   
+**Blog：**                     [https://myersguo.github.io/](https://myersguo.github.io/)  
 
 -------------------     ----------------------------
 
