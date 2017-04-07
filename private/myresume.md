@@ -36,8 +36,7 @@ title: 郭亮勇
 [艺龙网](http://www.elong.com/)测试部测试开发工程师。测试开发环境自动化部署与搭建；性能测试与自动化开发
 
 专业技能
---------------------
-熟练掌握黑盒测试、白盒测试技术；  
+-------------------- 
 掌握移动端测试开发技术：Robotium, Instrumentation, Uiautomator, Monkey 等  
 掌握 PHP 开发，熟练使用 Yii、Yaf 框架  
 熟悉 Golang Web 开发    
@@ -59,8 +58,8 @@ title: 郭亮勇
 
 电商的测试用例的核心是订单。订单包括各种订单状态（支付、出库、打单、配货等），每次测试都需要一种类型的订单状态，因此需要有一个平台自动生成特定状态的订单。开发框架： PHP + Yii, 部分 Golang。   
 
-* 项目分 WEB端 和 API 端，API端负责核心逻辑执行，WEB端负责前端数据管理与交互  
-* 功能包括：订单创建、流转、定时任务管理等
+* 项目分 WEB端 和 API 端，API端负责核心逻辑执行，WEB端负责前端数据管理与交互   
+* 功能包括：订单创建、流转、定时任务管理等  
 	
 **小米网配置管理系统**  
 
@@ -76,3 +75,6 @@ title: 郭亮勇
 * 基于 Selenium + Appium 的 UI [自动自动化工具](https://github.com/myersguo/miuitest)  
 * Jenkin [文件更新插件](https://github.com/myersguo/fileoperate_jenkins)  
 * 小工具的开发维护：MOCK SERVER、时间戳、库存更改等等  
+
+**自我评价**  
+
