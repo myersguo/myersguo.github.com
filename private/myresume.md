@@ -9,7 +9,7 @@ title: 郭亮勇
 
 **出生日期：**                  1987.06.28  
 **邮箱：**                     myersguo at gmail dot com    
-**地址：**                     北京海淀   
+**地址：**                     北京 海淀   
 **手机号：**                     130-5184-7507   
 **Blog：**                     [https://myersguo.github.io/](https://myersguo.github.io/)  
 
@@ -75,6 +75,10 @@ title: 郭亮勇
 * 基于 Selenium + Appium 的 UI [自动自动化工具](https://github.com/myersguo/miuitest)  
 * Jenkin [文件更新插件](https://github.com/myersguo/fileoperate_jenkins)  
 * 小工具的开发维护：MOCK SERVER、时间戳、库存更改等等  
+* 了解电商行业相关业务流程
 
 **自我评价**  
+
+爱写文字，爱看美剧，爱看悬疑电影。有一个幸福的家庭，一个贴心的老婆，可爱的女儿。  
+一个简单的人，爱生活的人，对技术不断追求的人。对工作，对生活，认真负责，尽心而为。     
 
