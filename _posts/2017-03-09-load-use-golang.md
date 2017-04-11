@@ -99,11 +99,137 @@ HEAD http://goku:9090/path/to/success
 
 ### 实现原理 ###
 
+我这里简化下 attack 的过程：  
 
-### 新增逻辑 ###
+先写个 [server](https://github.com/myersguo/TestExamples/blob/master/goExample/server/server.go) 等待被我们攻击吧：  
+
+```
+package main
+
+import (
+    "net/http"
+    "fmt"
+    "time"
+)
+
+var (
+    qps = 0
+    now = time.Now()
+)
+
+func main() {
+    http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+        qps++
+        cur := time.Now()
+        if cur.Sub(now) >= 1e9 {
+            fmt.Println(qps)
+            qps = 0
+            now = time.Now()
+        }
+    })
+    http.ListenAndServe(":8887", nil)
+}
+```
+
+server端会对请求 '/'， 输出当前的qps    
 
 
-`vegeta`的参数输入时从配置文件中读取的，而且参数是不可变的，我们这里简单修改一下它的源码，让它支持变量的动态生成。这里仅仅以生成随机数为例进行说明.    
+写一下 attack [client 端](https://github.com/myersguo/TestExamples/blob/master/goExample/loadClient/load.go)：   
 
+```
+package main
+
+import (
+    "fmt"
+    "time"
+    "os"
+    "os/signal"
+    . "runtime"
+    "net/http"
+    "sync"
+)
+
+const (
+)
+
+var (
+)
+
+func max(a, b time.Time) time.Time {
+    if a.After(b) {
+        return a
+    }
+    return b
+}
+
+func attack(ticks <- chan time.Time, workers *sync.WaitGroup) {
+    defer workers.Done()
+    for t:= range ticks {
+        _, err := http.Get("http://localhost:8887/")
+        if err != nil {
+            fmt.Printf("%v\n", err)
+        }
+        fmt.Println(t, " attck")
+    }
+}
+
+func main() {
+    var workers sync.WaitGroup
+    ticks := make(chan time.Time)
+    defer close(ticks)
+    sig := make(chan os.Signal, 1)
+    signal.Notify(sig, os.Interrupt)
+    
+    rate := uint64(1500)
+ 
+    hits := uint64(50000) 
+    interval :=  1e9/uint64(rate)
+    began, done := time.Now(), uint64(0)
+    
+
+
+    for {
+        fmt.Printf("now routines %d\n", NumGoroutine())
+        now, next := time.Now(), began.Add(time.Duration(done*interval))
+        diff := next.Sub(now)
+        time.Sleep(diff)
+        fmt.Printf("now:%v, next:%v, diff:%v,done:%v\n", now, next, diff, done) 
+        select {
+            case ticks <- max(next, now):
+                fmt.Printf("%v done %d\n", now,  done)
+                if done++; done >= hits {
+                    return
+                }
+            case <- sig:
+                fmt.Println("stop")
+                return
+            default:
+                fmt.Println("go attach")
+                workers.Add(1)
+                go attack(ticks, &workers)
+        }
+    }
+    
+}
+```
+执行 ./loadClient, 我们看到服务端的 qps 稳定在 1500左右。   
+
+现在我们思考一个问题，能不能用下面的 code 来代替呢？   
+
+```
+select {
+     case <- sig:
+         fmt.Println("stop")
+         return
+     default:
+         if done++; done >= hits{
+             return
+         }
+         fmt.Println("go attach")
+         workers.Add(1)
+         go attack(ticks, &workers)
+         ticks <- now
+}
+```
 
 (未完待续) 

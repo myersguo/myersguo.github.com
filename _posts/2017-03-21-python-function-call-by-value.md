@@ -74,6 +74,13 @@ def f(a=1, L=[]):
 
 
 
+### 扩展 ###
+
+
+看[PythonObject](https://github.com/python/cpython/blob/master/Include/object.h)、[list的实现代码](https://github.com/python/cpython/blob/master/Objects/listobject.c), 可以看到python的`object`都是基于双向链表的实现。他们的具体操作的实现可以继续阅读源码,这里不做展开。     
+
+
+
 ### 参考资料 ###
 
 
