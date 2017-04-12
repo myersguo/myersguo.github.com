@@ -3,7 +3,7 @@ layout: wp
 title: robot framework
 ---
 
-###前言###
+### 前言 ###
 
 在开始介绍 [robot framework](http://robotframework.org/) 之前，我们先看下她的作者 Pekka Klärck 的这篇 [slide](https://www.slideshare.net/pekkaklarck/introduction-to-test-automation)，自动化测试有一下几种方法：  
 
@@ -32,9 +32,9 @@ title: robot framework
 
 OK,让我们来一窥`robot framework`的究竟。   
 
-###简介###
+### 简介 ###
 
-![robot architecture](/public/images/robot_architecutre.png)   
+![robot architecture](/public/images/robot_architecture.png)   
 
 
 Robot Framework 是基于 Python 的可扩展的关键字驱动的( keyword-driven test automation framework ) 的[验收测试驱动的开发模式, ATDD ](https://en.wikipedia.org/wiki/Acceptance_test%E2%80%93driven_development)。它非常方便使用：   
@@ -71,7 +71,7 @@ python -m pip install robotframework
 python -m robot --version
 ```
 
-###用例的写法###
+### 用例的写法 ###
 
 robot framework 的用例管理使用文件来管理的。   
 每一个测试用用例都是一个测试文件,每个文件可以包含多个测试用例(文件就是一个 testsuit)；  
@@ -101,8 +101,8 @@ python -m robot robot_example.bot
 当前目录下生成测试报告: report.html, log.html   
 
 
-![report report](/public/images/report_report.png)  
-![report log](/public/images/report_log.png)  
+![report report](/public/images/robot_report.png)  
+![report log](/public/images/robot_log.png)  
 
 
 
@@ -111,7 +111,7 @@ python -m robot robot_example.bot
 
 
 
-###参考资料###
+### 参考资料 ###
 
 [http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html](http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html)   
 [https://www.slideshare.net/pekkaklarck/introduction-to-test-automation](https://www.slideshare.net/pekkaklarck/introduction-to-test-automation)  
