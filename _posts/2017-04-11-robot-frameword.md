@@ -74,18 +74,41 @@ python -m robot --version
 ###用例的写法###
 
 robot framework 的用例管理使用文件来管理的。   
-每一个测试用用例都是一个测试文件；  
-测试用例的格式是 tabular format，支持 html, tsv, reST, txt, robot(plain text);    
+每一个测试用用例都是一个测试文件,每个文件可以包含多个测试用例(文件就是一个 testsuit)；  
 测试集合( test suite ) 是测试用例的目录。测试集合下可包含子目录；   
+测试用例的格式是 tabular format。  
+测试数据支持 html, tsv, reST, txt, robot(plain text);    
 
 
-
-
+先看一个简单的测试用例：    
 
 
 ```
-python -m robot tests.robot output.xml
+# file: robot_example.robot
+*** Settings ***
+Documentation  一个简单的测试用例
+
+*** Test Cases ***
+StartCase
+    Log     "Start TestCase"
 ```
+
+
+```
+python -m robot robot_example.bot
+```
+
+当前目录下生成测试报告: report.html, log.html   
+
+
+![report report](/public/images/report_report.png)  
+![report log](/public/images/report_log.png)  
+
+
+
+**我们来看下用例写法的规范**
+
+
 
 
 ###参考资料###
