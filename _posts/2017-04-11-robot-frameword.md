@@ -5,7 +5,7 @@ title: robot framework
 
 ### 前言 ###
 
-在开始介绍 [robot framework](http://robotframework.org/) 之前，我们先看下她的作者 Pekka Klärck 的这篇 [slide](https://www.slideshare.net/pekkaklarck/introduction-to-test-automation)，自动化测试有一下几种方法：  
+在开始介绍 [robot framework](http://robotframework.org/) 之前，我们先看下她的作者 Pekka Klärck 的这篇 [slide](https://www.slideshare.net/pekkaklarck/introduction-to-test-automation)，自动化测试有以下几种方法：  
 
 * 录制和回放(Record and playback)   
     易用，不需编程经验；测试覆盖不全，难于管理，无法在系统之前开始   
@@ -57,7 +57,7 @@ Robot Framework 是基于 Python 的可扩展的关键字驱动的( keyword-driv
 测试用例集合与版本控制方法   
 
 
-###[安装](https://github.com/robotframework/robotframework/blob/master/INSTALL.rst)###
+### [安装](https://github.com/robotframework/robotframework/blob/master/INSTALL.rst) ###
 
 
 ```
@@ -106,7 +106,49 @@ python -m robot robot_example.bot
 
 
 
-**我们来看下用例写法的规范**
+**我们来看下用例写法的规范(test case syntax)**
+
+*** Test Cases ***
+测试用例名称
+    关键字  参数    参数
+
+关键字之后至少两个空格才是参数，关键字中可以有一个空格   
+
+
+**为了增加灵活性，robot framework 还具有可编程功能**，你可以自己定制关键字，可以定义变量，实现循环，判断等等。   
+
+
+```
+# file: robot_example.robot
+*** Settings ***
+Suite Setup   Log     "开始测试"
+Suite TearDown  Log     "结束测试"
+Documentation  一个简单的测试用例
+
+*** Test Cases ***
+StartCase
+    Log     "Start TestCase"
+WHO
+    ${name} =   Get User Name       myersguo
+    Log   得到用户 ${name}
+Loop
+    :FOR    ${index}    IN RANGE    10
+    \   Run Keyword If    ${index} == 5   Exit For Loop
+    \   Log     ${index}
+#自定义关键字
+*** Keywords ***
+Get User Name
+    [Arguments]     ${arg}
+    [Return]    ${arg}
+
+```
+
+
+上面的包括：自定义关键字，循环(FOR)，条件判断 (Run Keyword If),
+
+
+
+### 原理探究 ###
 
 
 
@@ -116,4 +158,6 @@ python -m robot robot_example.bot
 [http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html](http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html)   
 [https://www.slideshare.net/pekkaklarck/introduction-to-test-automation](https://www.slideshare.net/pekkaklarck/introduction-to-test-automation)  
 [http://www.infoq.com/cn/news/2012/06/robot-author-suggest-autotest](http://www.infoq.com/cn/news/2012/06/robot-author-suggest-autotest)   
+[https://github.com/robotframework/HowToWriteGoodTestCases/blob/master/HowToWriteGoodTestCases.rst](https://github.com/robotframework/HowToWriteGoodTestCases/blob/master/HowToWriteGoodTestCases.rst)  
+[https://blog.codecentric.de/en/2016/01/robot-framework-tutorial-2016-keywords/](https://blog.codecentric.de/en/2016/01/robot-framework-tutorial-2016-keywords/)   
 
