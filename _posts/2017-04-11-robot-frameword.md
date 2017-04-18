@@ -150,6 +150,59 @@ Get User Name
 
 ### 原理探究 ###
 
+robot\run.py
+
+```
+    def run_cli(arguments, exit=True):
+        return RobotFramework().execute_cli(arguments, exit=exit)
+
+class RobotFramework(Application):
+...
+
+robot\utils\application.py
+
+class Application(object):
+   ...
+    def execute_cli(self, cli_arguments, exit=True):
+        with self._logger:
+            self._logger.info('%s %s' % (self._ap.name, self._ap.version)
+            options, arguments = self._parse_arguments(cli_arguments)
+            rc = self._execute(arguments, options)
+        if exit:
+            self._exit(rc)
+        return rc 
+    def _execute(self, arguments, options):
+        try:
+            rc = self.main(arguments, **options)
+        except DataError as err:
+            return self._report_error(err.message, help=True)
+        except (KeyboardInterrupt, SystemExit):
+            return self._report_error('Exception stopped by user.', rc=STOPPED_BY_USER) 
+        except:
+            error, details = get_error_details(execlude_robot_traces=False)
+            return self._report_error('Unexpected error: %s' % error, details, rc=FRAMEWORK_ERROR)
+        else:
+            return rc, 0
+#robot.py
+
+class Robot(RobotFramework):
+    def main(self, datasources, **options):
+        settings = RobotSettings(options)
+        LOGGER.register_console_logger(**settings.console_output_config)
+        LOGGER.disable
+
+
+
+
+```
+
+
+
+
+
+
+
+
 
 
 
