@@ -4,7 +4,7 @@ title: Understand Appium UiAutomator
 comments: true
 ---
 
-在 [Over view of Appium](https://myersguo.github.io/2017/02/03/all-appium.html?x)中我们已经提到过 appium驱动android 的实现： ` appium-uiautomator2-server`。 它基于 `netty` 实现了一个 http server,监听本地6790端口，基于restful api的 json protocol协议来封装 uiautomator的实现。   
+在 [Over view of Appium](https://myersguo.github.io/2017/02/03/all-appium.html?x)中我们已经提到过 appium驱动android 的实现： `appium-uiautomator2-server`。 它基于 `netty` 实现了一个 http server,监听本地6790端口，基于restful api的 json protocol协议来封装 uiautomator的实现。   
 
 因为手机一般不具备固定的IP， 因此，一般通过 adb forward 讲 PC端请求转发给手机:   
 
