@@ -77,6 +77,9 @@ True
 f.tell()  
 f.seek()   
 
+### python模块版本 ###
+
+pip freeze
 
 
 
