@@ -8,7 +8,7 @@ title: Spring mvc Hello World
 
 ### step by step ###
 
-1. 添加一个maven项目，
+1.添加一个maven项目，
 
 `mvn -B archetype:generate  -DgroupId=myersguo.github.io -DartifactId=myweb`   
 
@@ -35,7 +35,7 @@ title: Spring mvc Hello World
 
 mvn install
 
-2. 新建文件 webapp\WEB-INF\web.xml:    
+2.新建文件 webapp\WEB-INF\web.xml:    
    新增文件 resources\context\context-web.xml   
 
 mkdir src\main\webapp\WEB-INF
@@ -84,9 +84,9 @@ vi web.xml:
 mkdir src\main\resources\context,vi context-web.xml:  
 
 
-3. 新建一个 controller和 view:   
+3.新建一个 controller和 view:   
 
-``
+```
 package myersguo.github.io.controllers;
 
 import org.springframework.stereotype.Controller;
@@ -110,7 +110,8 @@ public class IndexController {
 
 views:   
 
-```
+
+```jsp
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -123,11 +124,12 @@ views:
         <link rel="stylesheet" href="/css/bootstrap.min.css" />
     </head>
 <body>
-<h2>${message}</h2>
+<h2>$\{message\}</h2>
 <script src="/js/lib/bootstrap.min.js"></script>
 </body>
 </html>
 ```
+
 
 执行 mvn jetty:run 之后访问： http://localhost:8001/   
 
