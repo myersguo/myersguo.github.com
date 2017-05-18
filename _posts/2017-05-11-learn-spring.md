@@ -173,7 +173,7 @@ web-app的 listener在启动时初始化，spring 加载ContextLoader,然后 ini
 
 ### 控制器注解 ###
 
-在 ` xml` 中配置组件扫描路径，这样spring就能自动检测(ClassPathScanningCndidateComponetProvider)  
+在 `xml` 中配置组件扫描路径，这样spring就能自动检测(ClassPathScanningCndidateComponetProvider)  
 
 `
     <context:component-scan base-package="org.springframework.samples.petclinic.web"/>
@@ -183,4 +183,5 @@ web-app的 listener在启动时初始化，spring 加载ContextLoader,然后 ini
 ### 资源汇总 ###
 
 快速开始一个项目：   [start.spring.io](http://start.spring.io/) & [Sprint boot](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#getting-started-installing-the-cli)    
-tomcat 如何调用servlet: classloader [https://www.ibm.com/developerworks/cn/java/j-lo-classloader/](https://www.ibm.com/developerworks/cn/java/j-lo-classloader/) && [https://www.ibm.com/developerworks/cn/java/j-lo-servlet/)[https://www.ibm.com/developerworks/cn/java/j-lo-servlet/)   
+tomcat 如何调用servlet: classloader [https://www.ibm.com/developerworks/cn/java/j-lo-classloader/](https://www.ibm.com/developerworks/cn/java/j-lo-classloader/) && [https://www.ibm.com/developerworks/cn/java/j-lo-servlet/](https://www.ibm.com/developerworks/cn/java/j-lo-servlet/)  
+
