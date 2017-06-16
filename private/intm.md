@@ -1,7 +1,10 @@
 ---
-layout:wp
+layout: wp
+webcomments: true
 title: 新的工作,新的挑战
 ---
+
+
 
 2017年06月02日，我离开了工作了3年多的小米，来到了现在的公司头条。刚刚入职两周。    
 
