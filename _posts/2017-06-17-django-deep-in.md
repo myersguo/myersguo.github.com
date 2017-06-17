@@ -1,0 +1,156 @@
+---
+layout: wp
+title: django 初探
+---
+
+一个 WEB 的框架，必然要解决 URL 路由的问题。 Django 怎么做请求路由的呢？  
+
+
+
+python manager runserver，即 django.core.management.execute_from_command_line()
+
+
+```
+def execute_from_command_line(argv=None):
+    """
+    A simple method that runs a ManagementUtility.
+    """
+    utility = ManagementUtility(argv)
+    utility.execute()
+```
+
+其中 ManagementUtility 先解析到全局配置 settings，Django 的启动的全局配置：   django\conf\global_settings.py ，如果指定了 setting 模块（必须设置 ALLOWED_HOST 和 SECRET_KEY。
+），会替换默认的全局配置。
+
+django.core.management.__init__.py 文件中：   
+
+```
+def execute(self):
+    ...
+    self.fetch_command(subcommand).run_from_argv(self.argv)
+```
+
+run_from_argv 将最终的执行 execute
+
+这里的 fetch_command，是从命令行解析要执行的命令的实例。如果是 runserver 就返回 django.core.management.runserver.py 中的Command，它的 execute 把请求交个 django.core.servers.basehttp 中的 run。  
+
+runserver.py 中的 execute 逻辑
+
+```
+try:
+    handler = self.get_handler(*args, **options)
+    run(self.addr, int(self.port), handler,
+        ipv6=self.use_ipv6, threading=threading, server_cls=self.server_cls)
+    except socket.error as e:
+    ...
+    except KeyboardInterrupt:
+    if shutdown_message:
+        self.stdout.write(shutdown_message)
+    sys.exit(0)
+```
+
+我们来看下 
+
+```
+def get_internal_wsgi_application():
+    from django.conf import settings
+    app_path = getattr(settings, 'WSGI_APPLICATION')
+    if app_path is None:
+        return get_wsgi_application()
+
+    try:
+        return import_string(app_path)
+    except ImportError as e:
+        msg = (
+            "WSGI application '%(app_path)s' could not be loaded; "
+            "Error importing module: '%(exception)s'" % ({
+                'app_path': app_path,
+                'exception': e,
+            })
+        )
+        six.reraise(ImproperlyConfigured, ImproperlyConfigured(msg),
+                    sys.exc_info()[2])
+
+```
+
+OK, Django 是怎么实现 WSGI的接口的呢？具体在 django\core\handlers\base.py 中。  
+
+WSGIRequest
+
+从接收请求到返回结果，它是怎么做的呢？  
+
+```
+def get_response(self, request):
+    """Return an HttpResponse object for the given HttpRequest."""
+    # Setup default url resolver for this thread
+    set_urlconf(settings.ROOT_URLCONF)
+
+    response = self._middleware_chain(request)
+
+    # This block is only needed for legacy MIDDLEWARE_CLASSES; if
+    # MIDDLEWARE is used, self._response_middleware will be empty.
+    try:
+        # Apply response middleware, regardless of the response
+        for middleware_method in self._response_middleware:
+            response = middleware_method(request, response)
+            # Complain if the response middleware returned None (a common error).
+            if response is None:
+                raise ValueError(
+                    "%s.process_response didn't return an "
+                    "HttpResponse object. It returned None instead."
+                    % (middleware_method.__self__.__class__.__name__))
+    except Exception:  # Any exception should be gathered and handled
+        signals.got_request_exception.send(sender=self.__class__, request=request)
+        response = self.handle_uncaught_exception(request, get_resolver(get_urlconf()), sys.exc_info())
+
+    response._closable_objects.append(request)
+
+    # If the exception handler returns a TemplateResponse that has not
+    # been rendered, force it to be rendered.
+    if not getattr(response, 'is_rendered', True) and callable(getattr(response, 'render', None)):
+        response = response.render()
+
+    if response.status_code == 404:
+        logger.warning(
+            'Not Found: %s', request.path,
+            extra={'status_code': 404, 'request': request},
+        )
+
+    return response
+
+
+ def _legacy_get_response(self, request):
+        """
+        Apply process_request() middleware and call the main _get_response(),
+        if needed. Used only for legacy MIDDLEWARE_CLASSES.
+        """
+        response = None
+        # Apply request middleware
+        for middleware_method in self._request_middleware:
+s            response = middleware_method(request)
+            if response:
+                break
+
+        if response is None:
+            response = self._get_response(request)
+        return response
+
+```
+
+Django 默认加载的 middleware 是：  
+
+```
+MIDDLEWARE_CLASSES = [
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+]
+```
+
+对 process_request ， process_view， process_template_response， process_response , process_exception 进行处理。   
+
+请求怎么解析呢？   
+
+RegexURLResolver（ django\urls\resolvers.p )   
+
+(待续)  
+
