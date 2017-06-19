@@ -30,6 +30,60 @@ def execute(self):
     self.fetch_command(subcommand).run_from_argv(self.argv)
 ```
 
+这里的 commands 一个例子：   
+
+```
+{
+    'clearsessions': 'django.contrib.sessions',
+    'compilemessages': 'django.core',
+    'dumpdata': 'django.core',
+    'startproject': 'django.core',
+    'findstatic': 'django.contrib.staticfiles',
+    'sqldropindexes': 'django.core',
+    'sqlcustom': 'django.core',
+    'createcachetable': 'django.core',
+    'flush': 'django.core',
+    'squashmigrations': 'django.core',
+    'check': 'django.core',
+    'sqlmigrate': 'django.core',
+    'purge_session_service_tickets': 'django_cas',
+    'makemigrations': 'django.core',
+    'runserver': 'django.contrib.staticfiles',
+    'celery': 'djcelery',
+    'migrate': 'django.core',
+    'showmigrations': 'django.core',
+    'dbshell': 'django.core',
+    'runfcgi': 'django.core',
+    'test': 'django.core',
+    'sqlclear': 'django.core',
+    'changepassword': 'django.contrib.auth',
+    'celeryd': 'djcelery',
+    'celerycam': 'djcelery',
+    'shell': 'django.core',
+    'sqlsequencereset': 'django.core',
+    'testserver': 'django.core',
+    'makemessages': 'django.core',
+    'djcelerymon': 'djcelery',
+    'sql': 'django.core',
+    'validate': 'django.core',
+    'sqlall': 'django.core',
+    'collectstatic': 'django.contrib.staticfiles',
+    'celerymon': 'djcelery',
+    'clean_kombu_messages': 'kombu.transport.django',
+    'diffsettings': 'django.core',
+    'celerybeat': 'djcelery',
+    'syncdb': 'django.core',
+    'inspectdb': 'django.core',
+    'startapp': 'django.core',
+    'createsuperuser': 'django.contrib.auth',
+    'sqlindexes': 'django.core',
+    'celeryd_detach': 'djcelery',
+    'loaddata': 'django.core',
+    'celeryd_multi': 'djcelery',
+    'sqlflush': 'django.core'
+}
+```
+
 run_from_argv 将最终的执行 execute
 
 这里的 fetch_command，是从命令行解析要执行的命令的实例。如果是 runserver 就返回 django.core.management.runserver.py 中的Command，它的 execute 把请求交个 django.core.servers.basehttp 中的 run。  
@@ -151,6 +205,18 @@ MIDDLEWARE_CLASSES = [
 请求怎么解析呢？   
 
 RegexURLResolver（ django\urls\resolvers.p )   
+
+
+### 静态文件的处理 ###
+
+
+当打开了 DEBUG 开关，   
+
+静态文件的处理就交给了 StaticFilesHandler， 它会使用 STATICFILES_FINDERS 中的 finder 类来查找静态文件的路径，然后解析静态文件。 但，它要求  STATIC_ROOT 和  STATICFILES_DIRS 的路径不能相同，因为 源和目的要分开的啊。     
+
+所以，当你自己要处理静态文件的时候，就要关闭 DEBUG 开关。     
+
+
 
 (待续)  
 
