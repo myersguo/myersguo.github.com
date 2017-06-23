@@ -1,0 +1,1706 @@
+{
+	"id": "079eb315-875c-48cb-bc8c-56e6070fa1da",
+	"name": "Link checker",
+	"allTests": [],
+	"timestamp": "2017-06-23T05:24:00.158Z",
+	"collection_id": "9f64000a-c1f3-64bd-8dde-76481f3272f7",
+	"folder_id": 0,
+	"target_type": "collection",
+	"environment_id": "d31cc2f0-d114-06ed-2797-039a11621507",
+	"data": [],
+	"delay": 0,
+	"count": 1,
+	"collection": {
+		"id": "9f64000a-c1f3-64bd-8dde-76481f3272f7",
+		"name": "Link checker",
+		"description": "This collection will check all the links on a webpage, crawl all internal links, and report broken links (if any).\n\nClick the **Run in Postman** button to import the sample collection and environment template into your Postman app. You should now see the collection in the sidebar to the left and the environment selected in the dropdown in the top right.\n\n  [![import collection and environment](https://s3.amazonaws.com/postman-static-getpostman-com/postman-docs/linkImport.png)](https://s3.amazonaws.com/postman-static-getpostman-com/postman-docs/linkImport.png)\n\nGet Started:\n===\n1. **Update environment**: Click the **Quick Look** icon in the top right to view and edit the environment variables. This is where you can update the values to check links on your own website. In many cases, your `root_url` will be the same as your `start_url`. However, in this example, we will use `https://www.getpostman.com/` as our `root_url`, and start checking links on `https://www.getpostman.com/docs/`. \n\n    [![environment template](https://s3.amazonaws.com/postman-static-getpostman-com/postman-docs/linkEnv1.png)](https://s3.amazonaws.com/postman-static-getpostman-com/postman-docs/linkEnv1.png)\n\n2. **Open Postman Console**: This step is optional. If you want to see a stream of requests and view any logged statements, go to the application menu, and select `View` > `Show Postman Console` to open the console in a separate window. Do this before you send any requests or run the collection.\n\n  [![Postman Console](https://s3.amazonaws.com/postman-static-getpostman-com/postman-docs/linkConsole.png)](https://s3.amazonaws.com/postman-static-getpostman-com/postman-docs/linkConsole.png)\n  \n3. **Run collection**: Click the right angle bracket (**>**) to expand the collection details view. Click the **Run** button to open the collection runner in a separate window. \n\n  [![collection details](https://s3.amazonaws.com/postman-static-getpostman-com/postman-docs/linkCollDetails.png)](https://s3.amazonaws.com/postman-static-getpostman-com/postman-docs/linkCollDetails.png)\n\n  Verify that your collection and environment are selected in the respective dropdowns, and click **Start Run** to begin running your collection.\n \n  [![collection runner](https://s3.amazonaws.com/postman-static-getpostman-com/postman-docs/linkCollRun.png)](https://s3.amazonaws.com/postman-static-getpostman-com/postman-docs/linkCollRun.png)\n\nYou should now see your tests running and passing, crawling all the links until there are no more links to check.\n\n  [![tests passing](https://s3.amazonaws.com/postman-static-getpostman-com/postman-docs/linkCollRunner.png)](https://s3.amazonaws.com/postman-static-getpostman-com/postman-docs/linkCollRunner.png)",
+		"order": [
+			"ce2e3571-ca61-1fc3-73d5-98ddd594cd77",
+			"4e35b2ca-ff54-caa0-020d-0c4e8bae6a5c"
+		],
+		"folders": [],
+		"timestamp": 0,
+		"synced": true,
+		"remote_id": "0",
+		"owner": "2113414",
+		"sharedWithTeam": false,
+		"subscribed": false,
+		"remoteLink": null,
+		"remoteLinkUpdatedAt": null,
+		"public": false,
+		"createdAt": "2017-06-23T04:55:39.000Z",
+		"updatedAt": "2017-06-23T04:55:39.000Z",
+		"write": true,
+		"published": false,
+		"favorite": false,
+		"permissions": {},
+		"syncedPermissions": {}
+	},
+	"folder": null,
+	"environment": null,
+	"globals": [
+		{
+			"enabled": true,
+			"key": "echo_digest_realm",
+			"type": "text",
+			"value": "Users"
+		},
+		{
+			"enabled": true,
+			"key": "echo_digest_nonce",
+			"type": "text",
+			"value": "U6YP0WMQAuo9t19jE0dzaQOFxsTa5QwK"
+		}
+	],
+	"results": [
+		{
+			"name": "Initialize",
+			"id": "ce2e3571-ca61-1fc3-73d5-98ddd594cd77",
+			"url": "https://www.mi.com/",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				"1220"
+			],
+			"allTests": [
+				{}
+			],
+			"time": "1220",
+			"totalRequestTime": "1220",
+			"iterationResults": {}
+		},
+		{
+			"name": "Check URL",
+			"id": "4e35b2ca-ff54-caa0-020d-0c4e8bae6a5c",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found",
+				"detail": {
+					"name": "Not Found",
+					"detail": "The requested resource could not be found but may be available again in the future. Subsequent requests by the client are permissible."
+				}
+			},
+			"testPassFailCounts": {
+				"Link works": {
+					"pass": 122,
+					"fail": 189
+				}
+			},
+			"times": [
+				"37",
+				"68",
+				"119",
+				"45",
+				"66",
+				"66",
+				"373",
+				"222",
+				"300",
+				"160",
+				"118",
+				"97",
+				"413",
+				"112",
+				"77",
+				"183",
+				"133",
+				"132",
+				"94",
+				"118",
+				"282",
+				"163",
+				"195",
+				"121",
+				"198",
+				"298",
+				"188",
+				"135",
+				"163",
+				"1013",
+				"287",
+				"241",
+				"214",
+				"298",
+				"754",
+				"209",
+				"204",
+				"324",
+				"451",
+				"632",
+				"510",
+				"172",
+				"110",
+				"212",
+				"270",
+				"304",
+				"463",
+				"118",
+				"133",
+				"158",
+				"381",
+				"111",
+				"138",
+				"273",
+				"93",
+				"120",
+				"76",
+				"61",
+				"90",
+				"264",
+				"220",
+				"670",
+				"603",
+				"166",
+				"301",
+				"217",
+				"268",
+				"200",
+				"221",
+				"136",
+				"130",
+				"267",
+				"606",
+				"179",
+				"153",
+				"126",
+				"158",
+				"169",
+				"113",
+				"129",
+				"161",
+				"183",
+				"237",
+				"107",
+				"171",
+				"215",
+				"111",
+				"117",
+				"102",
+				"67",
+				"121",
+				"263",
+				"126",
+				"167",
+				"171",
+				"64",
+				"271",
+				"101",
+				"75",
+				"61",
+				"1026",
+				"314",
+				"99",
+				"79",
+				"139",
+				"85",
+				"167",
+				"99",
+				"170",
+				"120",
+				"199",
+				"50",
+				"97",
+				"2314",
+				"518",
+				"94",
+				"98",
+				"207",
+				"150",
+				"131",
+				"89",
+				"55",
+				"202",
+				"183",
+				"157",
+				"105",
+				"103",
+				"161",
+				"173",
+				"81",
+				"57",
+				"208",
+				"160",
+				"271",
+				"217",
+				"67",
+				"58",
+				"137",
+				"65",
+				"73",
+				"165",
+				"101",
+				"98",
+				"192",
+				"35",
+				"93",
+				"211",
+				"106",
+				"198",
+				"120",
+				"177",
+				"311",
+				"167",
+				"147",
+				"529",
+				"104",
+				"123",
+				"117",
+				"87",
+				"110",
+				"52",
+				"147",
+				"192",
+				"166",
+				"89",
+				"108",
+				"181",
+				"185",
+				"594",
+				"217",
+				"238",
+				"147",
+				"112",
+				"102",
+				"46",
+				"41",
+				"43",
+				"148",
+				"93",
+				"66",
+				"39",
+				"96",
+				"382",
+				"15",
+				"224",
+				"59",
+				"153",
+				"72",
+				"77",
+				"73",
+				"81",
+				"196",
+				"142",
+				"11",
+				"36",
+				"119",
+				"108",
+				"26",
+				"174",
+				"57",
+				"85",
+				"147",
+				"101",
+				"109",
+				"142",
+				"175",
+				"858",
+				"125",
+				"178",
+				"668",
+				"195",
+				"103",
+				"83",
+				"157",
+				"78",
+				"54",
+				"181",
+				"109",
+				"169",
+				"131",
+				"77",
+				"11",
+				"170",
+				"110",
+				"345",
+				"88",
+				"473",
+				"190",
+				"109",
+				"209",
+				"191",
+				"188",
+				"202",
+				"34",
+				"284",
+				"273",
+				"96",
+				"82",
+				"80",
+				"24",
+				"268",
+				"93",
+				"69",
+				"377",
+				"91",
+				"228",
+				"84",
+				"35",
+				"31",
+				"100",
+				"105",
+				"196",
+				"10",
+				"273",
+				"102",
+				"173",
+				"309",
+				"272",
+				"226",
+				"165",
+				"92",
+				"170",
+				"115",
+				"87",
+				"521",
+				"143",
+				"328",
+				"404",
+				"185",
+				"927",
+				"175",
+				"401",
+				"17",
+				"300",
+				"169",
+				"159",
+				"161",
+				"105",
+				"156",
+				"285",
+				"35",
+				"31",
+				"27",
+				"31",
+				"25",
+				"180",
+				"9",
+				"89",
+				"78",
+				"31",
+				"157",
+				"12",
+				"83",
+				"46",
+				"31",
+				"44",
+				"123",
+				"117",
+				"122",
+				"162",
+				"28",
+				"130",
+				"191",
+				"16",
+				"76",
+				"69",
+				"155",
+				"23",
+				"44",
+				"100",
+				"13",
+				"29"
+			],
+			"allTests": [
+				{
+					"Link works": true
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				{
+					"name": "Link works",
+					"status": "pass"
+				},
+				{
+					"name": "Link works",
+					"status": "fail"
+				},
+				null
+			],
+			"time": "29",
+			"totalRequestTime": "37681194566663732223001601189741311277183133132941182821631951211982981881351631013287241214298754209204324451632510172110212270304463118133158381111138273931207661902642206706031663012172682002211361302676061791531261581691131291611832371071712151111171026712126312616717164271101756110263149979139851679917012019950972314518949820715013189552021831571051031611738157208160271217675813765731651019819235932111061981201773111671475291041231178711052147192166891081811855942172381471121024641431489366399638215224591537277738119614211361191082617457851471011091421758581251786681951038315778541811091691317711170110345884731901092091911882023428427396828024268936937791228843531100105196102731021733092722261659217011587521143328404185927175401173001691591611051562853531273125180989783115712834631441231171221622813019116766915523441001329",
+			"iterationResults": {}
+		}
+	],
+	"totalPass": 122,
+	"totalFail": 189,
+	"totalTime": 57077,
+	"lifecycle": "done",
+	"requests": [
+		{
+			"name": "Initialize",
+			"id": "ce2e3571-ca61-1fc3-73d5-98ddd594cd77",
+			"url": "https://www.mi.com/",
+			"time": "2017-06-23T05:24:00.158Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {}
+		},
+		{
+			"name": "Check URL",
+			"id": "4e35b2ca-ff54-caa0-020d-0c4e8bae6a5c",
+			"url": "https://www.mi.com/",
+			"time": "29",
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found",
+				"detail": {
+					"name": "Not Found",
+					"detail": "The requested resource could not be found but may be available again in the future. Subsequent requests by the client are permissible."
+				}
+			},
+			"testPassFailCounts": {
+				"Link works": {
+					"pass": 122,
+					"fail": 189
+				}
+			}
+		}
+	],
+	"synced": false
+}
