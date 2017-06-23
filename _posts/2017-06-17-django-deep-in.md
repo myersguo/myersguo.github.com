@@ -217,6 +217,59 @@ RegexURLResolver（ django\urls\resolvers.p )
 所以，当你自己要处理静态文件的时候，就要关闭 DEBUG 开关。     
 
 
+### http response ###
+
+http 请求到返回基类在 django/http/response.py 中 HttpResponseBase, 一些子类，如 SimpleTemplagteResponse ( 位于 django/template/response.py ,包含 render方法)。比较常用的:   
+
+平时经常见到的 render,render_to_response 都是模版渲染的返回。也可以直接返回一个HttpResponse。   
+
+渲染 json
+
+```
+class JsonResponse(HttpResponse):
+    """
+    An HTTP response class that consumes data to be serialized to JSON.
+
+    :param data: Data to be dumped into json. By default only ``dict`` objects
+      are allowed to be passed due to a security flaw before EcmaScript 5. See
+      the ``safe`` parameter for more information.
+    :param encoder: Should be an json encoder class. Defaults to
+      ``django.core.serializers.json.DjangoJSONEncoder``.
+    :param safe: Controls if only ``dict`` objects may be serialized. Defaults
+      to ``True``.
+    """
+
+    def __init__(self, data, encoder=DjangoJSONEncoder, safe=True, **kwargs):
+        if safe and not isinstance(data, dict):
+            raise TypeError('In order to allow non-dict objects to be '
+                'serialized set the safe parameter to False')
+        kwargs.setdefault('content_type', 'application/json')
+        data = json.dumps(data, cls=encoder)
+        super(JsonResponse, self).__init__(content=data, **kwargs)
+```
+
+### django 用户 ###
+
+django 的用户登录控制有：   
+
+```
+middleware:  
+'django.contrib.auth.middleware.AuthenticationMiddleware',
+'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+'django_cas.middleware.CASDisabledCSRFMiddleware',
+'django_cas.middleware.CASMiddleware',
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'django_cas.backends.CASBackend',
+)
+
+```
+
+我们来看一下这里的登录处理逻辑：   
+
+
+
 
 (待续)  
 
