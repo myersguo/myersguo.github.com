@@ -5,8 +5,6 @@ title: django 初探
 
 一个 WEB 的框架，必然要解决 URL 路由的问题。 Django 怎么做请求路由的呢？  
 
-
-
 python manager runserver，即 django.core.management.execute_from_command_line()
 
 
@@ -215,6 +213,106 @@ RegexURLResolver（ django\urls\resolvers.p )
 静态文件的处理就交给了 StaticFilesHandler， 它会使用 STATICFILES_FINDERS 中的 finder 类来查找静态文件的路径，然后解析静态文件。 但，它要求  STATIC_ROOT 和  STATICFILES_DIRS 的路径不能相同，因为 源和目的要分开的啊。     
 
 所以，当你自己要处理静态文件的时候，就要关闭 DEBUG 开关。     
+
+### DB 操作 ###
+
+
+#### django.db.models.Manager ####
+
+>A Manager is the interface through which database query operations are provided to Django models. At least one Manager exists for every model in a Django application.
+`django\db\models\query`
+
+在用 `model`的时候，经常使用 model.objects 这个 objects 属性，这个属性哪里来的呢？我们来梳理下。   
+在 django\db\models\base.py 中我们可以看到里初始化中以下代码：  
+
+```
+class ModelBase(type):
+    """
+    Metaclass for all models.
+    """
+    def __new__(cls, name, bases, attrs):
+        super_new = super(ModelBase, cls).__new__
+
+        ...
+        new_class._prepare()
+        ...
+    def _prepare(cls):
+       ensure_default_manager(cls) 
+```
+
+这里的 ensure_default_manager(django\db\models\manager.py) 中为每个 model 设置了一个 manager:   
+
+```
+def ensure_default_manager(cls):
+    """
+    Ensures that a Model subclass contains a default manager  and sets the
+    _default_manager attribute on the class. Also sets up the _base_manager
+    points to a plain Manager instance (which could be the same as
+    _default_manager if it's not a subclass of Manager).
+    """
+    if cls._meta.abstract:
+        setattr(cls, 'objects', AbstractManagerDescriptor(cls))
+        return
+    elif cls._meta.swapped:
+        setattr(cls, 'objects', SwappedManagerDescriptor(cls))
+        return
+	if not getattr(cls, '_default_manager', None):
+        if any(f.name == 'objects' for f in cls._meta.fields):
+            raise ValueError(
+                "Model %s must specify a custom Manager, because it has a "
+                "field named 'objects'" % cls.__name__
+            )
+        # Create the default manager, if needed.
+        cls.add_to_class('objects', Manager())
+        cls._base_manager = cls.objects
+	...
+class Manager(BaseManager.from_queryset(QuerySet)):
+    pass
+```
+
+ok, 这样我们可以理解了， model.objects 其实是调用了 Manager 来管理 queryset.  
+
+#### queryset ####   
+
+>A QuerySet represents a collection of objects from your database. It can have zero, one or many filters. Filters narrow down the query results based on the given parameters. In SQL terms, a QuerySet equates to a SELECT statement, and a filter is a limiting clause such as WHERE or LIMIT.
+
+
+
+常用的 SQL 及对应的代码：  
+
+```
+SELECT * FROM A
+A.objects.all()
+
+SELECT * FROM A WHERE A.id = 1;
+A.objects.filter(id=1)
+
+SELECT * FROM A WHERE a.name LIKE '%myersguo%' OR description like '%myersguo'
+A.objects.filter(Q(name__icontains('myersguo')) | Q(description__icontains('myersguo')))
+
+SELECT * FROM A order by id desc 
+A.objects.all().order_by('-id')
+
+SELECT COUNT(*) FROM A
+A.objects.count()
+
+如果想要获取到 values,可以使用 .values()
+
+INSERT INT A (name) VALUES('myersguo')
+A.save()
+
+SELECT SUM(c), sum(b) FROM A GROUP BY a
+A.objects.values('a').annotate(t=Sum('c'),b=Sum('b'))
+
+
+SELECT SUM(c),SUM(b),DATE_FORMAT(FROM_UNIXTIME(start_time), '%Y-%m-%d') as t
+FROM A
+GROUP BY DATE_FORMAT(FROM_UNIXTIME(start_time), '%Y-%m-%d')
+ORDER BY t desc
+
+select_data = {"start_time": """DATE_FORMAT(FROM_UNIXTIME(start_time), '%%Y-%%m-%%d')"""}
+A.objects.extra(select=select_data).values('start_time').annotate(t=Sum('c'), b=Sum('b')).order_by('start_time')
+```
 
 
 ### http response ###
