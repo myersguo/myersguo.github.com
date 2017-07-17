@@ -315,6 +315,56 @@ A.objects.extra(select=select_data).values('start_time').annotate(t=Sum('c'), b=
 ```
 
 
+### 命令行 ###
+
+我们经常要写一些  script 单独来跑（比如放到 cron 里面），而脚本直接使用 django 环境是不可以的。怎么使用 django 环境的：   
+
+1) 使用 manager.py , django 提供了管理工具，使用管理工具可以执行脚本：   
+
+```
+python manager.py shell
+```
+
+或者使用插件(django-extension)：   
+
+```
+python manager.py runscript
+```
+
+2) 设置 django 环境:   
+
+```
+import sys,os
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/../")
+os.environ['DJANGO_SETTINGS_MODULE'] = '项目名.settings'
+```
+
+这个 `DJANGO_SETTINGS_MODULE` 我们在 `manager.py`中就看到过：  
+
+```
+#!/usr/bin/env python
+import os
+import sys
+
+if __name__ == "__main__":
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project.settings")
+
+    from django.core.management import execute_from_command_line
+
+    execute_from_command_line(sys.argv)
+```
+
+django 环境的初始化是依赖于 `DJANGO_SETTINGS_MODULE`的设置的。  
+
+
+
+
+
+
+
+
+
+
 ### http response ###
 
 http 请求到返回基类在 django/http/response.py 中 HttpResponseBase, 一些子类，如 SimpleTemplagteResponse ( 位于 django/template/response.py ,包含 render方法)。比较常用的:   
