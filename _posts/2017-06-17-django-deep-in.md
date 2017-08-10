@@ -357,12 +357,16 @@ if __name__ == "__main__":
 django 环境的初始化是依赖于 `DJANGO_SETTINGS_MODULE`的设置的。  
 
 
+### django logging ###
 
+django 启动的时候会配置logging,   
 
-
-
-
-
+```
+    from django.utils.log import configure_logging
+    configure_logging(settings.LOGGING_CONFIG, settings.LOGGING)
+    #相当于
+    logging.config.dictConfig(settings.LOGGING)
+```
 
 
 ### http response ###

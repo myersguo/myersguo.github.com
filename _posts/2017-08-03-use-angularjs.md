@@ -40,5 +40,10 @@ $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState
 2) 需要使用 $stateChangeStart: 因为我用了 ui-router 代替了  ngRoute啊  
 
 
+2. redirect   
+
+window.location.href  
+
+
 (未完待续)
 

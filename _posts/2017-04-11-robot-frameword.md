@@ -71,6 +71,17 @@ python -m pip install robotframework
 python -m robot --version
 ```
 
+安装其他辅助库：  
+
+```
+pip install -U wxPython
+pip install robotframework-ride
+pip install robotframework-selenium2library
+pip install robotframework-archivelibrary
+pip install robotframework-SSHLibrary
+pip install robotframework-ftplibrary
+```
+
 ### 用例的写法 ###
 
 robot framework 的用例管理使用文件来管理的。   
