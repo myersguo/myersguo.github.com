@@ -6,7 +6,7 @@ title: 算法之殇
 最近公司的面试我有机会参与了几次，在一个对算法要求较高的公司面试，必然要出几个算法题，比如二叉树、快排等等。然后，作为面试官的我，面对算法却是很是头疼的，长久没有接触算法，已经对算法有点抵触了。今天正好有空，温习了下大一数据结构里面学习的排序算法，当写到快排时，我的内心是崩溃的。    
 
 <script async src="//jsfiddle.net/8teynqdj/embed/result/"></script>
-<a class="jsbin-embed" href="http://jsbin.com/vibukis/embed?html,output">JS Bin on jsbin.com</a><script src="http://static.jsbin.com/js/embed.min.js?4.0.4"></script>
+<a class="jsbin-embed" href="//jsbin.com/vibukis/embed?html,output">edit</a>
 
 
 ```
