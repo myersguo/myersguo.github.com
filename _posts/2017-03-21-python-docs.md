@@ -82,6 +82,12 @@ f.seek()
 pip freeze
 
 
+### python 常用模块 ###
+
+比较json对象:   
+jsondiff
+
+
 
 ### 参考资料 ###
 
