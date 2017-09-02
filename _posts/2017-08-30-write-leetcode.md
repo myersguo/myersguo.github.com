@@ -4,7 +4,7 @@ title: leetcode
 ---
 
 
-1. [two sum](https://leetcode.com/problems/two-sum/description/)   
+1.[two sum](https://leetcode.com/problems/two-sum/description/)   
 
 Given an array of integers, return indices of the two numbers such that they add up to a specific target.
 
@@ -46,7 +46,7 @@ class Solution(object):
         
 ```
 
-2. Add Two Numbers
+2.Add Two Numbers
 
 ```
 def addTwoNumbers(self, l1, l2):
@@ -80,7 +80,7 @@ def addTwoNumbers(self, l1, l2):
         return dummy.next 
 ```
 
-3. Longest Substring Without Repeating Characters   
+3.Longest Substring Without Repeating Characters   
 
 ```
 def lengthOfLongestSubstring(self, s):
@@ -101,7 +101,7 @@ def lengthOfLongestSubstring(self, s):
         return longest
 ```
 
-4.  Median of Two Sorted Arrays    
+4.Median of Two Sorted Arrays    
 
 ```
 def findMedianSortedArrays(self, nums1, nums2):
@@ -118,7 +118,7 @@ def findMedianSortedArrays(self, nums1, nums2):
             return (float(nums3[len(nums3)/2])+float(nums3[len(nums3)/2-1]))/2
 ```
 
-5. Longest Palindromic Substring   
+5.Longest Palindromic Substring   
 
 ```
 def longestPalindrome(self, s):
@@ -159,6 +159,28 @@ def longestPalindrome(self, s):
         return s[start : start + P[max_i]] 
 ```
 
+
+备注：   
+有一些刷题网站不是使用 solution 的，需要自己写输入输出，main 函数，几个语言如下：   
+
+```
+c++
+int main(){
+    int n;
+    cin>>n;
+}
+java:
+import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        int n = scan.nextInt();
+    }
+}
+python:
+n = int(raw_input())
+
+```
 
 
 ### 参考资料 ### 
