@@ -159,3 +159,9 @@ def longestPalindrome(self, s):
         return s[start : start + P[max_i]] 
 ```
 
+
+
+### 参考资料 ### 
+
+[https://github.com/kamyu104/LeetCode](https://github.com/kamyu104/LeetCode)  
+
