@@ -48,6 +48,13 @@ class Solution(object):
 
 2.Add Two Numbers
 
+You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.
+
+You may assume the two numbers do not contain any leading zero, except the number 0 itself.   
+
+Input: (2 -> 4 -> 3) + (5 -> 6 -> 4)   
+Output: 7 -> 0 -> 8   
+
 ```
 def addTwoNumbers(self, l1, l2):
         """
@@ -82,6 +89,12 @@ def addTwoNumbers(self, l1, l2):
 
 3.Longest Substring Without Repeating Characters   
 
+Given a string, find the length of the longest substring without repeating characters.  
+
+Given "abcabcbb", the answer is "abc", which the length is 3.  
+
+
+
 ```
 def lengthOfLongestSubstring(self, s):
         """
@@ -103,6 +116,7 @@ def lengthOfLongestSubstring(self, s):
 
 4.Median of Two Sorted Arrays    
 
+
 ```
 def findMedianSortedArrays(self, nums1, nums2):
         """
@@ -119,6 +133,9 @@ def findMedianSortedArrays(self, nums1, nums2):
 ```
 
 5.Longest Palindromic Substring   
+
+
+
 
 ```
 def longestPalindrome(self, s):
