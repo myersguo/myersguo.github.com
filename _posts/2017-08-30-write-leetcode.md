@@ -203,7 +203,8 @@ def isValid(self, s):
 
 ```
 
-7.three nums  
+7.three nums    
+
 
 ```
 # Given an array S of n integers,
@@ -244,7 +245,8 @@ def threeSum(self, nums):
         return result
 ```
 
-8.Invert Binary Tree
+8.Invert Binary Tree  
+
 
 ```
 # Invert a binary tree.
@@ -293,7 +295,8 @@ def invertTree(self, root):
         return root
 ```
 
-9.Count the number of prime numbers less than a non-negative number, n
+9.Count the number of prime numbers less than a non-negative number, n  
+
 
 ```
 def countPrimes(self, n):
@@ -320,6 +323,7 @@ def countPrimes(self, n):
 ```
 
 10.merge two sort interge  
+
 
 ```
 #Given two sorted integer arrays nums1 and nums2, merge nums2 into nums1 as one sorted array.
