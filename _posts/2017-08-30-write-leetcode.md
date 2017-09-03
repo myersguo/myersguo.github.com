@@ -263,8 +263,6 @@ def threeSum(self, nums):
 #  / \   / \
 # 9   6 3   1
 
-
-```
 class TreeNode(object):
     def __init__(self, x):
         self.val = x
