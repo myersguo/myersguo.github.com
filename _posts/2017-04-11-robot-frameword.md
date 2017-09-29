@@ -82,6 +82,14 @@ pip install robotframework-SSHLibrary
 pip install robotframework-ftplibrary
 ```
 
+### quickstart ###
+
+```
+git clone https://github.com/robotframework/QuickStartGuide.git   
+```
+
+
+
 ### 用例的写法 ###
 
 robot framework 的用例管理使用文件来管理的。   

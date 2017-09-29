@@ -312,6 +312,11 @@ ORDER BY t desc
 
 select_data = {"start_time": """DATE_FORMAT(FROM_UNIXTIME(start_time), '%%Y-%%m-%%d')"""}
 A.objects.extra(select=select_data).values('start_time').annotate(t=Sum('c'), b=Sum('b')).order_by('start_time')
+
+SELECT * FROM A LEFT JOIN B on A.id = B.aid
+A.objects.select_related().all()
+A.objects.exclude(B__isnull=False)
+
 ```
 
 
