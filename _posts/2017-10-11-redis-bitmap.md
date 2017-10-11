@@ -28,5 +28,22 @@ incr today:cnt 1
 如果要区分终端，区分版本统计日活，那岂不是 100G * xxx 倍？   
 这个占用量也很大啊？又没有更好的办法呢？  
 
+解决：  
+从这边文章：[http://highscalability.com/blog/2012/4/5/big-data-counting-how-to-count-a-billion-distinct-objects-us.html](http://highscalability.com/blog/2012/4/5/big-data-counting-how-to-count-a-billion-distinct-objects-us.html)
 
+
+>Sparse bitmaps can be compressed in order to gain space efficiency, but that is not always helpful.
+
+找到答案，使用Hyper LogLog,可以满足需求：  
+
+```
+pfadd today 1
+pfadd today 2
+统计: pfcount today
+```
+
+占用空间只有:  
+12304 bytes, 12k
+
+完美解决啊，基于 hyper loglog是什么，可以看上面的文章详细了解。   
 
