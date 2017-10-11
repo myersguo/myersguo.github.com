@@ -10,7 +10,7 @@ setbit today 4294967295 1
 setbit today 1 1
 redis-cli --bigkeys
 
-统计显示:Biggest string found 'today' has 536870912 bytes,64M 
+统计显示:Biggest string found 'today' has 536870912 bytes,4G
 ```
 
 因为 bit offset 最大是2^32，即 4294967295, 10位，我们的一般ID都是11位，那怎么统计？   
@@ -22,10 +22,10 @@ prefix = offset % 100
 offset = offset / 100
 setbit today: prefix  offset 1
 incr today:cnt 1
-这样，最大是数能统计到400(12位)亿，资源占用就是 64M*100,就是6.5G
+这样，最大是数能统计到400(12位)亿，资源占用就是 4G*100,就是100G
 ```
 
-如果要区分终端，区分版本统计日活，那岂不是 6.5G * xxx 倍？   
+如果要区分终端，区分版本统计日活，那岂不是 100G * xxx 倍？   
 这个占用量也很大啊？又没有更好的办法呢？  
 
 
