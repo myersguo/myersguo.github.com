@@ -46,4 +46,8 @@ pfadd today 2
 
 完美解决啊，基于 hyper loglog是什么，可以看上面的文章详细了解。   
   
+### 参考资料 ###
 
+[http://blog.codinglabs.org/articles/cardinality-estimate-exper.html](http://blog.codinglabs.org/articles/cardinality-estimate-exper.html)   
+[http://highscalability.com/blog/2012/4/5/big-data-counting-how-to-count-a-billion-distinct-objects-us.html](http://highscalability.com/blog/2012/4/5/big-data-counting-how-to-count-a-billion-distinct-objects-us.html)  
+[http://blog.codinglabs.org/articles/algorithms-for-cardinality-estimation-part-i.html](http://blog.codinglabs.org/articles/algorithms-for-cardinality-estimation-part-i.html)
