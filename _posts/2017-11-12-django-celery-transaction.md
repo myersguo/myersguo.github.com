@@ -21,16 +21,12 @@ comments: true
 
 我们默认`autocommit`, 但 commit 是在 celery delay 之后，因此偶尔就会报错。**怎么解决？**   
 
-如果是 django 1.9, 使用 `transaction.on_commit`:   
-
-```
-        transaction.on_commit(lambda: do_stuff.delay(my_data.pk))
-```
+如果是 django 1.9, 使用 `transaction.on_commit`: `transaction.on_commit(lambda: do_stuff.delay(my_data.pk))`
 
 如果是 <1.9, 使用[django-transaction-hooks](https://github.com/carljm/django-transaction-hooks)   
 
 另一种解决方案(verifying):  
-手动 commit: ` transaction.commit()`    
+手动 commit: `transaction.commit()`    
 
 
 
