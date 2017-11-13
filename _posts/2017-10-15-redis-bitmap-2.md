@@ -1,6 +1,7 @@
 ---
 layout: wp
 title: 大数据计数
+comments: true
 ---
 
 之前在[日活统计的烦恼](http://myersguo.me/2017/10/11/redis-bitmap.html)中说，有一个需求是要统计数量的。起初是想从 redis bitmap set 来统计，后来发现 bitmap 的统计上线越大占用的存储空间越大。而最终的结果是， bit 位将变得非常稀松。

@@ -1,6 +1,7 @@
 ---
 layout: wp
 title: 日活统计遇到的疑惑
+comments: true
 ---
 
 最近有个需求是需要统计某个版本的安装数量，之前接触过类似的需求--- 统计日活，使用 redis 的bitmap 来记录，比如user_id是11位的,比如我们统计一下：  
