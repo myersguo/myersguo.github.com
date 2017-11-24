@@ -1,6 +1,7 @@
 ---
 layout: wp
 title: django session & user 处理
+comments: true
 ---
 
 「校招面试中途」，闲着写一下 django 的 default session middleware (django.contrib.sessions.middleware.SessionMiddleware)的逻辑:   

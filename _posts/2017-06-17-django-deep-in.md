@@ -1,6 +1,7 @@
 ---
 layout: wp
 title: django 初探
+comments: true
 ---
 
 一个 WEB 的框架，必然要解决 URL 路由的问题。 Django 怎么做请求路由的呢？  
