@@ -22,7 +22,7 @@ t.join()
 ```
 t.join:    
 
-``
+```
 self.__block.acquire() # 获取条件锁
 while not self.__stopped: # 如果线程未完成，继续等待
     self.__block.wait() # 释放锁,等待结束
