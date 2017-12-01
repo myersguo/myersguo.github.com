@@ -45,5 +45,75 @@ $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState
 window.location.href  
 
 
+3. $scope.$apply   
+
+<a class="jsbin-embed" href="http://jsbin.com/loraweduvi/1/embed?html,js,output">JS Bin on jsbin.com</a><script src="http://static.jsbin.com/js/embed.min.js?4.1.1"></script>
+
+看这个指令，为什么做了绑定，但是,没有生效呢？  
+
+当我们的模版加载完毕时，也就是在linking阶段（Angular分为compile阶段和linking阶段），Angular解释器会寻找每个directive，然后生成每个需要的$watch。  
+
+angularjs的事件循环机制是：当浏览器接收到可以被angular context处理的事件(调用了 $apply)时，$digest循环就会触发。$digest将会遍历$watch队列,进行dirty-checking。
+
+看一下`ng-click` 的事件处理,里面`forceAsyncEvents`属于异步事件，
+
+```
+var forceAsyncEvents = {
+  'blur': true,
+  'focus': true
+};
+forEach(
+  'click dblclick mousedown mouseup mouseover mouseout mousemove mouseenter mouseleave keydown keyup keypress submit focus blur copy cut paste'.split(' '),
+  function(eventName) {
+    var directiveName = directiveNormalize('ng-' + eventName);
+    ngEventDirectives[directiveName] = ['$parse', '$rootScope', function($parse, $rootScope) {
+      return {
+        restrict: 'A',
+        compile: function($element, attr) {
+          var fn = $parse(attr[directiveName], /* interceptorFn */ null, /* expensiveChecks */ true);
+          return function ngEventHandler(scope, element) {
+            element.on(eventName, function(event) {
+              var callback = function() {
+                fn(scope, {$event:event});
+              };
+              if (forceAsyncEvents[eventName] && $rootScope.$$phase) {
+                scope.$evalAsync(callback);
+              } else {
+                scope.$apply(callback);
+              }
+            });
+          };
+        }
+      };
+    }];
+  }
+);
+```
+下面这个是`echart`点击legend时的事件处理。需要手动调用 $apply(jQuery没有调用$apply，事件没有进入angular context)。
+
+```
+$scope.chart_config = {
+    theme: 'default',
+    dataLoaded: false,
+    event: [{
+        legendselectchanged: function (params) {
+            var clicked = params.name;
+            var oldSelected = params.selected;
+            for(var i in oldSelected) {
+                if (i==clicked) {
+                    oldSelected[i] = true;
+                }else {
+                    oldSelected[i] = false;
+                }
+            }
+            $scope.$apply(function() {
+                $scope.chart_option.legend.selected = oldSelected;
+            });
+        }
+    }],
+};
+```
+
+
 (未完待续)
 
