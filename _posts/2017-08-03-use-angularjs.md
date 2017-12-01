@@ -91,6 +91,131 @@ forEach(
   }
 );
 ```
+
+`apply` 的逻辑是使之进入`$digest` 循环：  
+
+```
+$apply: function(expr) {
+  try {
+    beginPhase('$apply');
+    try {
+      return this.$eval(expr);
+    } finally {
+      clearPhase();
+    }
+  } catch (e) {
+    $exceptionHandler(e);
+  } finally {
+    try {
+      $rootScope.$digest();
+    } catch (e) {
+      $exceptionHandler(e);
+      // eslint-disable-next-line no-unsafe-finally
+      throw e;
+    }
+  }
+}
+```
+
+`$digest` 循环检查`$watch` 列表，判单是否`dirty`，逻辑如下：  
+
+```
+$digest: function() {
+  do { // "while dirty" loop
+    dirty = false;
+    current = target;
+    asyncQueue.length = 0;
+
+    traverseScopesLoop:
+    do { // "traverse the scopes" loop
+      if ((watchers = current.$$watchers)) {
+        // process our watches
+        watchers.$$digestWatchIndex = watchers.length;
+        while (watchers.$$digestWatchIndex--) {
+          try {
+            watch = watchers[watchers.$$digestWatchIndex];
+            // Most common watches are on primitives, in which case we can short
+            // circuit it with === operator, only when === fails do we use .equals
+            if (watch) {
+              get = watch.get;
+              if ((value = get(current)) !== (last = watch.last) &&
+                  !(watch.eq
+                      ? equals(value, last)
+                      : (isNumberNaN(value) && isNumberNaN(last)))) {
+                dirty = true;
+                lastDirtyWatch = watch;
+                watch.last = watch.eq ? copy(value, null) : value;
+                fn = watch.fn;
+                fn(value, ((last === initWatchVal) ? value : last), current);
+              } else if (watch === lastDirtyWatch) {
+                // If the most recently dirty watcher is now clean, short circuit since the remaining watchers
+                // have already been tested.
+                dirty = false;
+                break traverseScopesLoop;
+              }
+            }
+          } catch (e) {
+            $exceptionHandler(e);
+          }
+        }
+      }
+  } while (dirty || asyncQueue.length);
+  
+```
+
+ok, 那 `$watch`队列是什么时候添加的呢？在watch的时候啊。   
+
+```
+ $watch: function(watchExp, listener, objectEquality, prettyPrintExpression) {
+        var get = $parse(watchExp);
+
+        if (get.$$watchDelegate) {
+          return get.$$watchDelegate(this, listener, objectEquality, get, watchExp);
+        }
+        var scope = this,
+            array = scope.$$watchers,
+            watcher = {
+              fn: listener,
+              last: initWatchVal,
+              get: get,
+              exp: prettyPrintExpression || watchExp,
+              eq: !!objectEquality
+            };
+
+        lastDirtyWatch = null;
+
+        if (!isFunction(listener)) {
+          watcher.fn = noop;
+        }
+
+        if (!array) {
+          array = scope.$$watchers = [];
+          array.$$digestWatchIndex = -1;
+        }
+        array.unshift(watcher);
+        array.$$digestWatchIndex++;
+        incrementWatchersCount(this, 1);
+
+        return function deregisterWatch() {
+          var index = arrayRemove(array, watcher);
+          if (index >= 0) {
+            incrementWatchersCount(scope, -1);
+            if (index < array.$$digestWatchIndex) {
+              array.$$digestWatchIndex--;
+            }
+          }
+          lastDirtyWatch = null;
+        };
+      },
+
+```
+
+因此，我们可以梳理出来以下数据流：  
+
+template -> direct(watch) -> compline(link) -> apply -> digest   
+
+
+
 下面这个是`echart`点击legend时的事件处理。需要手动调用 $apply(jQuery没有调用$apply，事件没有进入angular context)。
 
 ```
