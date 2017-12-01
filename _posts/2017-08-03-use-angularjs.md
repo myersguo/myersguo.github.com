@@ -40,12 +40,14 @@ $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState
 2) 需要使用 $stateChangeStart: 因为我用了 ui-router 代替了  ngRoute啊  
 
 
-2. redirect   
+2.
+redirect   
 
 window.location.href  
 
 
-3. $scope.$apply   
+3.
+$scope.$apply   
 
 <a class="jsbin-embed" href="http://jsbin.com/loraweduvi/1/embed?html,js,output">JS Bin on jsbin.com</a><script src="http://static.jsbin.com/js/embed.min.js?4.1.1"></script>
 
