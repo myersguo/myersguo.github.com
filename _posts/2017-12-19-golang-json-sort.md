@@ -57,4 +57,10 @@ after: {"id":1,"name":"hello"}`
 json.dumps(v, sort_keys=True, separators=(',', ':'))
 ```
 
+另外，golang 默认使用的 ascii 来编码,python 需要如下处理:   
+
+```
+json.dumps(v, sort_keys=True, separators=(',', ':'),  ensure_ascii=False)
+
+```
 
