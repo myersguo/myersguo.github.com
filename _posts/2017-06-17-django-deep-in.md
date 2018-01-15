@@ -126,6 +126,128 @@ def get_internal_wsgi_application():
 
 ```
 
+
+### django 的wsgi入口 ###
+
+```
+from django.core.wsgi import get_wsgi_application
+application = get_wsgi_application()
+
+or 
+from django.core.handlers.wsgi import WSGIHandler
+```
+WSGIHandler 初始化 basehandler， 然后 new WSGIRequest(request = self.request_class(environ)), 获取返回值(response = self.get_response(request))
+
+老版本:   
+
+```
+    def get_response(self, request):
+        "Returns an HttpResponse object for the given HttpRequest"
+        from django.core import exceptions, urlresolvers
+        from django.conf import settings
+
+        try:
+            urlconf = settings.ROOT_URLCONF
+            urlresolvers.set_urlconf(urlconf)
+            resolver = urlresolvers.RegexURLResolver(r'^/', urlconf)
+            try:
+                response = None
+                for middleware_method in self._request_middleware:
+                    response = middleware_method(request)
+                    if response:
+                        break
+
+                if response is None:
+                    if hasattr(request, "urlconf"):
+                        urlconf = request.urlconf
+                        urlresolvers.set_urlconf(urlconf)
+                        resolver = urlresolvers.RegexURLResolver(r'^/', urlconf)
+
+                    callback, callback_args, callback_kwargs = resolver.resolve(
+                            request.path_info)
+
+                    # Apply view middleware
+                    for middleware_method in self._view_middleware:
+                        response = middleware_method(request, callback, callback_args, callback_kwargs)
+                        if response:
+                            break
+
+                if response is None:
+                    try:
+                        response = callback(request, *callback_args, **callback_kwargs)
+                    except Exception, e:
+                        for middleware_method in self._exception_middleware:
+                            response = middleware_method(request, e)
+                            if response:
+                                break
+                        if response is None:
+                            raise
+
+                # Complain if the view returned None (a common error).
+                if response is None:
+                    try:
+                        view_name = callback.func_name # If it's a function
+                    except AttributeError:
+                        view_name = callback.__class__.__name__ + '.__call__' # If it's a class
+                    raise ValueError("The view %s.%s didn't return an HttpResponse object." % (callback.__module__, view_name))
+
+                if hasattr(response, 'render') and callable(response.render):
+                    for middleware_method in self._template_response_middleware:
+                        response = middleware_method(request, response)
+                    response = response.render()
+
+            except http.Http404, e:
+                logger.warning('Not Found: %s' % request.path,
+                            extra={
+                                'status_code': 404,
+                                'request': request
+                            })
+                if settings.DEBUG:
+                    from django.views import debug
+                    response = debug.technical_404_response(request, e)
+                else:
+                    try:
+                        callback, param_dict = resolver.resolve404()
+                        response = callback(request, **param_dict)
+                    except:
+                        try:
+                            response = self.handle_uncaught_exception(request, resolver, sys.exc_info())
+                        finally:
+                            receivers = signals.got_request_exception.send(sender=self.__class__, request=request)
+            except exceptions.PermissionDenied:
+                logger.warning('Forbidden (Permission denied): %s' % request.path,
+                            extra={
+                                'status_code': 403,
+                                'request': request
+                            })
+                response = http.HttpResponseForbidden('<h1>Permission denied</h1>')
+            except SystemExit:
+                # Allow sys.exit() to actually exit. See tickets #1023 and #4701
+                raise
+            except: # Handle everything else, including SuspiciousOperation, etc.
+                # Get the exception info now, in case another exception is thrown later.
+                receivers = signals.got_request_exception.send(sender=self.__class__, request=request)
+                response = self.handle_uncaught_exception(request, resolver, sys.exc_info())
+        finally:
+            urlresolvers.set_urlconf(None)
+
+        try:
+            # Apply response middleware, regardless of the response
+            for middleware_method in self._response_middleware:
+                response = middleware_method(request, response)
+            response = self.apply_response_fixes(request, response)
+        except: # Any exception should be gathered and handled
+            receivers = signals.got_request_exception.send(sender=self.__class__, request=request)
+            response = self.handle_uncaught_exception(request, resolver, sys.exc_info())
+
+        return response
+```
+
+!注意这里的处理过程。`python`中的全局变量再加载之后，不会每次都加载，而只有用到（django中的view）才会重新获取；那么，如果你是通过某个请求更改了全局变量，它只在那一台机器生效，如果需要多台机器都生效，需要另找办法。    
+
+
+
+
 OK, Django 是怎么实现 WSGI的接口的呢？具体在 django\core\handlers\base.py 中。  
 
 WSGIRequest
