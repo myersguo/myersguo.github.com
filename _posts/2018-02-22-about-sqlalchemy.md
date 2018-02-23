@@ -61,7 +61,7 @@ print our_user
 
 我看来看下它的整体架构： 
 
-[![SQLAlchemy 架构](http://docs.sqlalchemy.org/en/latest/core/engines.html)](http://docs.sqlalchemy.org/en/latest/core/engines.html)   
+[![SQLAlchemy 架构](http://docs.sqlalchemy.org/en/latest/_images/sqla_engine_arch.png)](http://docs.sqlalchemy.org/en/latest/core/engines.html)   
 
 
 
