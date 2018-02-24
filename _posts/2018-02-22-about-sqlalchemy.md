@@ -213,7 +213,7 @@ print our_user
 │   └── util.py
 ├── pool.py
 ├── processors.py
-├── schema.py
+├── schema.py ( describes a database entity,provides the building blocks for database metadata)
 ├── sql (sql表达式)
 │   ├── __init__.py
 │   ├── annotation.py
@@ -270,7 +270,7 @@ print our_user
 │   │   └── test_update_delete.py
 │   ├── util.py
 │   └── warnings.py
-├── types.py
+├── types.py(defines genericized SQL types)
 └── util
     ├── __init__.py
     ├── _collections.py

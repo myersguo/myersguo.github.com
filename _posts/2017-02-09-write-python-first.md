@@ -169,6 +169,45 @@ commands.*
 ```
 
 
+### classmethod vs staticmethod ###
+
+classmethod: Return a class method for function.一个cls为首参数，不能访问类的成员变量。一般用作**工厂类**。      
+
+```
+@classmethod
+    def _factory(cls, lookup, synchronize_session, *arg):
+        try:
+            klass = lookup[synchronize_session]
+        except KeyError:
+            raise sa_exc.ArgumentError(
+                            "Valid strategies for session synchronization "
+                            "are %s" % (", ".join(sorted(repr(x)
+                                for x in lookup.keys()))))
+        else:
+            return klass(*arg)
+```
+staticmethod: Return a static method for function. 相当于全局的函数放到类中，一般用作工具方法。  
+
+```
+@staticmethod
+    def has_op(a, b, **kwargs):
+        return a.has(b, **kwargs)
+```
+
+
+### [class variable vs instance variable](https://docs.python.org/2/tutorial/classes.html#class-and-instance-variables) ###
+
+Generally speaking, instance variables are for data unique to each instance and class variables are for attributes and methods shared by all instances of the class:
+
+类成员变量一般用来实例之间共享数据。 
+
+```
+class A(object):
+	class_variable = 1
+	def __init__():
+		self.instance_variable = 1
+```
+
 
 
 
