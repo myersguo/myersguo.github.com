@@ -250,6 +250,61 @@ task_routes = {
 
 ### 原理篇 ###
 
-（未完待续）
+我们执行`celery -A proj worker -l info -Q cn`的流程：  
+
+# celery.bin.base
+execute_from_commandline->setup_app_from_commandline->handle_argv(celery.bin.celery)->execute->run_from_argv(celery.bin.worker)->__call__(celery.bin.base)->run(celery.bin.worker)->start->start(celery.bootsteps)->on_start(celery.apps.worker)->start(celery.bootsteps)->start(celery.consurrency.base)->  
+start(celery.worker.consumer.consumer)   
 
 
+
+#### app ####
+
+path: celery/app/base.py   
+
+amqp: 高级消息队列协议的实现，使用Kombu作为消息的发送和接受客户端。
+
+发送任务:   
+
+```
+    def send_task(self, name, args=None, kwargs=None, countdown=None,
+                  eta=None, task_id=None, producer=None, connection=None,
+                  router=None, result_cls=None, expires=None,
+                  publisher=None, link=None, link_error=None,
+                  add_to_parent=True, reply_to=None, **options):
+        task_id = task_id or uuid()
+        producer = producer or publisher  # XXX compat
+        router = router or self.amqp.router
+        conf = self.conf
+        if conf.CELERY_ALWAYS_EAGER:  # pragma: no cover
+            warnings.warn(AlwaysEagerIgnored(
+                'CELERY_ALWAYS_EAGER has no effect on send_task',
+            ), stacklevel=2)
+        options = router.route(options, name, args, kwargs)
+        if connection:
+            producer = self.amqp.TaskProducer(connection)
+        with self.producer_or_acquire(producer) as P:
+            self.backend.on_task_call(P, task_id)
+            task_id = P.publish_task(
+                name, args, kwargs, countdown=countdown, eta=eta,
+                task_id=task_id, expires=expires,
+                callbacks=maybe_list(link), errbacks=maybe_list(link_error),
+                reply_to=reply_to or self.oid, **options
+            )
+        result = (result_cls or self.AsyncResult)(task_id)
+        if add_to_parent:
+            parent = get_current_worker_task()
+            if parent:
+                parent.add_trail(result)
+        return result
+```
+
+
+### worker ###
+
+bin path: celery.bin.worker  
+class path: celery.apps.worker  
+step: celery.worker.components 执行步骤   
+consumer: celery.worker.consumer   
+
+多线程:celery.concurrency.*
