@@ -71,3 +71,39 @@ event.wait() 等待事件触发
 ```
 
 
+### 线程池 ###
+
+加入我们的任务数量有1000个，那么需要定一个一个线程队列的任务来处理，队列假如50个任务同时在跑，每次任务处理完毕，添加任务到线程池（任务队列中）。   
+python 官方没有 threadpool 的模块定义,我们可以定一个简单的线程池。  
+
+```   
+# 线程池的线程，从队列获取任务，执行任务
+class WorkerThread(threading.Thread):
+    def __init__(self, work_queue, **kwds):
+        threading.Thread.__init__(self, **kwds)
+        self.work_queue = work_queue
+        self.setDaemon(1)
+        self.start()
+    def run(self):
+        while True:
+            try:
+                target, args = self.work_queue.get(True) # 从队列中获取任务
+            except Queue.Empty:
+                continue
+            else:
+                target(*args)
+            self.work_queue.task_done()
+
+# 线程池管理, 创建线程，开始执行    
+class ThreadPool:
+    def __init__(num):
+        self.work_queue = Queue()
+        for i in range(num):
+            t = WorkerThread(self.work_queue)
+            t.start()
+    def putRequest(self, request, *args):
+        self.work_queue.put((request, args))
+
+```
+
+
