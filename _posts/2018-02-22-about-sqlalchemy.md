@@ -29,6 +29,11 @@ class User(Base):
         return "<User(name='%s', fullname='%s', password='%s')>" % (
                                 self.name, self.fullname, self.password)
 
+class UserScore(Base):
+    __tablename__ = 'user_scores'
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer)
+    score = Column(Integer)
 
 # Connecting engine
 engine = create_engine('sqlite:///:memory:', echo=True)
@@ -55,8 +60,23 @@ print our_user
 
 ed_user.password = 'f8s7ccs'
 session.commit()
+
+# Score
+score = UserScore(user_id=ed_user.id, score=12)
+session.add(score)
+session.commit()
+
 our_user = session.query(User).filter_by(name='ed').first()
 print our_user
+
+# Sub Query
+stmt = session.query(UserScore.user_id).group_by(UserScore.user_id).subquery()
+print session.query(User, stmt.c.user_id).join(stmt, User.id == stmt.c.user_id).all()
+"""
+sqlalchemy.engine.base.Engine SELECT users.id AS users_id, users.name AS users_name, users.fullname AS users_fullname, users.password AS users_password, anon_1.user_id AS anon_1_user_id
+FROM users JOIN (SELECT user_scores.user_id AS user_id
+FROM user_scores GROUP BY user_scores.user_id) AS anon_1 ON users.id = anon_1.user_id
+"""
 ```
 
 我看来看下它的整体架构： 
