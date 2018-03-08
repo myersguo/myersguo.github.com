@@ -308,3 +308,36 @@ step: celery.worker.components 执行步骤
 consumer: celery.worker.consumer   
 
 多线程:celery.concurrency.*
+
+
+### C_FORCE_ROOT ###
+
+如果 celery 在root帐号下启动，并且支持`pickle`序列化，那么需要设置`C_FORCE_ROOT`环境变量为`true`才可以运行，检查：  
+
+
+```
+def check_privileges(accept_content):
+    uid = os.getuid() if hasattr(os, 'getuid') else 65535
+    gid = os.getgid() if hasattr(os, 'getgid') else 65535
+    euid = os.geteuid() if hasattr(os, 'geteuid') else 65535
+    egid = os.getegid() if hasattr(os, 'getegid') else 65535
+
+    if hasattr(os, 'fchown'):
+        if not all(hasattr(os, attr)
+                   for attr in ['getuid', 'getgid', 'geteuid', 'getegid']):
+            raise AssertionError('suspicious platform, contact support')
+
+    if not uid or not gid or not euid or not egid:
+        if ('pickle' in accept_content or
+                'application/x-python-serialize' in accept_content):
+            if not C_FORCE_ROOT:
+                try:
+                    print(ROOT_DISALLOWED.format(
+                        uid=uid, euid=euid, gid=gid, egid=egid,
+                    ), file=sys.stderr)
+                finally:
+                    os._exit(1)
+        warnings.warn(RuntimeWarning(ROOT_DISCOURAGED.format(
+            uid=uid, euid=euid, gid=gid, egid=egid,
+        )))
+```
