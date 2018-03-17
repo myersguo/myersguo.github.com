@@ -96,6 +96,55 @@ Darwin-17.4.0-x86_64-i386-64bit 2018-02-24 15:06:23
 [2018-02-24 15:07:25,293: INFO/ForkPoolWorker-2] Task proj.tasks.add[614194cf-dd33-4cce-95a2-901d295ffc97] succeeded in 0.00814947500476s: 3
 ```
 
+### 定时任务 ###
+
+celery 可以添加定时，然后让 worker 去消费。添加配置：  
+
+
+```
+app.conf.update(
+    beat_schedule = {
+        'add-every-3-seconds': {
+            'task': 'proj.tasks.test',
+            'schedule': 3.0,
+            'args': (16, 16),
+            'options': {
+                'queue': 'schedule_cn'
+            }
+        },
+        'add-every-1-minute': {
+            'task': 'proj.tasks.test',
+            'schedule': crontab(minute='*'),
+            'args': (16, 16),
+            'options': {
+                'queue': 'schedule_i18n'
+            }
+        },
+    }
+)
+```
+
+这里添加了两个定时任务，一个是每个3秒添加一个任务，一个是每隔1分钟添加一个任务。**注意**，这里的配置只是会定时发送任务**Sending due task**,执行任务仍然由 **worker** 执行。  
+
+启动发送job:   
+
+```
+celery -A proj beat -l info
+```
+
+启动 worker 执行：   
+
+```
+celery -A proj worker -l info  -Q schedule_i18n
+celery -A proj worker -l info  -Q schedule_cn
+```
+
+celery 将定时任务的定义默认存放在[celerybeat-schedule.db](http://docs.celeryproject.org/en/v2.3.3/userguide/periodic-tasks.html#using-custom-scheduler-classes) ( celery.beat:PersistentScheduler),一个[python对象](https://docs.python.org/2.7/library/shelve.html#module-shelve),
+
+django-celery 可以使用DB存储，CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
+
+这样，可以动态的 create task.
+
 ### 架构 ###  
 
 [producers,consumers, brokers](http://celery.readthedocs.io/en/latest/userguide/routing.html#producers-consumers-and-brokers)   
