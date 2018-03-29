@@ -4,6 +4,11 @@ title: django 初探
 comments: true
 ---
 
+Django 是一个 *web application*, 其他的还有 flask,tornado 等, 可以与 gunicorn, uwsgi, gevent, werkzeug 等 *web server* 结合使用。   
+
+Django 如果单独使用(使用 python manager 命令行启动)时，使用 wsgiref.simple_server 作为 web server.   
+
+
 一个 WEB 的框架，必然要解决 URL 路由的问题。 Django 怎么做请求路由的呢？  
 
 python manager runserver，即 django.core.management.execute_from_command_line()
