@@ -34,5 +34,7 @@ comments: true
 
 [Dealing with database transactions in Django + Celery](https://www.hypertrack.com/blog/2016/10/08/dealing-with-database-transactions-in-django-celery/)   
 [Database concurrency in Django the right way](https://www.vinta.com.br/blog/2016/database-concurrency-in-django-the-right-way/)   
-[django-transaction-hooks](https://django-transaction-hooks.readthedocs.io/en/latest/)   
+[django-transaction-hooks](https://django-transaction-hooks.readthedocs.io/en/latest/)     
+[https://www.ibm.com/developerworks/cn/opensource/os-cn-celery-web-service/index.html](https://www.ibm.com/developerworks/cn/opensource/os-cn-celery-web-service/index.html)  
+
 
