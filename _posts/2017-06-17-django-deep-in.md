@@ -9,6 +9,19 @@ Django 是一个 *web application*, 其他的还有 flask,tornado 等, 可以与
 Django 如果单独使用(使用 python manager 命令行启动)时，使用 wsgiref.simple_server 作为 web server.   
 
 
+### 轻松上手 ###
+
+```
+django-admin startproject hellodjango
+cd hellodjango
+django-admin startapp mytest
+python manage.py migrate
+python manage.py createsuperuser
+vi hellodjango/mytest/models.py
+python manage.py makemigrations
+```
+
+
 一个 WEB 的框架，必然要解决 URL 路由的问题。 Django 怎么做请求路由的呢？  
 
 python manager runserver，即 django.core.management.execute_from_command_line()
@@ -342,6 +355,44 @@ RegexURLResolver（ django\urls\resolvers.p )
 
 所以，当你自己要处理静态文件的时候，就要关闭 DEBUG 开关。     
 
+### django signal ###
+
+django 通过 signal 机制来实现，事件的注册和分发(dispatch)。 
+
+定义一个signal, 定义信号的接收者，发送信号。    
+
+```
+# 信号定义
+from django.dispatch import Signal
+request_started = Signal()
+
+# 接收者定义
+def reset_queries(**kwargs):
+    for conn in connections.all():
+        conn.queries = []
+signals.request_started.connect(reset_queries)
+
+# 事件的发送
+ signals.request_started.send(sender=self.__class__)
+        try:
+            try:
+                request = self.request_class(environ)
+            except UnicodeDecodeError:
+                logger.warning('Bad Request (UnicodeDecodeError)',
+                    exc_info=sys.exc_info(),
+                    extra={
+                        'status_code': 400,
+                    }
+                )
+                response = http.HttpResponseBadRequest()
+            else:
+                response = self.get_response(request)
+        finally:
+            signals.request_finished.send(sender=self.__class__)
+
+```
+
+
 ### DB 操作 ###
 
 
@@ -551,10 +602,55 @@ AUTHENTICATION_BACKENDS = (
 
 ```
 
-我们来看一下这里的登录处理逻辑：   
+
+### Django ORM ###
+
+不实用ORM我们怎么写 SQL操作？  
+
+```
+import MySQLdb as Database
+
+DB_CONFIG = {
+    'host': '127.0.0.1',
+    'port': 3306,
+    'user': 'root',
+    'passwd': 'root',
+    'db': 'test',
+    'charset': 'utf8'
+}
+
+conn = Database.connect(**DB_CONFIG)
+cursor = conn.cursor()
+SQL = "select * from test"
+cursor.execute(SQL)
+data = cursor.fetchall()
+print data
+conn.commit()
+```
 
 
+在了解 model 之前我们需要补充以下 python 基础小知识：   
+
+* __new__:__new__ is the first step of instance creation. It's called first, and is responsible for returning a new instance of your class. In contrast, __init__ doesn't return anything; it's only responsible for initializing the instance after it's been created.   
+*__module__: 对应的 module 名称    
+* type(name, bases, dict): 定义一个 type object,参数对应 __name__, __bases__,__dict__   
+* 
+
+
+#### model ####
+
+对应DB中的表,每个表都对应一个 objects 对象（管理对象G),sql 操作通过 QuerySet 来实现,QuerySet 所有方法都注入到objects（manager）中。  
+
+```
+MODEL_OBJ.objects.all()
+```
 
 
 (待续)  
+
+
+### 参考资料 ###
+
+[pro django](http://pro-django-zh.readthedocs.io/zh/develop/understanding_django.html)   
+[https://blog.csdn.net/russell_tao/article/details/78832488](https://blog.csdn.net/russell_tao/article/details/78832488)   
 
