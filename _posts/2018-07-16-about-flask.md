@@ -32,7 +32,7 @@ finally:
 
 #### dispatch_request ####
 
-return self.view_functions[rule.endpoint](**req.view_args)
+`return self.view_functions[rule.endpoint](**req.view_args)`
 
 这里的 view_functions 是在添加规则时（add_url_rule）设置的, 路由 rule 与 对应的 view 关系 list。   
  
@@ -43,7 +43,7 @@ werkzeug.routing:
 
 create_url_adapter:创建一个 url dapater   
 url_adapter.match: 获取匹配的 url rule   
-self.view_functions[rule.endpoint](**req.view_args)：  执行对应的 function   
+self.view_functions: [rule.endpoint](**req.view_args)：  执行对应的 function   
 
 
 app.add_url_rule()： 添加路由，相当于注解 app.route:  
@@ -52,13 +52,16 @@ app.add_url_rule()： 添加路由，相当于注解 app.route:
 def index():
     pass
 app.add_url_rule('/', 'index', index)
+
 相当于
+
 @app.route('/')
 def index():
     pass
 ```
 
-rule 包括三个部分：converter, arguments, variable    
+rule 包括三个部分：  
+converter, arguments, variable    
 <converter(arguments):name>      
 
 比如:   
@@ -137,11 +140,13 @@ teardown_request:
 
 ### ctx(flask.ctx) 请求上下文  ###
 
-RequestContext:    
-***The request context contains all request relevant information.  It is created at the beginning of the request and pushed to the `_request_ctx_stack` and removed at the end of it.  It will create the URL adapter and request object for the WSGI environment provided***
+***RequestContext***   
+The request context contains all request relevant information.  It is created at the beginning of the request and pushed to the `_request_ctx_stack` and removed at the end of it.  It will create the URL adapter and request object for the WSGI environment provided   
 
-AppContext:   
-***The application context binds an application object implicitly to the current thread or greenlet.The application context is also implicitly created if a request context is created  but the application is not on top of the individual application  contex***    
+
+***AppContext***:   
+The application context binds an application object implicitly to the current thread or greenlet.The application context is also implicitly created if a request context is created  but the application is not on top of the individual application  contex   
+
 
 
 ### 参考资料 ###
