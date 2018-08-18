@@ -2,6 +2,7 @@
 layout: wp
 title: 长时间没有写 blog 了
 comments: true
+private: true
 ---
 已经一个多月没有写 blog 了，这么长时间里，我还是很平静的过着每一天。   
 
