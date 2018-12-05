@@ -57,6 +57,9 @@ session.add(ed_user)
 our_user = session.query(User).filter_by(name='ed').first()
 print our_user
 
+# merge  
+
+
 
 ed_user.password = 'f8s7ccs'
 session.commit()
@@ -382,5 +385,40 @@ FROM user_scores GROUP BY user_scores.user_id) AS anon_1 ON users.id = anon_1.us
                 poolclass = dialect_cls.get_pool_class(u)
 ```
 
+### update ###
+
+```
+session.query().\
+       filter(User.username == "haha").\
+       update({"is_default" : 1})
+ session.commit()
+
+or 
+
+result = session.query(User.user_name == "haha").first()
+result.is_default = 1
+session.commit()
+```
+
+### delete ###
+
+```
+session.query(User.user_name == "haha").delete()
+user_obj = session.query(User.user_name == "haha").first()
+session.delete(user_obj)
+```
+
+
+### orm 之 session ###
+
+```
+from sqlalchemy.orm import sessionmaker, scoped_session
+```
+
+dbsession = scoped_session(sessionmaker())    
+
+这个 session 在 orm/session.py  中。我们来看下 add 这个新增的操作的流程。   
+
+`session.add(item_instance)`: 
 
 

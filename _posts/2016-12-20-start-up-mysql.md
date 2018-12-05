@@ -166,6 +166,12 @@ var_dump($result);
 这样，会有一个问题，因为每次连接都要`SELECT一下，判断是否可以连接`，这样的成本是否太高呢？    
 
 
+### mysql 索引优化 ###
+
+什么情况下创建索引呢？一般记录数超过一定数量，并且选择性较多（对于性别、类型等字段没必要创建索引）。
+
+
+
 
 附录：   
 
@@ -183,5 +189,8 @@ mysqld_safe: mysql startup script,mysql的shell脚本，用来启动mysqld;
 myslql.server: mysql startup script;  
 mysqld_multi: manage multiple mysql servers;   
 
+### 参考资料 ###
+
+[http://www.ywnds.com/?p=8378](http://www.ywnds.com/?p=8378)   
 
 

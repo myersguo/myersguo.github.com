@@ -127,6 +127,13 @@ location /download/ {
 /download/a/mp3/a.mp3-->403
 ```
 
+```
+Outside a location block, with break or last, Nginx does the same job (stops processing anymore rewrite conditions).
+Inside a location block, with break, Nginx only stops processing anymore rewrite conditions
+Inside a location block, with last, Nginx stops processing anymore rewrite conditions and then starts to look for a new matching of location block! Nginx also ignores any rewrites in the new location block!
+```
+
+
 ### set ###  
 
 设置变量。eg:  

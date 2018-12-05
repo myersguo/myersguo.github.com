@@ -110,10 +110,6 @@ curl -X GET "http://localhost:9200/_cat/indices?v"
 ```
 
 
-
-
-
-
 #### 添加数据(Document) ####
 
 向ES中插入(灌入)数据：   
