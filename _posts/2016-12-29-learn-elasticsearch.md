@@ -934,6 +934,17 @@ curl -XPUT 'localhost:9200/product/reply/3?parent=1&refresh&pretty' -d'
 }
 ```
 
+### qa ###
+
+term vs match:  
+term 不会使用 analyzer 进行分词，只会精准匹配。 match 会应用 analyzer。   
+query vs filter:   
+filter 会使用 cache,速度更快，不会影响 _score，
+keyword vs text:  
+
+
+
+
 
 
 ### 参考资料 ###  
@@ -941,4 +952,5 @@ curl -XPUT 'localhost:9200/product/reply/3?parent=1&refresh&pretty' -d'
 
 [https://www.elastic.co/guide/en/elasticsearch/reference/current/getting-started.html](https://www.elastic.co/guide/en/elasticsearch/reference/current/getting-started.html)  
 [https://www.elastic.co/blog/what-is-an-elasticsearch-index](https://www.elastic.co/blog/what-is-an-elasticsearch-index)  
+[https://xguox.me/elasticsearch-custom-analyzer.html](https://xguox.me/elasticsearch-custom-analyzer.html)   
 
