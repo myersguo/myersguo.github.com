@@ -26,6 +26,11 @@ ul{
     border-bottom: 1px solid #eee;
 }
 
+ul li ul {
+    padding-left: 30px;
+    list-style-type: circle;
+}
+
 h1, h2, h3 {
   line-height:1.1;
 }
