@@ -4,6 +4,9 @@ title: Python Multiple Thread
 comments: true
 ---
 
+关键词：锁(lock), 条件(condition), 信号量(Semaphore),
+事件(event), 队列(queue), 共享内存(shared object)
+
 ### 线程的定义 ###
 
 
@@ -172,7 +175,7 @@ if __name__ == '__main__':
 
 ```
 
-使用共享内存进行数据共享：   
+使用共享内存(shared object)进行数据共享：   
 
 ```
 from multiprocessing import Process, Value, Array
