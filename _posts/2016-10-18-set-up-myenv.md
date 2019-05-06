@@ -135,6 +135,9 @@ sudo smbpasswd -a work
 vim
 
 ```
+#compile vim
+./configure --enable-pythoninterp --prefix=/usr && make && make install
+
 yum install -y  vim
 git clone https://github.com/myersguo/vim.myersguo.git
 cd vim.myersguo
