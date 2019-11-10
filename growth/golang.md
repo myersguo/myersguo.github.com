@@ -46,6 +46,37 @@ func process_signal() {
 Wait 会 unlock c.L 然后挂起当前协程, 重新执行时 lock c.L 。wait 被 `broadcast ` or `signal` 唤醒。   
 Broadcast 想所有 wait 的 condition 发送信号。   
 
+#### Pool #### 
+
+> Pool's purpose is to cache allocated but unused items for later reuse, relieving pressure on the garbage collector. That is , it makes it easy to build efficient, thread-safe free lists. However, it is not suitable for all free lists.   
+
+```
+package main
+import (
+	"fmt"
+	"sync"
+	"runtime"
+)
+
+func process() {
+	pool := sync.Pool{
+		New: func() interface {} {
+			return nil
+		},
+	}
+	pool.Put(1)
+	pool.Put(3)
+	runtime.GC() // gc will remove all pool value
+	fmt.Println(pool.Get())
+	pool.Put(3)
+	fmt.Println(pool.Get())
+}
+
+func main() {
+	process()
+}
+```
+
 
 ### middleware ###
 
