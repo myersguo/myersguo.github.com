@@ -60,13 +60,13 @@ title: 郭亮勇
 项目经验
 --------------------
 
-**销售、中教 crm**  
+**销售、中教 CRM**  
 
 以线索、学员为基础服务，围绕销售、中教按照标准服务流程（SOP）进行管理。包括：线索进入、打分、分配、流转，学员分配管理，销售、中教任务管理等。后端服务：权限服务（组织架构与角色管理），沟通服务（外呼与沟通），任务服务（员工任务、KPI考核）。用户包括：销售、中教、运营、客服等。基本技术栈：Python\Golang, gin, flask, gorm, redis， elk。    
 
 **Toutiao Action Service**   
 
-针对业务抽象，将行为、动作、对象抽象为 action service。用户的行为进行收集，行为到kafka,kafka 接入es，提供es 查询服务。接入业务：流转记录、活动修改记录等。基本技术栈：kafka, Elasticsearch, golang, hive。    
+针对业务抽象，将行为、动作、对象抽象为 action service。用户的行为进行收集，行为写入kafka, kafka to es，后端提供 es 查询服务。接入业务：流转记录、活动修改记录等。基本技术栈：kafka, Elasticsearch, golang, hive。    
 
 
 **头条灰度发布服务**  
