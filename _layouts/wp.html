@@ -58,16 +58,6 @@
       <section id="article">
 		{{ content }}
 		{% if page.shownav == null %}
-        <p class="text-center">
-            <button id="shbtn" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-                <span>赏</span>
-            </button>
-            <div id="QR" style="display: none;position:relative" class="text-center">
-                    <img id="wepay_qr" src="/public/wepay.jpg" alt= WePay"/>
-                    <span id="wepay_text">感谢支持</span>
-            </div> 
-        </p>
-
 		<p class="article-footer">
                 {% if page.date %}
                  <span class="post-footers">提交于{{ page.date | date: "%A, %B %-d, %Y" }} </span> <span class="separator">|</span> <a  href="http://myersguo.github.io/about/">联系作者</a>
