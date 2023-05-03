@@ -1,0 +1,137 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>{% if page.title %} {{ page.title }} | {% endif %} myersguo's blog</title>	
+    <meta name="description" content="myers guo,myersguo,郭亮勇,blog,博客,PHP,study notes,学习笔记!">
+    <meta name="keywords" content="myers guo, myersguo,郭亮勇,blog,博客,PHP,study notes,学习笔记!">
+    <link rel="stylesheet" href="/stylesheets/styles.css">
+    <link rel="stylesheet" href="/stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="author" content="myersguo,郭亮勇">
+    <base target="_parent" />
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    
+    <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "WebSite",
+      "name" : "myersguo",
+      "alternateName" : "郭亮勇",
+      "url" : "http://myersguo.github.io/"
+    }</script>
+    
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+      {% if page.title %}
+      <h1> {{ page.title }} </h1>
+      {% endif %}
+ 
+        {% if page.shownav != null %}
+        <ul>
+          <li><a href="/" target="_self">主页</a></li>
+          <li><a href="/about/" target="_self">关于</a></li>
+          <li><a href="/search/" target="_self">搜索</a></li>
+        </ul>
+
+        {% endif %}
+
+        
+        {% if page.blogindex %}
+        <blogindex></blogindex>
+          <script src="/javascripts/createContent.js"></script>
+	  <script>
+		window.onload=function(){ 
+		createContent("article","H2","H3",10);			
+		}
+	</script>
+	{% endif %}
+	
+      </header>
+	  
+      <section id="article">
+		{{ content }}
+		{% if page.shownav == null %}
+		<p class="article-footer">
+                {% if page.date %}
+                 <span class="post-footers">提交于{{ page.date | date: "%A, %B %-d, %Y" }} </span> <span class="separator">|</span> <a  href="http://myersguo.github.io/about/">联系作者</a>
+                 {% endif %}
+                </p>	
+		<div class="post-nav" style="visibility:hidden">
+					 {% if page.previous.url %} 
+					 <span class="item">
+                <a href="{{page.previous.url}}" title="Previous Post: 
+{{page.previous.title}}"><span>&laquo;&laquo; </span>{{page.previous.title}}</a></span> 
+        {% endif %} 
+		 {% if page.next.url %} 
+                <span class="item"><a href="{{page.next.url}}" title="next Post: 
+{{page.next.title}}">{{page.next.title}} <span>&raquo;&raquo;</span> </a> </span>
+        {% endif %} 
+        </div>
+        
+       {% endif %} 
+		
+		{% if page.comments %}
+		<div id="disqus_thread" style="margin-top:20px"></div>
+   	 <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'myersguo'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+   	 </script>
+    	
+   	 {% endif %}
+
+     {% if page.webcomments %}
+
+     <script type="text/javascript">
+(function(){
+ var url = "http://widget.weibo.com/distribution/comments.php?width=0&url=auto&border=1&brandline=y&fontsize=12&appkey=1033435396&dpc=1";
+ url = url.replace("url=auto", "url=" + encodeURIComponent(document.URL)); 
+ document.write('<iframe id="WBCommentFrame" src="' + url + '" scrolling="no" frameborder="0" style="width:100%"></iframe>');
+ })();
+     </script>
+     <script src="http://tjs.sjs.sinajs.cn/open/widget/js/widget/comment.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+window.WBComment.init({
+    "id": "WBCommentFrame"
+});
+</script>
+    {% endif %}
+
+      </section>
+
+      <div id="wechat">
+      </div>
+	  
+      <footer>
+        <p>
+        powered by 
+        <a href="/" target="_self">myersguo</a>&nbsp;<a href="/feed.xml" target="_self">Feed</a>&nbsp;<a href="#top">TOP</a></p>
+        <p style="color:#d3d3d3"><span><a href="https://beian.miit.gov.cn/" target="_blank">备案号：冀ICP备18012460号-1</a></span></p>
+      </footer>
+    </div>
+    <script src="/javascripts/scale.fix.js?3new"></script>
+    <script src="/javascripts/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-80585409-1', 'auto');
+  ga('send', 'pageview');
+</script>
+  </body>
+</html>

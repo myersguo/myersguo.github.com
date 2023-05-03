@@ -1,0 +1,28 @@
+pygments: true
+paginate: 10
+highlighter: rouge
+
+collections:
+  my_tags:
+    output: true
+    permalink: /tag/:name/
+
+defaults:
+  -
+    scope:
+      path: ""
+      type: pages
+    values:
+      layout: wp
+  -
+    scope:
+      path: ""
+      type: posts
+    values:
+      layout: wp
+  -
+    scope:
+      path: ""
+      type: my_tags
+    values:
+      layout: blog_by_tag

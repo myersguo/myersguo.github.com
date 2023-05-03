@@ -1,0 +1,43 @@
+---
+layout: wp
+comments: false
+shownav: false
+---
+<!--
+<h1 class="text-center">劝学</h1>
+<p><strong>吾尝终日而思矣，不如须臾之所学也。吾尝跂而望矣，不如登高之博见也。</strong>积土成山，风雨兴焉；积水成渊，蛟龙生焉；积善成德，而神明自得，圣心备焉。故不积跬步，
+无以至千里；不积小流，无以成江海。骐骥一跃，不能十步；驽马十驾，功在不舍。锲而舍之，朽木不折；
+锲而不舍，金石可镂。</strong></p>
+-->
+<p>文章列表:</p>
+
+{% for post in paginator.posts %}
+{% if post.private != true %}
+<ul class="entries">
+   <li>{{ post.date | date: "%A, %B %-d, %Y" }} <a href="{{ post.url }}">{{ post.title }}</a></li>
+<!--  <div class="content">
+    {{ post.content | strip_html | truncatewords: 3 }}
+  </div>
+-->
+</ul>
+{% endif %}
+{% endfor %}
+
+<!-- Pagination links -->
+<div class="page-nav">
+ {% if paginator.previous_page %}
+    {% if paginator.page == 2 %}
+  		<a href="/" > << 前一页</a>
+  	{% else %}
+        <a href="/" rel="bookmark" class="item"><<<首页</a>
+  		<a href="/page{{ paginator.previous_page }}/" > << 前一页</a>
+  	{% endif %}
+ {% endif %}
+  <span class="page_number ">Page: {{paginator.page}} of {{paginator.total_pages}}</span>
+  {% if paginator.next_page %}
+  	<a href="/page{{ paginator.next_page }}/" rel="bookmark" class="item"> 下一页>></a>
+    <a href="/page{{ paginator.total_pages }}/" rel="bookmark" class="item"> 末页>>></a>
+  {% endif %}
+
+ 
+  </div>
