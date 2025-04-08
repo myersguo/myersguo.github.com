@@ -1,43 +1,834 @@
----
-layout: wp
-comments: false
-shownav: false
----
-<!--
-<h1 class="text-center">劝学</h1>
-<p><strong>吾尝终日而思矣，不如须臾之所学也。吾尝跂而望矣，不如登高之博见也。</strong>积土成山，风雨兴焉；积水成渊，蛟龙生焉；积善成德，而神明自得，圣心备焉。故不积跬步，
-无以至千里；不积小流，无以成江海。骐骥一跃，不能十步；驽马十驾，功在不舍。锲而舍之，朽木不折；
-锲而不舍，金石可镂。</strong></p>
--->
-<p>文章列表:</p>
+<!DOCTYPE html>
+<html lang="en">
 
-{% for post in paginator.posts %}
-{% if post.private != true %}
-<ul class="entries">
-   <li>{{ post.date | date: "%A, %B %-d, %Y" }} <a href="{{ post.url }}">{{ post.title }}</a></li>
-<!--  <div class="content">
-    {{ post.content | strip_html | truncatewords: 3 }}
-  </div>
--->
-</ul>
-{% endif %}
-{% endfor %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Myers Guo | Developer</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Mono&family=Urbanist:wght@300;400;700&display=swap');
 
-<!-- Pagination links -->
-<div class="page-nav">
- {% if paginator.previous_page %}
-    {% if paginator.page == 2 %}
-  		<a href="/" > << 前一页</a>
-  	{% else %}
-        <a href="/" rel="bookmark" class="item"><<<首页</a>
-  		<a href="/page{{ paginator.previous_page }}/" > << 前一页</a>
-  	{% endif %}
- {% endif %}
-  <span class="page_number ">Page: {{paginator.page}} of {{paginator.total_pages}}</span>
-  {% if paginator.next_page %}
-  	<a href="/page{{ paginator.next_page }}/" rel="bookmark" class="item"> 下一页>></a>
-    <a href="/page{{ paginator.total_pages }}/" rel="bookmark" class="item"> 末页>>></a>
-  {% endif %}
+    :root {
+      --bg-color: #121212;
+      --text-color: #f5f5f5;
+      --accent-color: #6e56cf;
+      --secondary-color: #f56565;
+      --tertiary-color: #4fd1c5;
+      --card-bg: rgba(30, 30, 30, 0.7);
+    }
 
- 
-  </div>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: 'Urbanist', sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 50% 50%, rgba(110, 86, 207, 0.15), transparent 80%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    header {
+      padding: 2rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+      background-color: rgba(18, 18, 18, 0.8);
+      padding: 1rem 2rem;
+      transition: all 0.3s ease;
+    }
+
+    .logo {
+      font-family: 'Space Mono', monospace;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent-color);
+      text-shadow: 0 0 15px rgba(110, 86, 207, 0.5);
+      letter-spacing: -1px;
+    }
+
+    nav ul {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    nav a {
+      color: var(--text-color);
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 400;
+      position: relative;
+      padding: 0.5rem 0;
+      transition: color 0.3s ease;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background-color: var(--accent-color);
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover {
+      color: var(--accent-color);
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    section {
+      padding: 8rem 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: 'Space Mono', monospace;
+      letter-spacing: -1px;
+    }
+
+    h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(to right, var(--accent-color), var(--tertiary-color));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      line-height: 1.2;
+    }
+
+    h2 {
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    h2::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -10px;
+      width: 140px;
+      height: 4px;
+      background: var(--accent-color);
+    }
+
+    p {
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+      max-width: 600px;
+    }
+
+    .highlight {
+      color: var(--accent-color);
+      font-weight: 700;
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--accent-color);
+      color: var(--text-color);
+      padding: 0.8rem 2rem;
+      border: none;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      margin-top: 1rem;
+      box-shadow: 0 0 15px rgba(110, 86, 207, 0.5);
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 20px rgba(110, 86, 207, 0.7);
+    }
+
+    #about {
+      background: linear-gradient(160deg, rgba(30, 30, 30, 0.8) 0%, rgba(18, 18, 18, 1) 100%);
+    }
+
+    .about-content {
+      display: flex;
+      align-items: center;
+      gap: 4rem;
+    }
+
+    .about-text {
+      flex: 1;
+    }
+
+    .about-image {
+      flex: 1;
+      position: relative;
+    }
+
+    .about-image::before {
+      content: "";
+      position: absolute;
+      top: -20px;
+      left: -20px;
+      width: calc(100% + 40px);
+      height: calc(100% + 40px);
+      border: 2px solid var(--accent-color);
+      border-radius: 10px;
+      z-index: -1;
+    }
+
+    .about-image img {
+      width: 100%;
+      border-radius: 8px;
+      filter: grayscale(30%);
+      transition: all 0.5s ease;
+    }
+
+    .about-image img:hover {
+      filter: grayscale(0%);
+      transform: scale(1.02);
+    }
+
+    .skills-container {
+      display: grid;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .skill-item {
+      background: var(--card-bg);
+      border-radius: 8px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      border: 1px solid rgba(110, 86, 207, 0.2);
+    }
+
+    .skill-item:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      border-color: var(--accent-color);
+    }
+
+    .skill-item i {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--accent-color);
+    }
+
+    .skill-item h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    /* Update responsive styles to maintain 3 columns when possible */
+    @media (max-width: 992px) {
+      .projects-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .project-card {
+      background: var(--card-bg);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      border: 1px solid rgba(110, 86, 207, 0.2);
+    }
+
+    .project-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+      border-color: var(--accent-color);
+    }
+
+    .project-content {
+      padding: 1.5rem;
+    }
+
+    .project-title {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      color: var(--tertiary-color);
+    }
+
+    .project-description {
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+
+    .project-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .tech-tag {
+      background: rgba(110, 86, 207, 0.2);
+      color: var(--accent-color);
+      padding: 0.2rem 0.7rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+    }
+
+    .project-links {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .project-links a {
+      color: var(--text-color);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.3s ease;
+    }
+
+    .project-links a:hover {
+      color: var(--accent-color);
+    }
+
+    .project-links a i {
+      margin-right: 5px;
+    }
+
+    .contact-container {
+      display: flex;
+      gap: 4rem;
+      margin-top: 3rem;
+    }
+
+    .contact-info {
+      flex: 1;
+    }
+
+    .contact-method {
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .contact-icon {
+      width: 50px;
+      height: 50px;
+      background: var(--card-bg);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      color: var(--accent-color);
+      border: 1px solid rgba(110, 86, 207, 0.3);
+    }
+
+    .contact-details h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .contact-details a {
+      color: var(--text-color);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .contact-details a:hover {
+      color: var(--accent-color);
+    }
+
+    .contact-form {
+      flex: 1;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+      color: rgba(245, 245, 245, 0.8);
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      background: var(--card-bg);
+      border: 1px solid rgba(110, 86, 207, 0.3);
+      border-radius: 8px;
+      color: var(--text-color);
+      font-family: 'Urbanist', sans-serif;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--accent-color);
+      box-shadow: 0 0 0 2px rgba(110, 86, 207, 0.3);
+    }
+
+    textarea.form-control {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 0;
+      background: rgba(18, 18, 18, 0.9);
+      border-top: 1px solid rgba(110, 86, 207, 0.2);
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .social-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--card-bg);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-color);
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(110, 86, 207, 0.2);
+    }
+
+    .social-icon:hover {
+      background: var(--accent-color);
+      transform: translateY(-5px);
+    }
+
+    .copyright {
+      font-size: 0.9rem;
+      color: rgba(245, 245, 245, 0.7);
+    }
+
+    /* Scroll animations */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-in.appear {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+      h1 {
+        font-size: 3rem;
+      }
+
+      .about-content {
+        flex-direction: column;
+      }
+
+      .contact-container {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        padding: 1rem;
+      }
+
+      .logo {
+        margin-bottom: 1rem;
+      }
+
+      nav ul {
+        gap: 1rem;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+      }
+
+      h2 {
+        font-size: 2rem;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Cursor animation */
+    .cursor {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: var(--accent-color);
+      pointer-events: none;
+      mix-blend-mode: difference;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s ease;
+      opacity: 0.7;
+    }
+
+    .cursor-follower {
+      position: fixed;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: rgba(110, 86, 207, 0.2);
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: transform 0.3s ease, width 0.3s ease, height 0.3s ease;
+    }
+  </style>
+  <link rel="stylesheet" href="./fontawesome-free-6.7.2-web/css/all.min.css">
+</head>
+
+<body>
+  <!-- Cursor Animation -->
+  <div class="cursor"></div>
+  <div class="cursor-follower"></div>
+
+  <!-- Header -->
+  <header>
+    <div class="logo">Myers Guo</div>
+    <nav>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- About Section -->
+  <section id="about">
+    <div class="container">
+      <div class="about-content">
+        <div class="about-text fade-in">
+          <h1>Hello, I'm <span class="highlight">Myers Guo</span></h1>
+          <p>I'm a software developer with a passion for creating innovative tools that enhance productivity and user
+            experience..</p>
+          <p>With expertise in JavaScript, HTML/CSS, and browser APIs, I build solutions that solve real-world problems
+            and improve how people interact with technology.</p>
+          <a href="#contact" class="btn">Get in Touch</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects">
+    <div class="container">
+      <h2 class="fade-in">Projects</h2>
+      <div class="projects-grid">
+        <!-- Project 1 -->
+        <div class="project-card fade-in">
+          <div class="project-content">
+            <h3 class="project-title">Sort Tab Chrome</h3>
+            <p class="project-description">A Chrome extension that sorts browser tabs by URL or Title, supporting both
+              automatic and manual sorting with an intuitive UI.</p>
+            <div class="project-tech">
+              <span class="tech-tag">JavaScript</span>
+              <span class="tech-tag">Chrome API</span>
+              <span class="tech-tag">HTML/CSS</span>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/myersguo/sort-tab-chrome" target="_blank"><i class="fab fa-github"></i> github.com/myersguo/sort-tab-chrome →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="project-card fade-in">
+          <div class="project-content">
+            <h3 class="project-title">Lark Read Mode</h3>
+            <p class="project-description">A Chrome extension that automatically sets wiki pages to reading mode on
+              Lark/Feishu Office platforms, enhancing document readability.</p>
+            <div class="project-tech">
+              <span class="tech-tag">JavaScript</span>
+              <span class="tech-tag">DOM Manipulation</span>
+              <span class="tech-tag">Chrome API</span>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/myersguo/lark-read-mode" target="_blank"><i class="fab fa-github"></i>github.com/myersguo/lark-read-mode →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="project-card fade-in">
+          <div class="project-content">
+            <h3 class="project-title">Chrome Spotlight</h3>
+            <p class="project-description">A Spotlight-like search tool for Chrome that enables quick search through
+              open tabs, bookmarks, and browsing history using an intuitive command palette.</p>
+            <div class="project-tech">
+              <span class="tech-tag">JavaScript</span>
+              <span class="tech-tag">Chrome API</span>
+              <span class="tech-tag">UI/UX</span>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/myersguo/chrome-spotlight" target="_blank"><i class="fab fa-github"></i> github.com/myersguo/chrome-spotlight →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills">
+    <div class="container">
+      <h2 class="fade-in">Skills</h2>
+      <div class="skills-container">
+        <div class="skill-item fade-in">
+          <i class="fa-brands fa-golang"></i>
+          <h3>GoLang</h3>
+        </div>
+        <div class="skill-item fade-in">
+          <i class="fa-brands fa-python"></i>
+          <h3>Python</h3>
+        </div>
+        <div class="skill-item fade-in">
+          <i class="fab fa-js"></i>
+          <h3>JavaScript</h3>
+        </div>
+        <div class="skill-item fade-in">
+          <i class="fab fa-html5"></i>
+          <h3>HTML5</h3>
+        </div>
+        <div class="skill-item fade-in">
+          <i class="fab fa-css3-alt"></i>
+          <h3>CSS3</h3>
+        </div>
+        <div class="skill-item fade-in">
+          <i class="fab fa-chrome"></i>
+          <h3>Chrome API</h3>
+        </div>
+        <div class="skill-item fade-in">
+          <i class="fab fa-react"></i>
+          <h3>React</h3>
+        </div>
+        <div class="skill-item fade-in">
+          <i class="fas fa-pen-nib"></i>
+          <h3>UI/UX Design</h3>
+        </div>
+        <div class="skill-item fade-in">
+          <i class="fas fa-project-diagram"></i>
+          <h3>API Integration</h3>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <div class="container">
+      <h2 class="fade-in">Get In Touch</h2>
+      <div class="contact-container">
+        <div class="contact-info fade-in">
+          <div class="contact-method">
+            <div class="contact-icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <div class="contact-details">
+              <h3>Email</h3>
+              <a href="mailto:myersguo@gmail.com">myersguo at gmail dot com</a>
+            </div>
+          </div>
+          <div class="contact-method">
+            <div class="contact-icon">
+              <i class="fab fa-github"></i>
+            </div>
+            <div class="contact-details">
+              <h3>GitHub</h3>
+              <a href="https://github.com/myersguo" target="_blank">github.com/myersguo</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="social-links">
+      <a href="https://github.com/myersguo" class="social-icon"><i class="fab fa-github"></i></a>
+      <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+      <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+    </div>
+    <p class="copyright">© 2025 Myers Guo. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const cursor = document.querySelector('.cursor');
+    const cursorFollower = document.querySelector('.cursor-follower');
+
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+
+      cursorFollower.style.left = e.clientX + 'px';
+      cursorFollower.style.top = e.clientY + 'px';
+    });
+
+    document.addEventListener('mousedown', () => {
+      cursor.style.transform = 'translate(-50%, -50%) scale(0.7)';
+      cursorFollower.style.transform = 'translate(-50%, -50%) scale(0.7)';
+    });
+
+    document.addEventListener('mouseup', () => {
+      cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+      cursorFollower.style.transform = 'translate(-50%, -50%) scale(1)';
+    });
+
+    const links = document.querySelectorAll('a');
+    const buttons = document.querySelectorAll('.btn');
+
+    links.forEach(link => {
+      link.addEventListener('mouseenter', () => {
+        cursorFollower.style.width = '60px';
+        cursorFollower.style.height = '60px';
+        cursor.style.opacity = '0.5';
+      });
+
+      link.addEventListener('mouseleave', () => {
+        cursorFollower.style.width = '40px';
+        cursorFollower.style.height = '40px';
+        cursor.style.opacity = '0.7';
+      });
+    });
+
+    buttons.forEach(button => {
+      button.addEventListener('mouseenter', () => {
+        cursorFollower.style.width = '60px';
+        cursorFollower.style.height = '60px';
+        cursor.style.opacity = '0.5';
+      });
+
+      button.addEventListener('mouseleave', () => {
+        cursorFollower.style.width = '40px';
+        cursorFollower.style.height = '40px';
+        cursor.style.opacity = '0.7';
+      });
+    });
+
+    const fadeElements = document.querySelectorAll('.fade-in');
+
+    function checkFadeElements() {
+      fadeElements.forEach(element => {
+        const elementTop = element.getBoundingClientRect().top;
+        const elementBottom = element.getBoundingClientRect().bottom;
+
+        if (elementTop < window.innerHeight - 100 && elementBottom > 0) {
+          element.classList.add('appear');
+        }
+      });
+    }
+
+    checkFadeElements();
+
+    window.addEventListener('scroll', checkFadeElements);
+
+    const header = document.querySelector('header');
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.style.padding = '0.5rem 2rem';
+        header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+      } else {
+        header.style.padding = '1rem 2rem';
+        header.style.boxShadow = 'none';
+      }
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>
